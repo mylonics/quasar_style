@@ -78,6 +78,7 @@
 
     <script src="vendor/vue.global.prod.js"></script>
     <script src="vendor/quasar.umd.prod.js"></script>
+    <script src="vendor/aura-components.js"></script>
     <script>
       const { createApp } = Vue;
       const app = createApp({
@@ -94,6 +95,26 @@
             slider: 40,
             progress: 0.6,
             tab: 'one',
+            // New components (Phase 3/4)
+            meter: [
+              { label: 'Apps', value: 16, color: '#6366f1' },
+              { label: 'Messages', value: 8, color: '#22c55e' },
+              { label: 'Media', value: 24, color: '#f59e0b' },
+              { label: 'System', value: 10, color: '#ef4444' },
+            ],
+            collapsed: false,
+            inplaceActive: false,
+            inplaceText: 'Click to edit this text',
+            products: Array.from({ length: 9 }, (_, i) => ({
+              id: i + 1,
+              name: 'Product ' + (i + 1),
+              price: (i + 1) * 12,
+            })),
+            layout: 'list',
+            order: ['San Francisco', 'London', 'Paris', 'Istanbul', 'Tokyo'],
+            orderSel: [],
+            pick: [['Audio', 'Video', 'Books', 'Games'], ['Movies']],
+            pickSel: [[], []],
           };
         },
         template: `
@@ -200,10 +221,80 @@
                 This is an informational banner styled as an Aura surface.
               </q-banner>
             </div>
+
+            <div class="demo-block" data-shot="metergroup">
+              <h2 class="section">MeterGroup</h2>
+              <MeterGroup :value="meter" :max="100" />
+            </div>
+
+            <div class="demo-block" data-shot="fieldset">
+              <h2 class="section">Fieldset</h2>
+              <Fieldset legend="Personal information" toggleable v-model:collapsed="collapsed">
+                <p>Toggle the legend to collapse this content.</p>
+                <q-input outlined label="Name" style="max-width:280px" />
+              </Fieldset>
+            </div>
+
+            <div class="demo-block" data-shot="inplace">
+              <h2 class="section">Inplace</h2>
+              <Inplace v-model:active="inplaceActive" closable>
+                <template #display>{{ inplaceText }}</template>
+                <template #content>
+                  <q-input outlined dense v-model="inplaceText" autofocus style="width:280px" />
+                </template>
+              </Inplace>
+            </div>
+
+            <div class="demo-block" data-shot="dataview">
+              <h2 class="section">DataView</h2>
+              <DataView :value="products" :layout="layout" :rows="4" paginator>
+                <template #header>
+                  <div class="row items-center justify-between">
+                    <span>Products</span>
+                    <q-btn-toggle v-model="layout" dense unelevated :options="[
+                      { value: 'list', icon: 'view_list' },
+                      { value: 'grid', icon: 'grid_view' },
+                    ]" />
+                  </div>
+                </template>
+                <template #list="{ items }">
+                  <q-list separator>
+                    <q-item v-for="p in items" :key="p.id">
+                      <q-item-section>{{ p.name }}</q-item-section>
+                      <q-item-section side>\${{ p.price }}</q-item-section>
+                    </q-item>
+                  </q-list>
+                </template>
+                <template #grid="{ items }">
+                  <q-card v-for="p in items" :key="p.id" flat bordered class="q-pa-md">
+                    <div class="text-subtitle1">{{ p.name }}</div>
+                    <div class="text-primary text-weight-bold">\${{ p.price }}</div>
+                  </q-card>
+                </template>
+              </DataView>
+            </div>
+
+            <div class="demo-block" data-shot="orderlist">
+              <h2 class="section">OrderList</h2>
+              <OrderList v-model="order" v-model:selection="orderSel">
+                <template #header>Cities</template>
+                <template #item="{ item }">{{ item }}</template>
+              </OrderList>
+            </div>
+
+            <div class="demo-block" data-shot="picklist">
+              <h2 class="section">PickList</h2>
+              <PickList v-model="pick" v-model:selection="pickSel">
+                <template #sourceheader>Available</template>
+                <template #targetheader>Selected</template>
+                <template #item="{ item }">{{ item }}</template>
+              </PickList>
+            </div>
           </div>
         `,
       });
       app.use(Quasar, { config: {} });
+      app.use(QuasarAuraComponents.default || QuasarAuraComponents);
       app.mount('#q-app');
     </script>
   </body>

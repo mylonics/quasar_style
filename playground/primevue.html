@@ -66,6 +66,22 @@
               { label: 'Sent', value: 'sent' },
             ],
             listSel: 'starred',
+            // New components (Phase 3/4)
+            meter: [
+              { label: 'Apps', value: 16, color: '#6366f1' },
+              { label: 'Messages', value: 8, color: '#22c55e' },
+              { label: 'Media', value: 24, color: '#f59e0b' },
+              { label: 'System', value: 10, color: '#ef4444' },
+            ],
+            inplaceText: 'Click to edit this text',
+            products: Array.from({ length: 9 }, (_, i) => ({
+              id: i + 1,
+              name: 'Product ' + (i + 1),
+              price: (i + 1) * 12,
+            })),
+            layout: 'list',
+            order: ['San Francisco', 'London', 'Paris', 'Istanbul', 'Tokyo'],
+            pick: [['Audio', 'Video', 'Books', 'Games'], ['Movies']],
           };
         },
         template: `
@@ -161,6 +177,79 @@
               <h2 class="section">Banner</h2>
               <p-message severity="info">This is an informational banner styled as an Aura surface.</p-message>
             </div>
+
+            <div class="demo-block">
+              <h2 class="section">MeterGroup</h2>
+              <p-metergroup :value="meter" :max="100" />
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Fieldset</h2>
+              <p-fieldset legend="Personal information" :toggleable="true">
+                <p>Toggle the legend to collapse this content.</p>
+                <p-inputtext placeholder="Name" style="width:280px" />
+              </p-fieldset>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Inplace</h2>
+              <p-inplace>
+                <template #display>{{ inplaceText }}</template>
+                <template #content="{ closeCallback }">
+                  <span class="row-wrap">
+                    <p-inputtext v-model="inplaceText" autofocus style="width:280px" />
+                    <p-button icon="pi pi-times" text @click="closeCallback" />
+                  </span>
+                </template>
+              </p-inplace>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">DataView</h2>
+              <p-dataview :value="products" :layout="layout" :rows="4" paginator>
+                <template #header>
+                  <div class="row-wrap" style="justify-content:space-between">
+                    <span>Products</span>
+                    <p-selectbutton v-model="layout" :options="['list', 'grid']" :allow-empty="false">
+                      <template #option="{ option }">
+                        <i :class="option === 'list' ? 'pi pi-bars' : 'pi pi-table'"></i>
+                      </template>
+                    </p-selectbutton>
+                  </div>
+                </template>
+                <template #list="{ items }">
+                  <div v-for="p in items" :key="p.id" class="row-wrap" style="justify-content:space-between; padding:8px 4px; border-bottom:1px solid var(--p-content-border-color,#e2e8f0)">
+                    <span>{{ p.name }}</span>
+                    <span>\${{ p.price }}</span>
+                  </div>
+                </template>
+                <template #grid="{ items }">
+                  <div class="row-wrap">
+                    <div v-for="p in items" :key="p.id" style="border:1px solid var(--p-content-border-color,#e2e8f0); border-radius:8px; padding:12px; width:140px">
+                      <div>{{ p.name }}</div>
+                      <div style="color:var(--p-primary-color); font-weight:700">\${{ p.price }}</div>
+                    </div>
+                  </div>
+                </template>
+              </p-dataview>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">OrderList</h2>
+              <p-orderlist v-model="order" list-style="height:auto">
+                <template #header>Cities</template>
+                <template #item="{ item }">{{ item }}</template>
+              </p-orderlist>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">PickList</h2>
+              <p-picklist v-model="pick" list-style="height:auto">
+                <template #sourceheader>Available</template>
+                <template #targetheader>Selected</template>
+                <template #item="{ item }">{{ item }}</template>
+              </p-picklist>
+            </div>
           </div>
         `,
       });
@@ -186,6 +275,13 @@
         'p-card': 'Card',
         'p-listbox': 'Listbox',
         'p-message': 'Message',
+        'p-metergroup': 'MeterGroup',
+        'p-fieldset': 'Fieldset',
+        'p-inplace': 'Inplace',
+        'p-dataview': 'DataView',
+        'p-selectbutton': 'SelectButton',
+        'p-orderlist': 'OrderList',
+        'p-picklist': 'PickList',
       };
       for (const [name, comp] of Object.entries(components)) {
         app.component(name, PrimeVue[comp]);
