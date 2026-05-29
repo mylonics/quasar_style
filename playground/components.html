@@ -82,7 +82,139 @@
             // PickList
             pick: [['Audio', 'Video', 'Books', 'Games'], ['Movies']],
             pickSel: [[], []],
+            // DeferredContent
+            deferredLoaded: false,
+            // FocusTrap
+            focusTrapActive: true,
+            // Form wrappers
+            iconFieldValue: '',
+            maskedDate: '',
+            otpValue: '',
+            cascadeValue: null,
+            cascadeOptions: [
+              {
+                label: 'Europe',
+                items: [
+                  { label: 'France', value: 'fr' },
+                  { label: 'Germany', value: 'de' },
+                ],
+              },
+              {
+                label: 'Americas',
+                items: [
+                  { label: 'Canada', value: 'ca' },
+                  { label: 'Brazil', value: 'br' },
+                ],
+              },
+            ],
+            treeSelectValue: null,
+            treeOptions: [
+              {
+                key: 'documents',
+                label: 'Documents',
+                children: [
+                  { key: 'work', label: 'Work' },
+                  { key: 'home', label: 'Home' },
+                ],
+              },
+            ],
+            // Dialogs
+            confirmDialogResult: '',
+            dynamicDialogComponent: {
+              props: ['message'],
+              template: '<div style="padding:12px">{{ message }}</div>',
+            },
+            dynamicDialogClosed: false,
+            // Menus
+            tieredMenuItems: [
+              { label: 'File', items: [{ label: 'New' }, { label: 'Open' }] },
+              { separator: true },
+              { label: 'Edit', items: [{ label: 'Copy' }, { label: 'Paste' }] },
+            ],
+            panelMenuExpanded: { reports: true },
+            panelMenuItems: [
+              { key: 'reports', label: 'Reports', items: [{ label: 'Sales' }, { label: 'Customers' }] },
+              { key: 'settings', label: 'Settings', items: [{ label: 'Profile' }] },
+            ],
+            megaMenuItems: [
+              {
+                label: 'Products',
+                items: [[
+                  { label: 'Suite', items: [{ label: 'CRM' }, { label: 'Analytics' }] },
+                  { label: 'Services', items: [{ label: 'Support' }, { label: 'Training' }] },
+                ]],
+              },
+            ],
+            dockItems: [
+              { label: 'Home', icon: 'home' },
+              { label: 'Search', icon: 'search' },
+              { label: 'Settings', icon: 'settings' },
+            ],
+            // Media
+            galleriaIndex: 0,
+            galleriaVisible: false,
+            galleryItems: [
+              {
+                src: 'https://primefaces.org/cdn/primevue/images/galleria/galleria1.jpg',
+                thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria1s.jpg',
+                title: 'Mountain lake',
+              },
+              {
+                src: 'https://primefaces.org/cdn/primevue/images/galleria/galleria2.jpg',
+                thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria2s.jpg',
+                title: 'Forest path',
+              },
+              {
+                src: 'https://primefaces.org/cdn/primevue/images/galleria/galleria3.jpg',
+                thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria3s.jpg',
+                title: 'City lights',
+              },
+            ],
+            // Data
+            treeTableExpanded: { '0': true },
+            treeTableSelection: {},
+            treeTableColumns: [
+              { field: 'name', header: 'Name', expander: true },
+              { field: 'size', header: 'Size' },
+            ],
+            treeTableValue: [
+              {
+                key: '0',
+                data: { name: 'Documents', size: '25kb' },
+                children: [{ key: '0-0', data: { name: 'Resume.pdf', size: '10kb' } }],
+              },
+            ],
+            orgSelection: {},
+            orgValue: {
+              key: 'ceo',
+              label: 'CEO',
+              children: [
+                { key: 'cto', label: 'CTO' },
+                { key: 'cfo', label: 'CFO' },
+              ],
+            },
+            // Terminal
+            terminalLastCommand: '',
           };
+        },
+        methods: {
+          openConfirmDialog() {
+            this.$refs.confirmDialog.show();
+          },
+          openDynamicDialog() {
+            this.dynamicDialogClosed = false;
+            this.$refs.dynamicDialog.show({
+              component: this.dynamicDialogComponent,
+              props: { message: 'Dynamic dialog body' },
+              onClose: () => {
+                this.dynamicDialogClosed = true;
+              },
+            });
+          },
+          onTerminalCommand(event) {
+            this.terminalLastCommand = event.value;
+            this.$refs.demoTerminal.addResponse('Echo: ' + event.value);
+          },
         },
         template: `
           <div class="gallery">
@@ -232,6 +364,172 @@
                 <template #targetheader>Selected</template>
                 <template #item="{ item }">{{ item }}</template>
               </PickList>
+            </div>
+
+
+            <div class="demo-block">
+              <h2 class="section">DeferredContent</h2>
+              <div class="demo-card">
+                <DeferredContent @load="deferredLoaded = true">
+                  <q-banner dense class="bg-primary text-white">Deferred content loaded into view.</q-banner>
+                </DeferredContent>
+                <div class="q-mt-sm">Loaded: {{ deferredLoaded }}</div>
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">FocusTrap</h2>
+              <div class="demo-card">
+                <FocusTrap v-model:active="focusTrapActive">
+                  <q-btn label="First" flat color="primary" />
+                  <q-btn label="Second" flat color="primary" class="q-ml-sm" />
+                </FocusTrap>
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">IconField + InputIcon</h2>
+              <div class="demo-card">
+                <IconField>
+                  <InputIcon><span class="material-icons">search</span></InputIcon>
+                  <q-input outlined v-model="iconFieldValue" label="Search" style="max-width:280px" />
+                </IconField>
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">IftaLabel</h2>
+              <div class="demo-card">
+                <IftaLabel>
+                  <label>Email</label>
+                  <q-input outlined value="team@example.com" />
+                </IftaLabel>
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">InputMask</h2>
+              <div class="demo-card">
+                <InputMask v-model="maskedDate" mask="99/99/9999" placeholder="MM/DD/YYYY" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">InputOtp</h2>
+              <div class="demo-card">
+                <InputOtp v-model="otpValue" :length="6" integer-only />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">CascadeSelect</h2>
+              <div class="demo-card">
+                <CascadeSelect v-model="cascadeValue" :options="cascadeOptions" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">TreeSelect</h2>
+              <div class="demo-card">
+                <TreeSelect v-model="treeSelectValue" :options="treeOptions" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">ConfirmDialog</h2>
+              <div class="demo-card">
+                <q-btn label="Open confirm dialog" color="primary" @click="openConfirmDialog" />
+                <ConfirmDialog ref="confirmDialog" @accept="confirmDialogResult = 'Accepted'" @reject="confirmDialogResult = 'Rejected'" />
+                <div class="q-mt-sm">{{ confirmDialogResult }}</div>
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">DynamicDialog</h2>
+              <div class="demo-card">
+                <q-btn label="Open dynamic dialog" color="secondary" @click="openDynamicDialog" />
+                <DynamicDialog ref="dynamicDialog" @close="dynamicDialogClosed = true" />
+                <div class="q-mt-sm">Closed: {{ dynamicDialogClosed }}</div>
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">TieredMenu</h2>
+              <div class="demo-card">
+                <TieredMenu :model="tieredMenuItems" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">PanelMenu</h2>
+              <div class="demo-card">
+                <PanelMenu :model="panelMenuItems" v-model:expandedKeys="panelMenuExpanded" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">MegaMenu</h2>
+              <div class="demo-card">
+                <MegaMenu :model="megaMenuItems" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Dock</h2>
+              <div class="demo-card" style="min-height:120px; position:relative">
+                <Dock :model="dockItems" position="bottom" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Galleria</h2>
+              <div class="demo-card">
+                <Galleria
+                  :value="galleryItems"
+                  v-model:activeIndex="galleriaIndex"
+                  v-model:visible="galleriaVisible"
+                  :show-item-navigators="true"
+                  :full-screen="true"
+                />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">ImageCompare</h2>
+              <div class="demo-card">
+                <ImageCompare>
+                  <img src="https://primefaces.org/cdn/primevue/images/galleria/galleria4.jpg" alt="Before" />
+                  <img src="https://primefaces.org/cdn/primevue/images/galleria/galleria5.jpg" alt="After" />
+                </ImageCompare>
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">TreeTable</h2>
+              <div class="demo-card">
+                <TreeTable
+                  :value="treeTableValue"
+                  :columns="treeTableColumns"
+                  v-model:expandedKeys="treeTableExpanded"
+                  v-model:selectionKeys="treeTableSelection"
+                  selection-mode="single"
+                />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">OrgChart</h2>
+              <div class="demo-card">
+                <OrgChart :value="orgValue" v-model:selectionKeys="orgSelection" selection-mode="single" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Terminal</h2>
+              <div class="demo-card">
+                <Terminal ref="demoTerminal" welcome-message="Welcome to the Quasar Aura terminal" @command="onTerminalCommand" />
+                <div class="q-mt-sm">Last command: {{ terminalLastCommand }}</div>
+              </div>
             </div>
           </div>
         `,

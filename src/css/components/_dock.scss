@@ -1,0 +1,46 @@
+// PvDock -> PrimeVue Aura Dock
+.qpv-dock {
+  position: fixed;
+  z-index: 1000;
+  display: inline-flex;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--p-content-border-color);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--p-content-background) 92%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.qpv-dock--bottom {
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+}
+
+.qpv-dock--top {
+  left: 50%;
+  top: 1rem;
+  transform: translateX(-50%);
+}
+
+.qpv-dock--left {
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+}
+
+.qpv-dock--right {
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+}
+
+.qpv-dock--magnify .qpv-dock__item {
+  transition: transform 0.15s ease;
+}
+
+.qpv-dock--magnify .qpv-dock__item:hover {
+  transform: scale(1.2);
+}

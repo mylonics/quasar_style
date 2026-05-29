@@ -1,0 +1,13 @@
+// PvInputMask -> PrimeVue Aura InputMask
+.qpv-inputmask {
+  display: inline-flex;
+  width: auto;
+}
+
+.qpv-inputmask--fluid {
+  width: 100%;
+}
+
+.qpv-inputmask--fluid .q-field {
+  width: 100%;
+}

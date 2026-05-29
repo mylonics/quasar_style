@@ -1,0 +1,34 @@
+// PvIconField -> PrimeVue Aura IconField
+.qpv-iconfield {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.qpv-iconfield .qpv-inputicon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--p-text-muted-color);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.qpv-iconfield--left .qpv-inputicon {
+  left: 0.875rem;
+}
+
+.qpv-iconfield--right .qpv-inputicon {
+  right: 0.875rem;
+}
+
+.qpv-iconfield--left .q-field__native,
+.qpv-iconfield--left input {
+  padding-left: 2.25rem;
+}
+
+.qpv-iconfield--right .q-field__native,
+.qpv-iconfield--right input {
+  padding-right: 2.25rem;
+}

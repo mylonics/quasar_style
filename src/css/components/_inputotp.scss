@@ -1,0 +1,25 @@
+// PvInputOtp -> PrimeVue Aura InputOtp
+.qpv-inputotp {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.qpv-inputotp__input {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--p-content-border-color);
+  border-radius: var(--p-content-border-radius);
+  background: var(--p-content-background);
+  color: var(--p-content-color);
+  text-align: center;
+  font-size: 1rem;
+}
+
+.qpv-inputotp__input:focus {
+  outline: 1px solid var(--p-focus-ring-color);
+  outline-offset: 1px;
+}
+
+.qpv-inputotp--disabled {
+  opacity: 0.7;
+}

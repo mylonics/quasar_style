@@ -1,0 +1,18 @@
+// PvPanelMenu -> PrimeVue Aura PanelMenu
+.qpv-panelmenu {
+  border: 1px solid var(--p-content-border-color);
+  border-radius: var(--p-content-border-radius);
+  overflow: hidden;
+}
+
+.qpv-panelmenu__panel + .qpv-panelmenu__panel {
+  border-top: 1px solid var(--p-content-border-color);
+}
+
+.qpv-panelmenu__content {
+  background: var(--p-content-background);
+}
+
+.qpv-panelmenu__nested {
+  padding-left: 1rem;
+}

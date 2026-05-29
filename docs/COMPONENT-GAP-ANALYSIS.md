@@ -52,13 +52,13 @@ primitives (Phase 4).
 | FloatLabel | 🟡 Partial | QInput floating `label` | Restyle | — | |
 | InputGroup / InputGroupAddon | 🟡 Partial | QInput slots / QField | Restyle | P3 | |
 | **AutoComplete** | ❌ No | QSelect `use-input` (close) | **Build (thin)** | **P1** | Multi-select chips + dropdown + completion events. |
-| CascadeSelect | ❌ No | — | Build | P2 | Nested option groups in a single popover. |
-| TreeSelect | ❌ No | QSelect + QTree | Build | P2 | Tree picker inside a popover. |
-| InputMask | ❌ No | QInput `mask` (close) | Build (thin) | P2 | Quasar masks differ from PrimeVue token syntax. |
+| CascadeSelect | ✅ Built | — | ✅ Done | P2 | `src/components/CascadeSelect.vue` — nested option groups in a single popover. |
+| TreeSelect | ✅ Built | QSelect + QTree | ✅ Done | P2 | `src/components/TreeSelect.vue` — tree picker inside a popover. |
+| InputMask | ✅ Built | QInput `mask` (close) | ✅ Done | P2 | `src/components/InputMask.vue` — PrimeVue mask syntax mapped to Quasar. |
 | Password | ✅ Built | QInput `type="password"` | ✅ Done | P2 | `src/components/Password.vue` — strength meter + mask toggle. |
-| InputOtp | ❌ No | — | Build | P3 | Segmented one-time-code input. |
-| IconField / InputIcon | ❌ No | QInput slots | Build (thin) | P3 | |
-| IftaLabel | ❌ No | — | Build | P3 | In-field top-aligned label. |
+| InputOtp | ✅ Built | — | ✅ Done | P3 | `src/components/InputOtp.vue` — segmented one-time-code input. |
+| IconField / InputIcon | ✅ Built | QInput slots | ✅ Done | P3 | `src/components/IconField.vue`, `src/components/InputIcon.vue` — input icon wrappers. |
+| IftaLabel | ✅ Built | — | ✅ Done | P3 | `src/components/IftaLabel.vue` — in-field top-aligned label wrapper. |
 
 ## Button
 
@@ -81,8 +81,8 @@ primitives (Phase 4).
 | **DataView** | ✅ Built | QTable is grid-only | ✅ Done | P1 | `src/components/DataView.vue` — list/grid layout + paginator. |
 | **OrderList** | ✅ Built | — | ✅ Done | P1 | `src/components/OrderList.vue` — reorderable list. |
 | **PickList** | ✅ Built | — | ✅ Done | P1 | `src/components/PickList.vue` — dual transfer list. |
-| TreeTable | ❌ No | QTree + QMarkupTable | Build | P2 | Hierarchical rows with columns. |
-| OrgChart | ❌ No | — | Build | P3 | |
+| TreeTable | ✅ Built | QTree + QMarkupTable | ✅ Done | P2 | `src/components/TreeTable.vue` — hierarchical rows with columns. |
+| OrgChart | ✅ Built | — | ✅ Done | P3 | `src/components/OrgChart.vue` — recursive organizational chart. |
 
 ## Panel
 
@@ -98,7 +98,7 @@ primitives (Phase 4).
 | Toolbar | ✅ Yes | QToolbar | Restyle | — | |
 | Stepper | ✅ Yes | QStepper | Restyle | — | Verified parity. |
 | **Fieldset** | ✅ Built | — | ✅ Done | P1 | `src/components/Fieldset.vue` — bordered group w/ legend + collapse. |
-| DeferredContent | ❌ No | QIntersection | Build (thin) | P3 | Render on scroll-into-view. |
+| DeferredContent | ✅ Built | QIntersection | ✅ Done | P3 | `src/components/DeferredContent.vue` — render on scroll-into-view. |
 
 ## Overlay
 
@@ -107,10 +107,10 @@ primitives (Phase 4).
 | Dialog | ✅ Yes | QDialog | Restyle | — | |
 | Drawer (Sidebar) | ✅ Yes | QDrawer | Restyle | — | |
 | Tooltip | ✅ Yes | QTooltip | Restyle | — | |
-| ConfirmDialog | 🟡 Partial | Quasar `$q.dialog` | Restyle | P2 | |
+| ConfirmDialog | ✅ Built | Quasar `$q.dialog` | ✅ Done | P2 | `src/components/ConfirmDialog.vue` — imperative confirmation dialog. |
 | Popover (OverlayPanel) | ✅ Built | QMenu / QPopupProxy | ✅ Done | P2 | `src/components/Popover.vue` — standalone `toggle(event)` API. |
 | **ConfirmPopup** | ❌ No | QMenu | **Build** | **P2** | Inline confirm anchored to a target. |
-| DynamicDialog | ❌ No | `$q.dialog` (close) | Build | P3 | |
+| DynamicDialog | ✅ Built | `$q.dialog` (close) | ✅ Done | P3 | `src/components/DynamicDialog.vue` — programmatic dialog host. |
 
 ## Menu
 
@@ -119,13 +119,13 @@ primitives (Phase 4).
 | Menu | ✅ Yes | QMenu + QList | Restyle | — | |
 | Menubar | 🟡 Partial | QToolbar + QBtnDropdown | Restyle | P2 | |
 | ContextMenu | ✅ Yes | QMenu `context-menu` | Restyle | — | |
-| TieredMenu | 🟡 Partial | QMenu (nested) | Build | P3 | |
+| TieredMenu | ✅ Built | QMenu (nested) | ✅ Done | P3 | `src/components/TieredMenu.vue` — nested tiered menu. |
 | Breadcrumb | ✅ Yes | QBreadcrumbs | Restyle | — | Verified — Quasar has it. |
 | Steps | ✅ Yes | QStepper (header) | Restyle | — | |
 | TabMenu | ✅ Yes | QTabs `QRouteTab` | Restyle | — | |
-| PanelMenu | 🟡 Partial | QExpansionItem + QList | Build | P3 | |
-| Dock | ❌ No | — | Build | P3 | macOS-style dock. |
-| MegaMenu | ❌ No | QBtnDropdown + grid | Build | P3 | |
+| PanelMenu | ✅ Built | QExpansionItem + QList | ✅ Done | P3 | `src/components/PanelMenu.vue` — accordion-style panel menu. |
+| Dock | ✅ Built | — | ✅ Done | P3 | `src/components/Dock.vue` — macOS-style icon dock. |
+| MegaMenu | ✅ Built | QBtnDropdown + grid | ✅ Done | P3 | `src/components/MegaMenu.vue` — multi-column dropdown menu. |
 
 ## Media
 
@@ -133,8 +133,8 @@ primitives (Phase 4).
 | --- | --- | --- | --- | --- | --- |
 | Carousel | ✅ Yes | QCarousel | Restyle | — | |
 | Image | ✅ Built | QImg | ✅ Done | P2 | `src/components/Image.vue` — preview/zoom overlay added. |
-| Galleria | ❌ No | QCarousel + thumbnails | Build | P3 | |
-| ImageCompare | ❌ No | — | Build | P3 | |
+| Galleria | ✅ Built | QCarousel + thumbnails | ✅ Done | P3 | `src/components/Galleria.vue` — carousel gallery with thumbnails. |
+| ImageCompare | ✅ Built | — | ✅ Done | P3 | `src/components/ImageCompare.vue` — draggable image comparison slider. |
 
 ## File / Messages
 
@@ -160,8 +160,8 @@ primitives (Phase 4).
 | **MeterGroup** | ✅ Built | — | ✅ Done | P1 | `src/components/MeterGroup.vue` — multi-segment meter with labels/legend. |
 | **Inplace** | ✅ Built | QPopupEdit (close) | ✅ Done | P1 | `src/components/Inplace.vue` — click-to-edit display→editor swap. |
 | BlockUI | ✅ Built | QInnerLoading (close) | ✅ Done | P2 | `src/components/BlockUI.vue` — overlay mask over a region/page. |
-| Terminal | ❌ No | — | Build | P3 | |
-| FocusTrap | 🟡 Partial | QDialog internal | Build (thin) | P3 | |
+| Terminal | ✅ Built | — | ✅ Done | P3 | `src/components/Terminal.vue` — interactive terminal emulator. |
+| FocusTrap | ✅ Built | QDialog internal | ✅ Done | P3 | `src/components/FocusTrap.vue` — standalone focus trap wrapper. |
 
 ## Phase 4 — implemented components
 
@@ -190,14 +190,28 @@ playground components page (`playground/components.html`).
 11. **ConfirmPopup** (Overlay)
 12. **Image** (Media)
 
+### Iteration 4 — remaining P2/P3 items
+
+13. **DeferredContent** (Panel)
+14. **FocusTrap** (Misc)
+15. **IconField** / **InputIcon** (Form)
+16. **IftaLabel** (Form)
+17. **InputMask** (Form)
+18. **InputOtp** (Form)
+19. **CascadeSelect** (Form)
+20. **TreeSelect** (Form)
+21. **ConfirmDialog** (Overlay)
+22. **DynamicDialog** (Overlay)
+23. **TieredMenu** (Menu)
+24. **PanelMenu** (Menu)
+25. **MegaMenu** (Menu)
+26. **Dock** (Menu)
+27. **Galleria** (Media)
+28. **ImageCompare** (Media)
+29. **TreeTable** (Data)
+30. **OrgChart** (Data)
+31. **Terminal** (Misc)
+
 ### Remaining work (not yet built)
 
-Items still tracked for future iterations (P2/P3):
-
-- Form: CascadeSelect, TreeSelect, InputMask, InputOtp, IconField/InputIcon, IftaLabel
-- Data: TreeTable, OrgChart
-- Panel: DeferredContent
-- Overlay: ConfirmDialog, DynamicDialog
-- Menu: TieredMenu, PanelMenu, Dock, MegaMenu
-- Media: Galleria, ImageCompare
-- Misc: Terminal, FocusTrap
+- None for the components tracked in this gap analysis iteration set.

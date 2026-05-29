@@ -1,0 +1,25 @@
+// PvTreeTable -> PrimeVue Aura TreeTable
+.qpv-treetable__cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.qpv-treetable__toggler {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--p-content-border-color);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.qpv-treetable__row--selected {
+  background: var(--p-highlight-background);
+}
+
+.qpv-treetable__empty,
+.qpv-treetable__loading {
+  color: var(--p-text-muted-color);
+  text-align: center;
+}

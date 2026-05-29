@@ -1,0 +1,34 @@
+// PvImageCompare -> PrimeVue Aura ImageCompare
+.qpv-imagecompare {
+  position: relative;
+  overflow: hidden;
+}
+
+.qpv-imagecompare__before,
+.qpv-imagecompare__after {
+  line-height: 0;
+}
+
+.qpv-imagecompare__after {
+  position: absolute;
+  inset: 0 auto 0 0;
+  overflow: hidden;
+}
+
+.qpv-imagecompare__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.qpv-imagecompare__handle {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--p-content-border-color);
+  border-radius: 999px;
+  background: var(--p-content-background);
+  cursor: ew-resize;
+}

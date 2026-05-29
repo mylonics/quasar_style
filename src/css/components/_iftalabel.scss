@@ -1,0 +1,25 @@
+// PvIftaLabel -> PrimeVue Aura IftaLabel
+.qpv-iftalabel {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.qpv-iftalabel > label {
+  position: absolute;
+  top: 0.375rem;
+  left: 0.75rem;
+  z-index: 1;
+  font-size: 0.75rem;
+  color: var(--p-text-muted-color);
+  pointer-events: none;
+}
+
+.qpv-iftalabel .q-field,
+.qpv-iftalabel input,
+.qpv-iftalabel textarea,
+.qpv-iftalabel select {
+  padding-top: 0.75rem;
+}
