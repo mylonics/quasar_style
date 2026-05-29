@@ -41,6 +41,19 @@ body.body--dark {
   background-color: var(--p-surface-950);
 }
 
+// Quasar's Material heading reset gives headings huge line-heights (e.g. h2 is
+// `line-height: 3.75rem` = 60px), which adds a lot of dead vertical space above
+// and below titles. Aura's typography hugs the text, so tighten heading
+// line-height to keep layouts as dense as the PrimeVue reference.
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+}
+
 // Muted / secondary text helpers used across components.
 .text-grey,
 .text-grey-7,
