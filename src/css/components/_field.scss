@@ -54,19 +54,25 @@
   color: var(--p-form-field-icon-color);
 }
 
-// Compact Aura sizing (~2.5rem control height). Applied only to fields without
-// a (floating) label so Quasar's label-float behaviour keeps working; PrimeVue
-// itself favours external labels, which map to Quasar's label-less fields.
+// Match Aura's 1rem field text (Quasar fields default to 14px).
+.q-field {
+  font-size: 1rem;
+}
+
+// Compact Aura sizing (~2.25rem control height to match Aura buttons/inputs).
+// Applied only to fields without a (floating) label so Quasar's label-float
+// behaviour keeps working; PrimeVue itself favours external labels, which map
+// to Quasar's label-less fields.
 .q-field--outlined:not(.q-textarea):not(.q-field--labeled) .q-field__control {
-  min-height: 2.5rem;
-  height: 2.5rem;
+  min-height: 2.25rem;
+  height: 2.25rem;
   padding: 0 var(--p-inputtext-padding-x);
 }
 
 .q-field--outlined:not(.q-textarea):not(.q-field--labeled)
   .q-field__control
   .q-field__native {
-  min-height: 2.5rem;
+  min-height: 2.25rem;
   padding: var(--p-inputtext-padding-y) 0;
 }
 

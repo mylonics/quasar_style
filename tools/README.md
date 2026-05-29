@@ -52,6 +52,13 @@ loads each page in headless Chromium at a 2× device scale, waits for fonts to
 settle, and writes a full-page PNG. Re-run steps 3–4 after changing the theme or
 the playground markup.
 
+> **Gotcha — don't reuse Quasar utility class names in the playground.** Quasar
+> ships global utility classes such as `.block` (`display:block`). The gallery
+> markup therefore uses namespaced class names (e.g. `.demo-block`) for its own
+> layout; using a bare `.block` rule would leak into Quasar's internals (it sits
+> on every `q-btn` label) and silently inflate component sizing, making the
+> Quasar shots look taller / less dense than they really are.
+
 ### Previewing the playground by hand
 
 ```bash

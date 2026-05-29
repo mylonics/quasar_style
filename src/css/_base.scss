@@ -28,6 +28,10 @@ $pv-font-family:
 
 body {
   font-family: $pv-font-family;
+  // Aura renders at the 1rem (16px) base; Quasar defaults to 14px, which makes
+  // the same gallery look smaller/less dense than the PrimeVue reference.
+  font-size: 1rem;
+  line-height: 1.5;
   color: var(--p-text-color);
   background-color: var(--p-surface-50);
 }

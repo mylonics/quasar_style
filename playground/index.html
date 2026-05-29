@@ -13,8 +13,8 @@
       body { padding: 24px; padding-top: 64px; }
       .gallery { max-width: 980px; margin: 0 auto; }
       .row-wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-      .block { margin-bottom: 28px; }
-      h2.section { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; opacity: .6; margin: 0 0 10px; }
+      .demo-block { margin-bottom: 28px; }
+      h2.section { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; opacity: .6; margin: 0 0 10px; }
       #dev-nav {
         position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
         display: flex; align-items: center; gap: 8px; padding: 8px 16px;
@@ -97,7 +97,7 @@
         },
         template: `
           <div class="gallery">
-            <div class="block" data-shot="buttons">
+            <div class="demo-block" data-shot="buttons">
               <h2 class="section">Buttons</h2>
               <div class="row-wrap">
                 <q-btn color="primary" label="Primary" />
@@ -111,7 +111,7 @@
               </div>
             </div>
 
-            <div class="block" data-shot="fields">
+            <div class="demo-block" data-shot="fields">
               <h2 class="section">Inputs &amp; Select</h2>
               <div class="row-wrap">
                 <q-input outlined v-model="text" style="width:220px" />
@@ -120,7 +120,7 @@
               </div>
             </div>
 
-            <div class="block" data-shot="selection">
+            <div class="demo-block" data-shot="selection">
               <h2 class="section">Checkbox / Radio / Toggle</h2>
               <div class="row-wrap">
                 <q-checkbox v-model="check" label="Checked" />
@@ -131,7 +131,7 @@
               </div>
             </div>
 
-            <div class="block" data-shot="chips">
+            <div class="demo-block" data-shot="chips">
               <h2 class="section">Chips &amp; Badges</h2>
               <div class="row-wrap">
                 <q-chip>Default</q-chip>
@@ -142,7 +142,7 @@
               </div>
             </div>
 
-            <div class="block" data-shot="progress">
+            <div class="demo-block" data-shot="progress">
               <h2 class="section">Progress &amp; Slider</h2>
               <div class="row-wrap" style="flex-direction:column; align-items:stretch">
                 <q-linear-progress :value="progress" color="primary" style="height:8px" class="q-mb-md" />
@@ -150,7 +150,7 @@
               </div>
             </div>
 
-            <div class="block" data-shot="tabs">
+            <div class="demo-block" data-shot="tabs">
               <h2 class="section">Tabs</h2>
               <q-tabs v-model="tab" align="left" active-color="primary" indicator-color="primary">
                 <q-tab name="one" label="Overview" />
@@ -159,7 +159,7 @@
               </q-tabs>
             </div>
 
-            <div class="block" data-shot="card">
+            <div class="demo-block" data-shot="card">
               <h2 class="section">Card</h2>
               <q-card style="max-width:320px">
                 <q-card-section>
@@ -176,7 +176,7 @@
               </q-card>
             </div>
 
-            <div class="block" data-shot="list">
+            <div class="demo-block" data-shot="list">
               <h2 class="section">List</h2>
               <q-card style="max-width:320px">
                 <q-list>
@@ -193,7 +193,7 @@
               </q-card>
             </div>
 
-            <div class="block" data-shot="banner">
+            <div class="demo-block" data-shot="banner">
               <h2 class="section">Banner</h2>
               <q-banner>
                 This is an informational banner styled as an Aura surface.

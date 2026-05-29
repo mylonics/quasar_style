@@ -2,6 +2,9 @@
 .q-btn {
   font-weight: var(--p-button-label-font-weight);
   font-size: 1rem;
+  // Quasar's 1.715em line-height leaves a lot of dead vertical space; Aura's
+  // buttons hug the label, so use a tight line-height for compact heights.
+  line-height: 1.25;
   text-transform: none;
   letter-spacing: normal;
   transition:

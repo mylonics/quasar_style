@@ -18,8 +18,8 @@
       }
       .gallery { max-width: 980px; margin: 0 auto; }
       .row-wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-      .block { margin-bottom: 28px; }
-      h2.section { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; opacity: .6; margin: 0 0 10px; }
+      .demo-block { margin-bottom: 28px; }
+      h2.section { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; opacity: .6; margin: 0 0 10px; }
       .label { display: inline-flex; align-items: center; gap: 6px; }
       #dev-nav {
         position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
@@ -69,7 +69,7 @@
         },
         template: `
           <div class="gallery">
-            <div class="block">
+            <div class="demo-block">
               <h2 class="section">Buttons</h2>
               <div class="row-wrap">
                 <p-button label="Primary" />
@@ -83,7 +83,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="demo-block">
               <h2 class="section">Inputs &amp; Select</h2>
               <div class="row-wrap">
                 <p-inputtext v-model="text" style="width:220px" />
@@ -92,7 +92,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="demo-block">
               <h2 class="section">Checkbox / Radio / Toggle</h2>
               <div class="row-wrap">
                 <span class="label"><p-checkbox v-model="check" binary input-id="c1" /><label for="c1">Checked</label></span>
@@ -103,7 +103,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="demo-block">
               <h2 class="section">Chips &amp; Badges</h2>
               <div class="row-wrap">
                 <p-chip label="Default" />
@@ -114,7 +114,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="demo-block">
               <h2 class="section">Progress &amp; Slider</h2>
               <div class="row-wrap" style="flex-direction:column; align-items:stretch">
                 <p-progressbar :value="60" style="height:8px" :show-value="false" />
@@ -123,7 +123,7 @@
               </div>
             </div>
 
-            <div class="block">
+            <div class="demo-block">
               <h2 class="section">Tabs</h2>
               <p-tabs value="0">
                 <p-tablist>
@@ -134,7 +134,7 @@
               </p-tabs>
             </div>
 
-            <div class="block">
+            <div class="demo-block">
               <h2 class="section">Card</h2>
               <p-card style="width:320px">
                 <template #title>Card title</template>
@@ -151,12 +151,12 @@
               </p-card>
             </div>
 
-            <div class="block">
+            <div class="demo-block">
               <h2 class="section">List</h2>
               <p-listbox v-model="listSel" :options="listItems" option-label="label" option-value="value" style="width:320px" />
             </div>
 
-            <div class="block">
+            <div class="demo-block">
               <h2 class="section">Banner</h2>
               <p-message severity="info">This is an informational banner styled as an Aura surface.</p-message>
             </div>
