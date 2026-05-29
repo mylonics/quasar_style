@@ -11,6 +11,7 @@ primitives (Phase 4).
 
 - **In Quasar?**
   - ✅ **Yes** — Quasar ships a directly-equivalent component.
+  - ✅ **Built** — no Quasar equivalent; component was built in Phase 4 (`src/components/`).
   - 🟡 **Partial** — Quasar covers the core behaviour but lacks notable
     PrimeVue features (documented in _Notes_).
   - ❌ **No** — no Quasar equivalent; must be built.
@@ -20,6 +21,7 @@ primitives (Phase 4).
   - _Build_ — a new component is added under `src/components/` (Phase 4).
   - _Build (thin)_ — a thin PrimeVue-API wrapper over an existing Quasar
     component to align prop/slot/event names.
+  - _✅ Done_ — already implemented; see _Notes_ for the source file.
 - **Priority** — relative ordering for the iterative Phase 4 rollout.
   - **P1** high — common, genuinely missing, good ROI.
   - **P2** medium.
@@ -49,11 +51,11 @@ primitives (Phase 4).
 | ToggleButton | 🟡 Partial | QBtnToggle (single) | Restyle | P3 | |
 | FloatLabel | 🟡 Partial | QInput floating `label` | Restyle | — | |
 | InputGroup / InputGroupAddon | 🟡 Partial | QInput slots / QField | Restyle | P3 | |
-| AutoComplete | ❌ No | QSelect `use-input` (close) | Build (thin) | **P1** | Multi-select chips + dropdown + completion events. |
+| **AutoComplete** | ❌ No | QSelect `use-input` (close) | **Build (thin)** | **P1** | Multi-select chips + dropdown + completion events. |
 | CascadeSelect | ❌ No | — | Build | P2 | Nested option groups in a single popover. |
 | TreeSelect | ❌ No | QSelect + QTree | Build | P2 | Tree picker inside a popover. |
 | InputMask | ❌ No | QInput `mask` (close) | Build (thin) | P2 | Quasar masks differ from PrimeVue token syntax. |
-| Password | ❌ No | QInput `type="password"` | Build | P2 | Strength meter + show/hide toggle. |
+| Password | ✅ Built | QInput `type="password"` | ✅ Done | P2 | `src/components/Password.vue` — strength meter + mask toggle. |
 | InputOtp | ❌ No | — | Build | P3 | Segmented one-time-code input. |
 | IconField / InputIcon | ❌ No | QInput slots | Build (thin) | P3 | |
 | IftaLabel | ❌ No | — | Build | P3 | In-field top-aligned label. |
@@ -76,9 +78,9 @@ primitives (Phase 4).
 | Timeline | ✅ Yes | QTimeline | Restyle | — | Verified — Quasar has it; parity OK. |
 | Tree | ✅ Yes | QTree | Restyle | — | |
 | VirtualScroller | ✅ Yes | QVirtualScroll | Restyle | — | |
-| **DataView** | ❌ No | QTable is grid-only | **Build** | **P1** | List/grid layout switch + paginator + sorting. |
-| **OrderList** | ❌ No | — | **Build** | **P1** | Reorderable list with up/down/top/bottom controls. |
-| **PickList** | ❌ No | — | **Build** | **P1** | Dual transfer list (source ⇄ target). |
+| **DataView** | ✅ Built | QTable is grid-only | ✅ Done | P1 | `src/components/DataView.vue` — list/grid layout + paginator. |
+| **OrderList** | ✅ Built | — | ✅ Done | P1 | `src/components/OrderList.vue` — reorderable list. |
+| **PickList** | ✅ Built | — | ✅ Done | P1 | `src/components/PickList.vue` — dual transfer list. |
 | TreeTable | ❌ No | QTree + QMarkupTable | Build | P2 | Hierarchical rows with columns. |
 | OrgChart | ❌ No | — | Build | P3 | |
 
@@ -95,7 +97,7 @@ primitives (Phase 4).
 | Tabs / TabPanels | ✅ Yes | QTabs / QTabPanels | Restyle | — | |
 | Toolbar | ✅ Yes | QToolbar | Restyle | — | |
 | Stepper | ✅ Yes | QStepper | Restyle | — | Verified parity. |
-| **Fieldset** | ❌ No | — | **Build** | **P1** | Bordered group w/ legend; optional toggle. |
+| **Fieldset** | ✅ Built | — | ✅ Done | P1 | `src/components/Fieldset.vue` — bordered group w/ legend + collapse. |
 | DeferredContent | ❌ No | QIntersection | Build (thin) | P3 | Render on scroll-into-view. |
 
 ## Overlay
@@ -106,8 +108,8 @@ primitives (Phase 4).
 | Drawer (Sidebar) | ✅ Yes | QDrawer | Restyle | — | |
 | Tooltip | ✅ Yes | QTooltip | Restyle | — | |
 | ConfirmDialog | 🟡 Partial | Quasar `$q.dialog` | Restyle | P2 | |
-| Popover (OverlayPanel) | 🟡 Partial | QMenu / QPopupProxy | Build (thin) | P2 | PrimeVue `toggle(event)` API. |
-| ConfirmPopup | ❌ No | QMenu | Build | P2 | Inline confirm anchored to a target. |
+| Popover (OverlayPanel) | ✅ Built | QMenu / QPopupProxy | ✅ Done | P2 | `src/components/Popover.vue` — standalone `toggle(event)` API. |
+| **ConfirmPopup** | ❌ No | QMenu | **Build** | **P2** | Inline confirm anchored to a target. |
 | DynamicDialog | ❌ No | `$q.dialog` (close) | Build | P3 | |
 
 ## Menu
@@ -130,7 +132,7 @@ primitives (Phase 4).
 | PrimeVue | In Quasar? | Quasar equivalent | Action | Priority | Notes |
 | --- | --- | --- | --- | --- | --- |
 | Carousel | ✅ Yes | QCarousel | Restyle | — | |
-| Image | 🟡 Partial | QImg | Build (thin) | P2 | Add preview/zoom overlay. |
+| Image | ✅ Built | QImg | ✅ Done | P2 | `src/components/Image.vue` — preview/zoom overlay added. |
 | Galleria | ❌ No | QCarousel + thumbnails | Build | P3 | |
 | ImageCompare | ❌ No | — | Build | P3 | |
 
@@ -155,17 +157,19 @@ primitives (Phase 4).
 | ScrollTop | ✅ Yes | QPageScroller | Restyle | — | |
 | Ripple | ✅ Yes | `v-ripple` directive | Restyle | — | |
 | Tag | ✅ Yes | QChip / QBadge | Restyle | — | Tag tokens already generated. |
-| **MeterGroup** | ❌ No | — | **Build** | **P1** | Multi-segment meter with labels/legend. |
-| **Inplace** | ❌ No | QPopupEdit (close) | **Build** | **P1** | Click-to-edit display→editor swap. |
-| BlockUI | ❌ No | QInnerLoading (close) | Build | P2 | Mask a region/page. |
+| **MeterGroup** | ✅ Built | — | ✅ Done | P1 | `src/components/MeterGroup.vue` — multi-segment meter with labels/legend. |
+| **Inplace** | ✅ Built | QPopupEdit (close) | ✅ Done | P1 | `src/components/Inplace.vue` — click-to-edit display→editor swap. |
+| BlockUI | ✅ Built | QInnerLoading (close) | ✅ Done | P2 | `src/components/BlockUI.vue` — overlay mask over a region/page. |
 | Terminal | ❌ No | — | Build | P3 | |
 | FocusTrap | 🟡 Partial | QDialog internal | Build (thin) | P3 | |
 
-## Phase 4 — first iteration
+## Phase 4 — implemented components
 
-The components selected for the first Phase 4 iteration are the **P1, build-new**
-items that are genuinely absent from Quasar and self-contained (buildable on
-Quasar primitives without new heavy dependencies):
+Each component ships as a Vue SFC under `src/components/`, an Aura theme partial
+under `src/css/components/`, a unit-test spec under `test/`, and a demo on the
+playground components page (`playground/components.html`).
+
+### Iteration 1 — P1 items
 
 1. **MeterGroup** (Misc)
 2. **Fieldset** (Panel)
@@ -174,7 +178,26 @@ Quasar primitives without new heavy dependencies):
 5. **OrderList** (Data)
 6. **PickList** (Data)
 
-Each ships as a Vue SFC under `src/components/`, an Aura theme partial under
-`src/css/components/`, a unit-test spec under `test/`, and a demo on the
-playground components page (`playground/components.html`). Remaining rows are
-tracked here for subsequent iterations.
+### Iteration 2 — additional P2 items
+
+7. **Password** (Form)
+8. **BlockUI** (Misc)
+9. **Popover** (Overlay)
+
+### Iteration 3 — remaining P1 + further P2
+
+10. **AutoComplete** (Form)
+11. **ConfirmPopup** (Overlay)
+12. **Image** (Media)
+
+### Remaining work (not yet built)
+
+Items still tracked for future iterations (P2/P3):
+
+- Form: CascadeSelect, TreeSelect, InputMask, InputOtp, IconField/InputIcon, IftaLabel
+- Data: TreeTable, OrgChart
+- Panel: DeferredContent
+- Overlay: ConfirmDialog, DynamicDialog
+- Menu: TieredMenu, PanelMenu, Dock, MegaMenu
+- Media: Galleria, ImageCompare
+- Misc: Terminal, FocusTrap

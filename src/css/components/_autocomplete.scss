@@ -1,0 +1,8 @@
+// PvAutoComplete -> PrimeVue Aura AutoComplete
+// Thin wrapper over QSelect; uses QSelect tokens for borders/focus rings
+// plus PrimeVue chip tokens for multi-select chips.
+.qpv-autocomplete {
+  &--fluid {
+    width: 100%;
+  }
+}
