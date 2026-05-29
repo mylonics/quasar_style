@@ -1,0 +1,28 @@
+// PvCascadeSelect -> PrimeVue Aura CascadeSelect
+.qpv-cascadeselect {
+  display: inline-flex;
+  width: auto;
+}
+
+.qpv-cascadeselect--fluid {
+  width: 100%;
+}
+
+.qpv-cascadeselect--fluid .qpv-cascadeselect__trigger {
+  width: 100%;
+}
+
+.qpv-cascadeselect__panels {
+  display: flex;
+  min-width: 16rem;
+  background: var(--p-content-background);
+}
+
+.qpv-cascadeselect__panel {
+  min-width: 12rem;
+  border-right: 1px solid var(--p-content-border-color);
+}
+
+.qpv-cascadeselect__panel:last-child {
+  border-right: none;
+}

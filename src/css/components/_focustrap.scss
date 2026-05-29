@@ -1,0 +1,10 @@
+// PvFocusTrap -> PrimeVue Aura FocusTrap
+.qpv-focustrap {
+  display: block;
+  border-radius: var(--p-content-border-radius);
+}
+
+.qpv-focustrap--active:focus-within {
+  outline: 1px solid var(--p-focus-ring-color);
+  outline-offset: 2px;
+}

@@ -1,0 +1,19 @@
+// PvMegaMenu -> PrimeVue Aura MegaMenu
+.qpv-megamenu--vertical .qpv-megamenu__toolbar {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.qpv-megamenu__panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+  min-width: 24rem;
+  padding: 1rem;
+  background: var(--p-content-background);
+}
+
+.qpv-megamenu__group-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}

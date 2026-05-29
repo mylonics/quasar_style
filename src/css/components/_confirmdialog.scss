@@ -1,0 +1,14 @@
+// PvConfirmDialog -> PrimeVue Aura ConfirmDialog
+.qpv-confirmdialog__card {
+  min-width: 22rem;
+  background: var(--p-content-background);
+  color: var(--p-content-color);
+  border-radius: var(--p-content-border-radius);
+}
+
+.qpv-confirmdialog__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}

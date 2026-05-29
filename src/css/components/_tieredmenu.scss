@@ -1,0 +1,28 @@
+// PvTieredMenu -> PrimeVue Aura TieredMenu
+.qpv-tieredmenu__panel {
+  background: var(--p-content-background);
+  border: 1px solid var(--p-content-border-color);
+  border-radius: var(--p-content-border-radius);
+  min-width: 14rem;
+}
+
+.qpv-tieredmenu__entry {
+  position: relative;
+}
+
+.qpv-tieredmenu__separator {
+  border-top: 1px solid var(--p-content-border-color);
+  margin: 0.25rem 0;
+}
+
+.qpv-tieredmenu__submenu {
+  position: absolute;
+  top: 0;
+  left: calc(100% - 0.25rem);
+  display: none;
+  z-index: 2;
+}
+
+.qpv-tieredmenu__entry:hover > .qpv-tieredmenu__submenu {
+  display: block;
+}

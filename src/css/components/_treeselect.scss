@@ -1,0 +1,34 @@
+// PvTreeSelect -> PrimeVue Aura TreeSelect
+.qpv-treeselect {
+  display: inline-flex;
+  width: auto;
+}
+
+.qpv-treeselect--fluid {
+  width: 100%;
+}
+
+.qpv-treeselect__trigger {
+  width: 100%;
+  min-width: 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--p-content-border-color);
+  border-radius: var(--p-content-border-radius);
+  background: var(--p-content-background);
+  color: var(--p-content-color);
+  cursor: pointer;
+}
+
+.qpv-treeselect__placeholder,
+.qpv-treeselect__empty {
+  color: var(--p-text-muted-color);
+}
+
+.qpv-treeselect__panel {
+  min-width: 16rem;
+  padding: 0.5rem;
+}
