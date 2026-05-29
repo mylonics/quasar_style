@@ -59,7 +59,7 @@ execFileSync(
     path.join('src', 'css', 'primevue-aura.scss'),
     path.join('playground', 'primevue-aura.css'),
   ],
-  { cwd: root, stdio: 'inherit' },
+  { cwd: root, stdio: 'inherit', shell: true },
 );
 
 console.log('Playground ready. Serve it with: npx serve playground');

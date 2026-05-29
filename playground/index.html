@@ -6,17 +6,73 @@
     <title>Quasar + PrimeVue Aura playground</title>
     <link href="vendor/quasar.prod.css" rel="stylesheet" />
     <link href="vendor/material-icons/material-icons.css" rel="stylesheet" />
-    <!-- The Aura theme is injected at runtime by the screenshot tooling so the
-         same page can be captured before (plain Quasar) and after (Aura). -->
+    <link href="primevue-aura.css" rel="stylesheet" id="aura-theme" />
+    <!-- The Aura theme is toggled at runtime by the nav bar below, and also
+         injected by the screenshot tooling for before/after captures. -->
     <style>
-      body { padding: 24px; }
+      body { padding: 24px; padding-top: 64px; }
       .gallery { max-width: 980px; margin: 0 auto; }
       .row-wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
       .block { margin-bottom: 28px; }
       h2.section { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; opacity: .6; margin: 0 0 10px; }
+      #dev-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+        display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+        background: #1e293b; color: #f8fafc; font-family: sans-serif; font-size: 13px;
+        box-shadow: 0 2px 6px rgba(0,0,0,.3);
+      }
+      #dev-nav a {
+        color: #94a3b8; text-decoration: none; padding: 4px 10px;
+        border-radius: 4px; transition: background .15s;
+      }
+      #dev-nav a:hover { background: #334155; color: #f8fafc; }
+      #dev-nav a.active { background: #3b82f6; color: #fff; }
+      #dev-nav button {
+        margin-left: auto; padding: 4px 12px; border: 1px solid #475569;
+        background: transparent; color: #f8fafc; border-radius: 4px;
+        cursor: pointer; font-size: 13px; transition: background .15s;
+      }
+      #dev-nav button:hover { background: #334155; }
+      #dev-nav button.on { background: #3b82f6; border-color: #3b82f6; }
     </style>
   </head>
   <body>
+    <nav id="dev-nav">
+      <a href="index.html" id="nav-plain" class="active">Plain Quasar</a>
+      <a href="primevue.html">PrimeVue Reference</a>
+      <button id="theme-toggle">Enable Aura theme</button>
+    </nav>
+    <script>
+      (function () {
+        var btn = document.getElementById('theme-toggle');
+        var auraEnabled = true;
+        btn.textContent = 'Disable Aura theme';
+        btn.classList.add('on');
+        document.getElementById('nav-plain').textContent = 'Quasar + Aura';
+        btn.addEventListener('click', function () {
+          auraEnabled = !auraEnabled;
+          if (auraEnabled) {
+            var existing = document.getElementById('aura-theme');
+            if (!existing) {
+              var link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = 'primevue-aura.css';
+              link.id = 'aura-theme';
+              document.head.appendChild(link);
+            }
+            btn.textContent = 'Disable Aura theme';
+            btn.classList.add('on');
+            document.getElementById('nav-plain').textContent = 'Quasar + Aura';
+          } else {
+            var el = document.getElementById('aura-theme');
+            if (el) el.parentNode.removeChild(el);
+            btn.textContent = 'Enable Aura theme';
+            btn.classList.remove('on');
+            document.getElementById('nav-plain').textContent = 'Plain Quasar';
+          }
+        });
+      })();
+    </script>
     <div id="q-app"></div>
 
     <script src="vendor/vue.global.prod.js"></script>
