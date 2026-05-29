@@ -1,0 +1,49 @@
+// PvConfirmPopup -> PrimeVue Aura ConfirmPopup
+.qpv-confirmpopup {
+  border-radius: var(--p-confirmpopup-border-radius, var(--p-border-radius-md));
+  box-shadow: var(--p-confirmpopup-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+  border: 1px solid var(--p-confirmpopup-border-color, var(--p-surface-200));
+  background: var(--p-confirmpopup-background, var(--p-surface-0));
+  color: var(--p-confirmpopup-color, var(--p-text-color));
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.qpv-confirmpopup__content {
+  padding: 1rem 1.25rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.qpv-confirmpopup__icon {
+  display: flex;
+  justify-content: center;
+}
+
+.qpv-confirmpopup__icon-el {
+  font-size: 1.5rem;
+  color: var(--p-confirmpopup-icon-color, var(--p-primary-color));
+}
+
+.qpv-confirmpopup__message {
+  font-size: 0.875rem;
+  color: var(--p-confirmpopup-color, var(--p-text-color));
+  text-align: center;
+}
+
+.qpv-confirmpopup__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.qpv-confirmpopup__reject-btn {
+  color: var(--p-button-secondary-color, var(--p-text-color));
+  font-size: 0.875rem;
+}
+
+.qpv-confirmpopup__accept-btn {
+  color: var(--p-primary-color);
+  font-size: 0.875rem;
+}

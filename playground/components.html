@@ -43,6 +43,20 @@
       const app = createApp({
         data() {
           return {
+            // Password
+            password: '',
+            // BlockUI
+            blockUIBlocked: false,
+            // AutoComplete
+            acValue: null,
+            acSuggestions: [],
+            acItems: ['Angular', 'React', 'Svelte', 'TypeScript', 'Vue'],
+            // ConfirmPopup
+            confirmResult: '',
+            // Image
+            // (no extra state needed)
+            // Popover
+            popRef: null,
             // MeterGroup
             meter: [
               { label: 'Apps', value: 16, color: '#6366f1' },
@@ -72,6 +86,81 @@
         },
         template: `
           <div class="gallery">
+            <div class="demo-block">
+              <h2 class="section">AutoComplete</h2>
+              <div class="demo-card">
+                <AutoComplete
+                  v-model="acValue"
+                  :suggestions="acSuggestions"
+                  placeholder="Search frameworks…"
+                  @complete="acSuggestions = acItems.filter(i => i.toLowerCase().includes($event.query.toLowerCase()))"
+                  style="width:280px"
+                />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">ConfirmPopup</h2>
+              <div class="demo-card">
+                <q-btn label="Delete item" color="negative">
+                  <ConfirmPopup
+                    message="Are you sure you want to delete this item?"
+                    @accept="confirmResult = 'Accepted'"
+                    @reject="confirmResult = 'Rejected'"
+                  />
+                </q-btn>
+                <span v-if="confirmResult" class="q-ml-sm">Result: {{ confirmResult }}</span>
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Image (with preview)</h2>
+              <div class="demo-card">
+                <Image
+                  src="https://primefaces.org/cdn/primevue/images/galleria/galleria1.jpg"
+                  alt="Gallery photo"
+                  width="200"
+                  preview
+                />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Password</h2>
+              <div class="demo-card">
+                <Password v-model="password" toggle-mask feedback placeholder="Enter password" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">BlockUI</h2>
+              <div class="demo-card" style="position:relative">
+                <BlockUI :blocked="blockUIBlocked">
+                  <q-card flat>
+                    <q-card-section>
+                      <div class="text-subtitle1">Blocked content area</div>
+                      <p>Click the button below to toggle the BlockUI overlay.</p>
+                    </q-card-section>
+                  </q-card>
+                </BlockUI>
+                <q-btn class="q-mt-sm" :label="blockUIBlocked ? 'Unblock' : 'Block'" @click="blockUIBlocked = !blockUIBlocked" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Popover</h2>
+              <div class="demo-card">
+                <q-btn label="Toggle Popover">
+                  <Popover ref="popRef">
+                    <div style="padding:12px; max-width:200px">
+                      <div class="text-subtitle2">Popover content</div>
+                      <p style="margin:8px 0 0">This is a PrimeVue-style popover anchored to the button.</p>
+                    </div>
+                  </Popover>
+                </q-btn>
+              </div>
+            </div>
+
             <div class="demo-block">
               <h2 class="section">MeterGroup</h2>
               <div class="demo-card">

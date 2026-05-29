@@ -1,0 +1,96 @@
+// PvImage -> PrimeVue Aura Image
+.qpv-image {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+
+  &--preview {
+    cursor: pointer;
+
+    &:hover .qpv-image__preview-btn {
+      opacity: 1;
+    }
+  }
+}
+
+.qpv-image__img {
+  display: block;
+}
+
+.qpv-image__preview-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+.qpv-image__preview-icon {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+// Full-screen preview mask
+.qpv-image__mask {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.qpv-image__preview-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.5);
+
+  .qpv-image__toolbar-btn {
+    color: #fff;
+  }
+}
+
+.qpv-image__preview-image-wrap {
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qpv-image__preview-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  transform-origin: center center;
+  user-select: none;
+}
+
+// Transition
+.qpv-image-preview-enter-active,
+.qpv-image-preview-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.qpv-image-preview-enter-from,
+.qpv-image-preview-leave-to {
+  opacity: 0;
+}

@@ -105,3 +105,12 @@
 
 /* picklist */
 :root,:host{--p-picklist-controls-gap:0.5rem;--p-picklist-gap:1.125rem;}
+
+/* password */
+:root,:host{--p-password-content-gap:0.5rem;--p-password-overlay-background:var(--p-overlay-popover-background);--p-password-overlay-border-color:var(--p-overlay-popover-border-color);--p-password-overlay-border-radius:var(--p-overlay-popover-border-radius);--p-password-overlay-color:var(--p-overlay-popover-color);--p-password-overlay-padding:var(--p-overlay-popover-padding);--p-password-overlay-shadow:var(--p-overlay-popover-shadow);--p-password-icon-color:var(--p-form-field-icon-color);--p-password-meter-background:var(--p-content-border-color);--p-password-meter-border-radius:var(--p-content-border-radius);--p-password-meter-height:.75rem;--p-password-strength-weak-background:var(--p-red-500);--p-password-strength-medium-background:var(--p-amber-500);--p-password-strength-strong-background:var(--p-green-500);}.body--dark{--p-password-strength-weak-background:var(--p-red-400);--p-password-strength-medium-background:var(--p-amber-400);--p-password-strength-strong-background:var(--p-green-400);}
+
+/* blockui */
+:root,:host{--p-blockui-border-radius:var(--p-content-border-radius);}
+
+/* popover */
+:root,:host{--p-popover-content-padding:var(--p-overlay-popover-padding);--p-popover-background:var(--p-overlay-popover-background);--p-popover-border-color:var(--p-overlay-popover-border-color);--p-popover-color:var(--p-overlay-popover-color);--p-popover-border-radius:var(--p-overlay-popover-border-radius);--p-popover-shadow:var(--p-overlay-popover-shadow);--p-popover-gutter:10px;--p-popover-arrow-offset:1.25rem;}

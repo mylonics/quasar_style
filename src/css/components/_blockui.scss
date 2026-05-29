@@ -1,0 +1,40 @@
+// PvBlockUI -> PrimeVue Aura BlockUI
+.qpv-blockui {
+  position: relative;
+
+  &--full-page {
+    position: fixed;
+    inset: 0;
+    z-index: var(--p-blockui-full-page-mask-z-index, 9998);
+  }
+}
+
+.qpv-blockui__mask {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--p-blockui-mask-background, rgba(255, 255, 255, 0.4));
+  border-radius: inherit;
+  z-index: var(--p-blockui-mask-z-index, 1);
+
+  .body--dark & {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.qpv-blockui__spinner {
+  color: var(--p-primary-color);
+}
+
+// Transition
+.qpv-blockui-fade-enter-active,
+.qpv-blockui-fade-leave-active {
+  transition: opacity var(--p-transition-duration, 0.2s);
+}
+
+.qpv-blockui-fade-enter-from,
+.qpv-blockui-fade-leave-to {
+  opacity: 0;
+}
