@@ -60,6 +60,10 @@ const COMPONENTS = [
   'dataview',
   'orderlist',
   'picklist',
+  // Phase 4 — second iteration (P2 components).
+  'password',
+  'blockui',
+  'popover',
 ];
 
 Theme.setTheme({

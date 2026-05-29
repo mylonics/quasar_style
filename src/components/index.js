@@ -10,6 +10,9 @@ import Inplace from './Inplace.vue';
 import DataView from './DataView.vue';
 import OrderList from './OrderList.vue';
 import PickList from './PickList.vue';
+import Password from './Password.vue';
+import BlockUI from './BlockUI.vue';
+import Popover from './Popover.vue';
 
 export const components = {
   MeterGroup,
@@ -18,9 +21,12 @@ export const components = {
   DataView,
   OrderList,
   PickList,
+  Password,
+  BlockUI,
+  Popover,
 };
 
-export { MeterGroup, Fieldset, Inplace, DataView, OrderList, PickList };
+export { MeterGroup, Fieldset, Inplace, DataView, OrderList, PickList, Password, BlockUI, Popover };
 
 export default {
   install(app) {

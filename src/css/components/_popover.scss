@@ -1,0 +1,16 @@
+// PvPopover -> PrimeVue Aura Popover (formerly OverlayPanel)
+// QMenu provides the anchor positioning and animation; this layer applies the
+// PrimeVue Aura Popover token set.
+.qpv-popover {
+  background: var(--p-popover-background, var(--p-overlay-popover-background, var(--p-surface-0)));
+  border: 1px solid var(--p-popover-border-color, var(--p-overlay-popover-border-color, var(--p-surface-200)));
+  border-radius: var(--p-popover-border-radius, var(--p-overlay-popover-border-radius, var(--p-border-radius-md)));
+  box-shadow: var(--p-popover-shadow, var(--p-overlay-popover-shadow));
+  color: var(--p-popover-color, var(--p-overlay-popover-color, var(--p-text-color)));
+  // Reset QMenu default padding so the content slot controls spacing
+  padding: 0;
+}
+
+.qpv-popover__content {
+  padding: var(--p-popover-padding, var(--p-overlay-popover-padding, 0.75rem));
+}
