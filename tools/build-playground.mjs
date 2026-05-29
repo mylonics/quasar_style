@@ -16,8 +16,8 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import * as sass from 'sass';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -51,15 +51,12 @@ for (const [pkgPath, dest] of assets) {
   console.log(`copied ${dest}`);
 }
 
-execFileSync(
-  'npx',
-  [
-    'sass',
-    '--no-source-map',
-    path.join('src', 'css', 'primevue-aura.scss'),
-    path.join('playground', 'primevue-aura.css'),
-  ],
-  { cwd: root, stdio: 'inherit' },
-);
+// Compile the Aura theme via the sass JS API (cross-platform; avoids spawning
+// the `npx`/`sass` binary, which isn't directly executable on every platform).
+const { css } = sass.compile(path.join(root, 'src', 'css', 'primevue-aura.scss'), {
+  sourceMap: false,
+});
+fs.writeFileSync(path.join(root, 'playground', 'primevue-aura.css'), css);
+console.log('compiled primevue-aura.css');
 
 console.log('Playground ready. Serve it with: npx serve playground');
