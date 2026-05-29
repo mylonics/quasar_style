@@ -1,0 +1,40 @@
+// PvOrderList -> PrimeVue Aura OrderList
+.qpv-orderlist {
+  display: flex;
+  gap: var(--p-orderlist-gap, 1.125rem);
+  align-items: flex-start;
+}
+
+.qpv-orderlist__controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--p-orderlist-controls-gap, 0.5rem);
+}
+
+.qpv-orderlist__list-wrap {
+  flex: 1;
+  border: 1px solid var(--p-listbox-border-color);
+  border-radius: var(--p-listbox-border-radius);
+  background: var(--p-listbox-background);
+  overflow: hidden;
+}
+
+.qpv-orderlist__header {
+  padding: var(--p-listbox-list-header-padding, 0.75rem 1rem);
+  font-weight: 600;
+  border-bottom: 1px solid var(--p-listbox-border-color);
+}
+
+.qpv-orderlist__list {
+  padding: var(--p-listbox-list-padding, 0.25rem 0.25rem);
+}
+
+.qpv-orderlist__item {
+  border-radius: var(--p-listbox-option-border-radius);
+  color: var(--p-listbox-option-color);
+
+  &.q-item--active {
+    background: var(--p-listbox-option-selected-background);
+    color: var(--p-listbox-option-selected-color);
+  }
+}

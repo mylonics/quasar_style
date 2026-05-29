@@ -1,0 +1,54 @@
+// PvDataView -> PrimeVue Aura DataView
+.qpv-dataview {
+  border: var(--p-dataview-border-width) solid var(--p-dataview-border-color);
+  border-radius: var(--p-dataview-border-radius);
+  padding: var(--p-dataview-padding);
+}
+
+.qpv-dataview__header {
+  background: var(--p-dataview-header-background);
+  color: var(--p-dataview-header-color);
+  border: var(--p-dataview-header-border-width) solid var(--p-dataview-header-border-color);
+  border-radius: var(--p-dataview-header-border-radius);
+  padding: var(--p-dataview-header-padding);
+  font-weight: 600;
+}
+
+.qpv-dataview__content {
+  background: var(--p-dataview-content-background);
+  color: var(--p-dataview-content-color);
+  border: var(--p-dataview-content-border-width) solid var(--p-dataview-content-border-color);
+  border-radius: var(--p-dataview-content-border-radius);
+  padding: var(--p-dataview-content-padding);
+}
+
+.qpv-dataview__empty {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--p-text-muted-color, #64748b);
+}
+
+.qpv-dataview__footer {
+  background: var(--p-dataview-footer-background);
+  color: var(--p-dataview-footer-color);
+  border: var(--p-dataview-footer-border-width) solid var(--p-dataview-footer-border-color);
+  border-radius: var(--p-dataview-footer-border-radius);
+  padding: var(--p-dataview-footer-padding);
+}
+
+.qpv-dataview__paginator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-top: var(--p-dataview-paginator-top-border-width) solid var(--p-dataview-paginator-top-border-color);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+// A simple grid for the `grid` layout slot (host content controls cells).
+.qpv-dataview--grid .qpv-dataview__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1rem;
+}

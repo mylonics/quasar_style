@@ -17,12 +17,20 @@ module.exports = function (api) {
     api.compatibleWith('@quasar/app-webpack', '>=3.0.0 <5.0.0');
   }
 
-  // Register the theme stylesheet. The `~` prefix resolves to node_modules,
-  // letting Quasar's build compile the SCSS (and its `--p-*` token layer).
+  // Register the theme stylesheet and the component-library boot file. The `~`
+  // prefix resolves to node_modules, letting Quasar's build compile the SCSS
+  // (and its `--p-*` token layer) and bundle the boot file.
   api.extendQuasarConf((conf) => {
     const css = '~quasar-app-extension-primevue-aura/src/css/primevue-aura.scss';
     if (!conf.css.includes(css)) {
       conf.css.push(css);
+    }
+
+    // Boot file registers the components Quasar lacks (DataView, Fieldset,
+    // MeterGroup, Inplace, OrderList, PickList) globally. See src/components.
+    const boot = '~quasar-app-extension-primevue-aura/src/boot/components.js';
+    if (!conf.boot.includes(boot)) {
+      conf.boot.push(boot);
     }
   });
 };

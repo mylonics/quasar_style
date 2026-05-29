@@ -28,7 +28,9 @@
     "generate:tokens": "node tools/generate-tokens.mjs",
     "build:css": "sass --no-source-map src/css/primevue-aura.scss dist/primevue-aura.css",
     "playground": "node tools/build-playground.mjs",
-    "screenshots": "node tools/screenshot.mjs"
+    "screenshots": "node tools/screenshot.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "engines": {
     "node": ">= 18"
@@ -41,11 +43,15 @@
     "@primeuix/themes": "^2.0.0",
     "@primeuix/utils": "^0.6.0",
     "@quasar/extras": "^1.18.0",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "@vue/test-utils": "^2.4.10",
+    "happy-dom": "^20.9.0",
     "playwright": "^1.60.0",
     "primeicons": "^7.0.0",
     "primevue": "^4.5.5",
     "quasar": "^2.16.0",
     "sass": "^1.70.0",
+    "vitest": "^4.1.7",
     "vue": "^3.4.0"
   }
 }
