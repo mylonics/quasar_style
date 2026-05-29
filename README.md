@@ -10,9 +10,12 @@ app gets the clean PrimeVue look out of the box while you keep using Quasar's
 > layer)**. It does not add new components yet — that is planned for a later
 > phase (porting PrimeVue components Quasar lacks).
 
-| Plain Quasar (Material) | Aura theme (light) | Aura theme (dark) |
+| Plain Quasar (Material) | This extension's Aura theme | Real PrimeVue v4 Aura (reference) |
 | --- | --- | --- |
-| ![before](docs/screenshots/before-light.png) | ![after light](docs/screenshots/after-light.png) | ![after dark](docs/screenshots/after-dark.png) |
+| ![plain Quasar](docs/screenshots/quasar-plain.png) | ![Quasar + Aura](docs/screenshots/quasar-aura.png) | ![PrimeVue Aura](docs/screenshots/primevue.png) |
+
+The middle image is Quasar's own components restyled by this extension; the
+right image is upstream PrimeVue rendered with the same gallery, for comparison.
 
 ## How it works
 
@@ -76,7 +79,7 @@ Dark.set(true); // or Dark.set('auto')
 ## Development
 
 This repo is both the published extension and a small static playground used to
-capture the before/after screenshots above.
+capture the comparison screenshots above.
 
 ```bash
 npm install
@@ -84,17 +87,22 @@ npm install
 # Regenerate the Aura token layer from @primeuix/themes
 npm run generate:tokens
 
-# Build the playground (copies Vue/Quasar UMD + compiles the theme)
+# Build the playground (copies Vue/Quasar/PrimeVue UMD + fonts, compiles theme)
 npm run playground
 npx serve playground        # then open http://localhost:3000
+
+# Regenerate docs/screenshots (needs: npx playwright install chromium)
+npm run screenshots
 
 # Compile the theme to dist/primevue-aura.css
 npm run build:css
 ```
 
-The playground (`playground/index.html`) renders a gallery of Quasar components
-with plain Quasar styling; attaching `playground/primevue-aura.css` switches it
-to the Aura theme, which is how the comparison screenshots are produced.
+The playground renders the **same** component gallery two ways:
+`playground/index.html` is plain Quasar (attaching `playground/primevue-aura.css`
+switches it to the Aura theme) and `playground/primevue.html` is the real
+PrimeVue v4 Aura components for reference. See
+[`tools/README.md`](tools/README.md) for the full screenshot workflow.
 
 ## License
 
