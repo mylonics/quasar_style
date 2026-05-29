@@ -1,0 +1,18 @@
+// QRadio -> PrimeVue Aura RadioButton
+.q-radio__inner {
+  color: var(--p-radiobutton-border-color);
+  transition: color var(--p-radiobutton-transition-duration);
+}
+
+.q-radio:hover .q-radio__inner:not(.q-radio__inner--truthy) {
+  color: var(--p-radiobutton-hover-border-color);
+}
+
+// Checked ring + dot use the Aura primary (via `--q-primary`).
+.q-radio__inner--truthy {
+  color: var(--p-primary-color);
+}
+
+.q-radio__check {
+  color: var(--p-radiobutton-icon-checked-color);
+}

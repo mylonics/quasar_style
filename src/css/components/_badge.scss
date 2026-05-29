@@ -1,0 +1,14 @@
+// QBadge -> PrimeVue Aura Badge
+.q-badge {
+  background-color: var(--p-primary-color);
+  color: var(--p-primary-contrast-color);
+  border-radius: var(--p-badge-border-radius);
+  font-size: var(--p-badge-font-size);
+  font-weight: var(--p-badge-font-weight);
+  padding: var(--p-badge-padding);
+  min-height: var(--p-badge-height);
+}
+
+.q-badge--rounded {
+  border-radius: 9999px;
+}

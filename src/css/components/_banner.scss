@@ -1,0 +1,17 @@
+// QBanner -> PrimeVue Aura Message (informational surface).
+// Aura's info Message is a compact, tinted blue surface, so match its colours,
+// radius and padding rather than rendering a tall neutral content panel.
+.q-banner {
+  background: var(--p-message-info-background);
+  color: var(--p-message-info-color);
+  border-radius: var(--p-message-border-radius);
+  border: 1px solid var(--p-message-info-border-color);
+  padding: var(--p-message-content-padding);
+  min-height: 0;
+  font-weight: var(--p-message-text-font-weight);
+}
+
+.q-banner__content,
+.q-banner__avatar {
+  color: var(--p-message-info-color);
+}

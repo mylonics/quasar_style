@@ -1,0 +1,11 @@
+// QCard -> PrimeVue Aura Card
+.q-card {
+  background: var(--p-card-background);
+  color: var(--p-card-color);
+  border-radius: var(--p-card-border-radius);
+  box-shadow: var(--p-card-shadow);
+}
+
+.q-card__section {
+  padding: var(--p-card-body-padding);
+}

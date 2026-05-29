@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# Generated playground assets (recreate with: node tools/build-playground.mjs)
+playground/vendor/
+playground/primevue-aura.css

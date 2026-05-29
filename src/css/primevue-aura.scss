@@ -1,0 +1,31 @@
+// =============================================================================
+// quasar-app-extension-primevue-aura
+// Restyles Quasar's components to match the PrimeVue v4 "Aura" theme.
+// Import this file (the App Extension wires it up automatically) after Quasar.
+// =============================================================================
+
+// PrimeVue Aura design tokens, exposed as `--p-*` CSS custom properties.
+@use 'primevue/tokens';
+
+// Map Quasar's brand variables + global surfaces/typography onto the tokens.
+@use 'base';
+
+// Per-component overrides.
+@use 'components/button';
+@use 'components/field';
+@use 'components/checkbox';
+@use 'components/radio';
+@use 'components/toggle';
+@use 'components/card';
+@use 'components/chip';
+@use 'components/badge';
+@use 'components/banner';
+@use 'components/separator';
+@use 'components/progress';
+@use 'components/slider';
+@use 'components/tabs';
+@use 'components/list';
+@use 'components/menu';
+@use 'components/dialog';
+@use 'components/tooltip';
+@use 'components/toolbar';

@@ -1,0 +1,12 @@
+// QChip -> PrimeVue Aura Chip
+.q-chip {
+  background: var(--p-chip-background);
+  color: var(--p-chip-color);
+  border-radius: var(--p-chip-border-radius);
+  padding: var(--p-chip-padding-y) var(--p-chip-padding-x);
+  font-size: 1rem;
+}
+
+.q-chip__icon {
+  color: var(--p-chip-icon-color);
+}

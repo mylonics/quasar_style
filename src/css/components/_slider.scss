@@ -1,0 +1,18 @@
+// QSlider -> PrimeVue Aura Slider
+.q-slider__track {
+  background: var(--p-slider-track-background) !important;
+  border-radius: var(--p-slider-track-border-radius);
+}
+
+.q-slider__selection {
+  background: var(--p-slider-range-background);
+}
+
+.q-slider__thumb {
+  color: var(--p-slider-handle-background);
+}
+
+.q-slider__thumb path {
+  stroke: var(--p-slider-handle-background);
+  fill: var(--p-slider-handle-background);
+}

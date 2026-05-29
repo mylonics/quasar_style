@@ -1,0 +1,12 @@
+// QSeparator -> PrimeVue Aura Divider
+.q-separator {
+  background: var(--p-divider-border-color);
+}
+
+.q-separator--horizontal {
+  height: 1px;
+}
+
+.q-separator--vertical {
+  width: 1px;
+}

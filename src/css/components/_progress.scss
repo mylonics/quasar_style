@@ -1,0 +1,14 @@
+// QLinearProgress -> PrimeVue Aura ProgressBar
+.q-linear-progress {
+  border-radius: var(--p-progressbar-border-radius);
+  color: var(--p-progressbar-value-background);
+}
+
+.q-linear-progress__track {
+  opacity: 1;
+  background: var(--p-progressbar-background);
+}
+
+.q-linear-progress__model {
+  background: var(--p-progressbar-value-background);
+}

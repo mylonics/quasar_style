@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quasar + PrimeVue Aura playground</title>
+    <link href="vendor/quasar.prod.css" rel="stylesheet" />
+    <link href="vendor/material-icons/material-icons.css" rel="stylesheet" />
+    <link href="primevue-aura.css" rel="stylesheet" id="aura-theme" />
+    <!-- The Aura theme is toggled at runtime by the nav bar below, and also
+         injected by the screenshot tooling for before/after captures. -->
+    <style>
+      body { padding: 24px; padding-top: 64px; }
+      .gallery { max-width: 980px; margin: 0 auto; }
+      .row-wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+      .demo-block { margin-bottom: 28px; }
+      h2.section { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; opacity: .6; margin: 0 0 10px; }
+      #dev-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+        display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+        background: #1e293b; color: #f8fafc; font-family: sans-serif; font-size: 13px;
+        box-shadow: 0 2px 6px rgba(0,0,0,.3);
+      }
+      #dev-nav a {
+        color: #94a3b8; text-decoration: none; padding: 4px 10px;
+        border-radius: 4px; transition: background .15s;
+      }
+      #dev-nav a:hover { background: #334155; color: #f8fafc; }
+      #dev-nav a.active { background: #3b82f6; color: #fff; }
+      #dev-nav button {
+        margin-left: auto; padding: 4px 12px; border: 1px solid #475569;
+        background: transparent; color: #f8fafc; border-radius: 4px;
+        cursor: pointer; font-size: 13px; transition: background .15s;
+      }
+      #dev-nav button:hover { background: #334155; }
+      #dev-nav button.on { background: #3b82f6; border-color: #3b82f6; }
+    </style>
+  </head>
+  <body>
+    <nav id="dev-nav">
+      <a href="index.html" id="nav-plain" class="active">Plain Quasar</a>
+      <a href="primevue.html">PrimeVue Reference</a>
+      <button id="theme-toggle">Enable Aura theme</button>
+    </nav>
+    <script>
+      (function () {
+        var btn = document.getElementById('theme-toggle');
+        var auraEnabled = true;
+        btn.textContent = 'Disable Aura theme';
+        btn.classList.add('on');
+        document.getElementById('nav-plain').textContent = 'Quasar + Aura';
+        btn.addEventListener('click', function () {
+          auraEnabled = !auraEnabled;
+          if (auraEnabled) {
+            var existing = document.getElementById('aura-theme');
+            if (!existing) {
+              var link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = 'primevue-aura.css';
+              link.id = 'aura-theme';
+              document.head.appendChild(link);
+            }
+            btn.textContent = 'Disable Aura theme';
+            btn.classList.add('on');
+            document.getElementById('nav-plain').textContent = 'Quasar + Aura';
+          } else {
+            var el = document.getElementById('aura-theme');
+            if (el) el.parentNode.removeChild(el);
+            btn.textContent = 'Enable Aura theme';
+            btn.classList.remove('on');
+            document.getElementById('nav-plain').textContent = 'Plain Quasar';
+          }
+        });
+      })();
+    </script>
+    <div id="q-app"></div>
+
+    <script src="vendor/vue.global.prod.js"></script>
+    <script src="vendor/quasar.umd.prod.js"></script>
+    <script>
+      const { createApp } = Vue;
+      const app = createApp({
+        data() {
+          return {
+            text: 'Initial value',
+            text2: '',
+            sel: 'Quasar',
+            options: ['Quasar', 'PrimeVue', 'Vue', 'Vite'],
+            check: true,
+            check2: false,
+            radio: 'a',
+            toggle: true,
+            slider: 40,
+            progress: 0.6,
+            tab: 'one',
+          };
+        },
+        template: `
+          <div class="gallery">
+            <div class="demo-block" data-shot="buttons">
+              <h2 class="section">Buttons</h2>
+              <div class="row-wrap">
+                <q-btn color="primary" label="Primary" />
+                <q-btn color="secondary" label="Secondary" />
+                <q-btn color="positive" label="Success" />
+                <q-btn color="negative" label="Danger" />
+                <q-btn outline color="primary" label="Outlined" />
+                <q-btn flat color="primary" label="Text" />
+                <q-btn color="primary" rounded label="Rounded" />
+                <q-btn color="primary" icon="add" round />
+              </div>
+            </div>
+
+            <div class="demo-block" data-shot="fields">
+              <h2 class="section">Inputs &amp; Select</h2>
+              <div class="row-wrap">
+                <q-input outlined v-model="text" style="width:220px" />
+                <q-input outlined v-model="text2" placeholder="Placeholder" style="width:220px" />
+                <q-select outlined v-model="sel" :options="options" style="width:220px" />
+              </div>
+            </div>
+
+            <div class="demo-block" data-shot="selection">
+              <h2 class="section">Checkbox / Radio / Toggle</h2>
+              <div class="row-wrap">
+                <q-checkbox v-model="check" label="Checked" />
+                <q-checkbox v-model="check2" label="Unchecked" />
+                <q-radio v-model="radio" val="a" label="Option A" />
+                <q-radio v-model="radio" val="b" label="Option B" />
+                <q-toggle v-model="toggle" label="Toggle" />
+              </div>
+            </div>
+
+            <div class="demo-block" data-shot="chips">
+              <h2 class="section">Chips &amp; Badges</h2>
+              <div class="row-wrap">
+                <q-chip>Default</q-chip>
+                <q-chip>Primary</q-chip>
+                <q-chip removable>Removable</q-chip>
+                <q-badge color="primary" label="Badge" />
+                <q-badge color="negative" label="9+" rounded />
+              </div>
+            </div>
+
+            <div class="demo-block" data-shot="progress">
+              <h2 class="section">Progress &amp; Slider</h2>
+              <div class="row-wrap" style="flex-direction:column; align-items:stretch">
+                <q-linear-progress :value="progress" color="primary" style="height:8px" class="q-mb-md" />
+                <q-slider v-model="slider" :min="0" :max="100" color="primary" />
+              </div>
+            </div>
+
+            <div class="demo-block" data-shot="tabs">
+              <h2 class="section">Tabs</h2>
+              <q-tabs v-model="tab" align="left" active-color="primary" indicator-color="primary">
+                <q-tab name="one" label="Overview" />
+                <q-tab name="two" label="Details" />
+                <q-tab name="three" label="Settings" />
+              </q-tabs>
+            </div>
+
+            <div class="demo-block" data-shot="card">
+              <h2 class="section">Card</h2>
+              <q-card style="max-width:320px">
+                <q-card-section>
+                  <div class="text-h6">Card title</div>
+                  <div class="text-subtitle2 text-grey">Supporting subtitle</div>
+                  <div class="q-mt-sm">
+                    Cards group related content and actions in an Aura surface.
+                  </div>
+                </q-card-section>
+                <q-card-actions align="right">
+                  <q-btn flat color="primary" label="Cancel" />
+                  <q-btn color="primary" label="Save" />
+                </q-card-actions>
+              </q-card>
+            </div>
+
+            <div class="demo-block" data-shot="list">
+              <h2 class="section">List</h2>
+              <q-card style="max-width:320px">
+                <q-list>
+                  <q-item clickable>
+                    <q-item-section>Inbox</q-item-section>
+                  </q-item>
+                  <q-item clickable active>
+                    <q-item-section>Starred</q-item-section>
+                  </q-item>
+                  <q-item clickable>
+                    <q-item-section>Sent</q-item-section>
+                  </q-item>
+                </q-list>
+              </q-card>
+            </div>
+
+            <div class="demo-block" data-shot="banner">
+              <h2 class="section">Banner</h2>
+              <q-banner>
+                This is an informational banner styled as an Aura surface.
+              </q-banner>
+            </div>
+          </div>
+        `,
+      });
+      app.use(Quasar, { config: {} });
+      app.mount('#q-app');
+    </script>
+  </body>
+</html>

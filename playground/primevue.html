@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PrimeVue v4 Aura reference</title>
+    <link href="vendor/primeicons/primeicons.css" rel="stylesheet" />
+    <!-- Reference page: the real PrimeVue v4 components with the Aura preset.
+         Used to compare the Quasar Aura theme against upstream PrimeVue. -->
+    <style>
+      body {
+        padding: 24px;
+        padding-top: 64px;
+        margin: 0;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--p-content-background, #fff);
+        color: var(--p-text-color, #334155);
+      }
+      .gallery { max-width: 980px; margin: 0 auto; }
+      .row-wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+      .demo-block { margin-bottom: 28px; }
+      h2.section { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; opacity: .6; margin: 0 0 10px; }
+      .label { display: inline-flex; align-items: center; gap: 6px; }
+      #dev-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+        display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+        background: #1e293b; color: #f8fafc; font-family: sans-serif; font-size: 13px;
+        box-shadow: 0 2px 6px rgba(0,0,0,.3);
+      }
+      #dev-nav a {
+        color: #94a3b8; text-decoration: none; padding: 4px 10px;
+        border-radius: 4px; transition: background .15s;
+      }
+      #dev-nav a:hover { background: #334155; color: #f8fafc; }
+      #dev-nav a.active { background: #3b82f6; color: #fff; }
+    </style>
+  </head>
+  <body>
+    <nav id="dev-nav">
+      <a href="index.html">Plain Quasar</a>
+      <a href="primevue.html" class="active">PrimeVue Reference</a>
+    </nav>
+    <div id="app"></div>
+
+    <script src="vendor/vue.global.prod.js"></script>
+    <script src="vendor/primevue.min.js"></script>
+    <script src="vendor/primeuix-aura.js"></script>
+    <script>
+      const { createApp } = Vue;
+      const app = createApp({
+        data() {
+          return {
+            text: 'Initial value',
+            text2: '',
+            sel: 'Quasar',
+            options: ['Quasar', 'PrimeVue', 'Vue', 'Vite'],
+            check: true,
+            check2: false,
+            radio: 'a',
+            toggle: true,
+            slider: 40,
+            listItems: [
+              { label: 'Inbox', value: 'inbox' },
+              { label: 'Starred', value: 'starred' },
+              { label: 'Sent', value: 'sent' },
+            ],
+            listSel: 'starred',
+          };
+        },
+        template: `
+          <div class="gallery">
+            <div class="demo-block">
+              <h2 class="section">Buttons</h2>
+              <div class="row-wrap">
+                <p-button label="Primary" />
+                <p-button label="Secondary" severity="secondary" />
+                <p-button label="Success" severity="success" />
+                <p-button label="Danger" severity="danger" />
+                <p-button label="Outlined" outlined />
+                <p-button label="Text" text />
+                <p-button label="Rounded" rounded />
+                <p-button icon="pi pi-plus" rounded aria-label="Add" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Inputs &amp; Select</h2>
+              <div class="row-wrap">
+                <p-inputtext v-model="text" style="width:220px" />
+                <p-inputtext v-model="text2" placeholder="Placeholder" style="width:220px" />
+                <p-select v-model="sel" :options="options" placeholder="Framework" style="width:220px" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Checkbox / Radio / Toggle</h2>
+              <div class="row-wrap">
+                <span class="label"><p-checkbox v-model="check" binary input-id="c1" /><label for="c1">Checked</label></span>
+                <span class="label"><p-checkbox v-model="check2" binary input-id="c2" /><label for="c2">Unchecked</label></span>
+                <span class="label"><p-radiobutton v-model="radio" value="a" input-id="r1" /><label for="r1">Option A</label></span>
+                <span class="label"><p-radiobutton v-model="radio" value="b" input-id="r2" /><label for="r2">Option B</label></span>
+                <span class="label"><p-toggleswitch v-model="toggle" input-id="t1" /><label for="t1">Toggle</label></span>
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Chips &amp; Badges</h2>
+              <div class="row-wrap">
+                <p-chip label="Default" />
+                <p-chip label="Primary" />
+                <p-chip label="Removable" removable />
+                <p-badge value="Badge" />
+                <p-badge value="9+" severity="danger" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Progress &amp; Slider</h2>
+              <div class="row-wrap" style="flex-direction:column; align-items:stretch">
+                <p-progressbar :value="60" style="height:8px" :show-value="false" />
+                <div style="height:12px"></div>
+                <p-slider v-model="slider" :min="0" :max="100" />
+              </div>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Tabs</h2>
+              <p-tabs value="0">
+                <p-tablist>
+                  <p-tab value="0">Overview</p-tab>
+                  <p-tab value="1">Details</p-tab>
+                  <p-tab value="2">Settings</p-tab>
+                </p-tablist>
+              </p-tabs>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Card</h2>
+              <p-card style="width:320px">
+                <template #title>Card title</template>
+                <template #subtitle>Supporting subtitle</template>
+                <template #content>
+                  Cards group related content and actions in an Aura surface.
+                </template>
+                <template #footer>
+                  <div class="row-wrap" style="justify-content:flex-end">
+                    <p-button label="Cancel" text />
+                    <p-button label="Save" />
+                  </div>
+                </template>
+              </p-card>
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">List</h2>
+              <p-listbox v-model="listSel" :options="listItems" option-label="label" option-value="value" style="width:320px" />
+            </div>
+
+            <div class="demo-block">
+              <h2 class="section">Banner</h2>
+              <p-message severity="info">This is an informational banner styled as an Aura surface.</p-message>
+            </div>
+          </div>
+        `,
+      });
+
+      app.use(PrimeVue.Config, {
+        theme: { preset: PrimeUIX.Themes.Aura, options: { darkModeSelector: '.app-dark' } },
+      });
+
+      const components = {
+        'p-button': 'Button',
+        'p-inputtext': 'InputText',
+        'p-select': 'Select',
+        'p-checkbox': 'Checkbox',
+        'p-radiobutton': 'RadioButton',
+        'p-toggleswitch': 'ToggleSwitch',
+        'p-chip': 'Chip',
+        'p-badge': 'Badge',
+        'p-progressbar': 'ProgressBar',
+        'p-slider': 'Slider',
+        'p-tabs': 'Tabs',
+        'p-tablist': 'TabList',
+        'p-tab': 'Tab',
+        'p-card': 'Card',
+        'p-listbox': 'Listbox',
+        'p-message': 'Message',
+      };
+      for (const [name, comp] of Object.entries(components)) {
+        app.component(name, PrimeVue[comp]);
+      }
+
+      app.mount('#app');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+// QTabs / QTab -> PrimeVue Aura Tabs
+.q-tabs {
+  color: var(--p-tabs-tab-color);
+  border-bottom: 1px solid var(--p-tabs-tablist-border-color);
+}
+
+.q-tab {
+  color: var(--p-tabs-tab-color);
+  text-transform: none;
+  font-weight: var(--p-tabs-tab-font-weight, 500);
+}
+
+.q-tab--active {
+  color: var(--p-tabs-tab-active-color);
+}
+
+.q-tabs__content .q-tab__indicator,
+.q-tab .q-tab__indicator {
+  background: var(--p-tabs-active-bar-background);
+  height: var(--p-tabs-active-bar-height);
+}
