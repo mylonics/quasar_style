@@ -53,6 +53,13 @@ const COMPONENTS = [
   'toolbar',
   'panel',
   'paginator',
+  // Phase 4 — components Quasar lacks, built under src/components.
+  'metergroup',
+  'fieldset',
+  'inplace',
+  'dataview',
+  'orderlist',
+  'picklist',
 ];
 
 Theme.setTheme({

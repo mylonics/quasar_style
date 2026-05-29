@@ -29,3 +29,12 @@
 @use 'components/dialog';
 @use 'components/tooltip';
 @use 'components/toolbar';
+
+// Phase 4 — components Quasar lacks (see src/components and
+// docs/COMPONENT-GAP-ANALYSIS.md).
+@use 'components/metergroup';
+@use 'components/fieldset';
+@use 'components/inplace';
+@use 'components/dataview';
+@use 'components/orderlist';
+@use 'components/picklist';

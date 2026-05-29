@@ -6,9 +6,11 @@ that restyles Quasar's built-in components to match the
 app gets the clean PrimeVue look out of the box while you keep using Quasar's
 `Qxxx` components and APIs.
 
-> **Scope.** This is **Phase 1 (App Extension scaffold)** and **Phase 2 (theming
-> layer)**. It does not add new components yet — that is planned for a later
-> phase (porting PrimeVue components Quasar lacks).
+> **Scope.** Phase 1 (App Extension scaffold) and Phase 2 (theming layer) restyle
+> Quasar's own components to the Aura look. **Phase 3/4** add the PrimeVue
+> components Quasar lacks (built on Quasar primitives) — see
+> [`docs/COMPONENT-GAP-ANALYSIS.md`](docs/COMPONENT-GAP-ANALYSIS.md) for the full
+> audit and [New components](#new-components-phase-34) below.
 
 | Plain Quasar (Material) | This extension's Aura theme | Real PrimeVue v4 Aura (reference) |
 | --- | --- | --- |
@@ -76,6 +78,35 @@ Dark.set(true); // or Dark.set('auto')
   label-less fields; fields with a floating `label` keep Quasar's taller control
   so the label-float animation still works.
 
+## New components (Phase 3/4)
+
+Some PrimeVue components have no Quasar equivalent. Following the
+[gap analysis](docs/COMPONENT-GAP-ANALYSIS.md), this extension ships them as a
+small Vue component library built **on top of Quasar primitives** (so they
+inherit Quasar's behaviour/accessibility) and themed by the same Aura token
+layer. The first iteration adds:
+
+| Component | PrimeVue parity | Built on |
+| --- | --- | --- |
+| `MeterGroup` | multi-segment meter + legend | plain markup + QIcon |
+| `Fieldset` | bordered group w/ optional collapse | QSlideTransition + QIcon |
+| `Inplace` | click-to-edit display→editor swap | QBtn + slots |
+| `DataView` | list/grid layout with paginator | QPagination |
+| `OrderList` | reorderable list with controls | QList/QItem + QBtn |
+| `PickList` | dual transfer list (source ⇄ target) | QList/QItem + QBtn |
+
+They follow PrimeVue's prop/slot/event names where reasonable (documented in each
+component's source where they diverge from Quasar conventions).
+
+When the extension is installed, the components are registered globally via a
+boot file — use them with their PascalCase names (e.g. `<Fieldset>`,
+`<DataView>`). They can also be registered manually in any Vue 3 app:
+
+```js
+import QuasarAuraComponents from 'quasar-app-extension-primevue-aura/src/components';
+app.use(QuasarAuraComponents);
+```
+
 ## Development
 
 This repo is both the published extension and a small static playground used to
@@ -96,12 +127,16 @@ npm run screenshots
 
 # Compile the theme to dist/primevue-aura.css
 npm run build:css
+
+# Run the component unit tests (Vitest + @vue/test-utils)
+npm test
 ```
 
 The playground renders the **same** component gallery two ways:
 `playground/index.html` is plain Quasar (attaching `playground/primevue-aura.css`
 switches it to the Aura theme) and `playground/primevue.html` is the real
-PrimeVue v4 Aura components for reference. See
+PrimeVue v4 Aura components for reference. `playground/components.html` demos the
+new components from [Phase 3/4](#new-components-phase-34). See
 [`tools/README.md`](tools/README.md) for the full screenshot workflow.
 
 ## License

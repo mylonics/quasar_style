@@ -63,4 +63,12 @@ execFileSync(
   { cwd: root, stdio: 'inherit', shell: true },
 );
 
+// Bundle the Aura component library (the components Quasar lacks) into a UMD
+// global so the static playground can register them on its Quasar app.
+execFileSync(
+  'npx',
+  ['vite', 'build', '--config', path.join('tools', 'vite.components.config.mjs')],
+  { cwd: root, stdio: 'inherit', shell: true },
+);
+
 console.log('Playground ready. Serve it with: npx serve playground');

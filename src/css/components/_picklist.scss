@@ -1,0 +1,42 @@
+// PvPickList -> PrimeVue Aura PickList
+.qpv-picklist {
+  display: flex;
+  gap: var(--p-picklist-gap, 1.125rem);
+  align-items: stretch;
+}
+
+.qpv-picklist__controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--p-picklist-controls-gap, 0.5rem);
+}
+
+.qpv-picklist__list-wrap {
+  flex: 1;
+  border: 1px solid var(--p-listbox-border-color);
+  border-radius: var(--p-listbox-border-radius);
+  background: var(--p-listbox-background);
+  overflow: hidden;
+}
+
+.qpv-picklist__header {
+  padding: var(--p-listbox-list-header-padding, 0.75rem 1rem);
+  font-weight: 600;
+  border-bottom: 1px solid var(--p-listbox-border-color);
+}
+
+.qpv-picklist__list {
+  padding: var(--p-listbox-list-padding, 0.25rem 0.25rem);
+  min-height: 8rem;
+}
+
+.qpv-picklist__item {
+  border-radius: var(--p-listbox-option-border-radius);
+  color: var(--p-listbox-option-color);
+
+  &.q-item--active {
+    background: var(--p-listbox-option-selected-background);
+    color: var(--p-listbox-option-selected-color);
+  }
+}

@@ -1,0 +1,33 @@
+// PvInplace -> PrimeVue Aura Inplace
+.qpv-inplace {
+  border-radius: var(--p-inplace-border-radius);
+}
+
+.qpv-inplace__display {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: var(--p-inplace-border-radius);
+  padding: var(--p-inplace-padding);
+  transition: background var(--p-inplace-transition-duration), color var(--p-inplace-transition-duration);
+
+  &:hover {
+    background: var(--p-inplace-display-hover-background);
+    color: var(--p-inplace-display-hover-color);
+  }
+
+  &:focus-visible {
+    outline: var(--p-inplace-focus-ring-width) var(--p-inplace-focus-ring-style) var(--p-inplace-focus-ring-color);
+    outline-offset: var(--p-inplace-focus-ring-offset);
+  }
+}
+
+.qpv-inplace--disabled .qpv-inplace__display {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.qpv-inplace__content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}

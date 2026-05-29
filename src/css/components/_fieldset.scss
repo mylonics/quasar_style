@@ -1,0 +1,54 @@
+// PvFieldset -> PrimeVue Aura Fieldset
+.qpv-fieldset {
+  background: var(--p-fieldset-background);
+  border: 1px solid var(--p-fieldset-border-color);
+  border-radius: var(--p-fieldset-border-radius);
+  color: var(--p-fieldset-color);
+  padding: var(--p-fieldset-padding);
+  margin: 0;
+}
+
+.qpv-fieldset__legend {
+  padding: 0;
+  font-weight: var(--p-fieldset-legend-font-weight);
+}
+
+.qpv-fieldset__legend-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--p-fieldset-legend-gap);
+  padding: var(--p-fieldset-legend-padding);
+  background: var(--p-fieldset-legend-background);
+  color: var(--p-fieldset-legend-color);
+  border: var(--p-fieldset-legend-border-width) solid var(--p-fieldset-legend-border-color);
+  border-radius: var(--p-fieldset-legend-border-radius);
+  font: inherit;
+  font-weight: var(--p-fieldset-legend-font-weight);
+  transition: background var(--p-fieldset-transition-duration), color var(--p-fieldset-transition-duration);
+}
+
+.qpv-fieldset--toggleable .qpv-fieldset__legend-inner {
+  cursor: pointer;
+
+  &:hover {
+    background: var(--p-fieldset-legend-hover-background);
+    color: var(--p-fieldset-legend-hover-color);
+  }
+
+  &:focus-visible {
+    outline: var(--p-fieldset-legend-focus-ring-width) var(--p-fieldset-legend-focus-ring-style) var(--p-fieldset-legend-focus-ring-color);
+    outline-offset: var(--p-fieldset-legend-focus-ring-offset);
+  }
+}
+
+.qpv-fieldset__toggler {
+  color: var(--p-fieldset-toggle-icon-color);
+
+  .qpv-fieldset__legend-inner:hover & {
+    color: var(--p-fieldset-toggle-icon-hover-color);
+  }
+}
+
+.qpv-fieldset__content {
+  padding: var(--p-fieldset-content-padding);
+}

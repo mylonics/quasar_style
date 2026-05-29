@@ -1,0 +1,67 @@
+// PvMeterGroup -> PrimeVue Aura MeterGroup
+.qpv-metergroup {
+  display: flex;
+  gap: var(--p-metergroup-gap, 1rem);
+
+  &--horizontal {
+    flex-direction: column;
+  }
+
+  &--vertical {
+    flex-direction: row;
+  }
+}
+
+.qpv-metergroup__meters {
+  display: flex;
+  background: var(--p-metergroup-meters-background);
+  border-radius: var(--p-metergroup-border-radius);
+  overflow: hidden;
+
+  .qpv-metergroup--horizontal & {
+    height: var(--p-metergroup-meters-size, 0.5rem);
+    width: 100%;
+  }
+
+  .qpv-metergroup--vertical & {
+    flex-direction: column;
+    width: var(--p-metergroup-meters-size, 0.5rem);
+    height: 100%;
+    min-height: 8rem;
+  }
+}
+
+.qpv-metergroup__meter {
+  border: 0 none;
+}
+
+.qpv-metergroup__labels {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: var(--p-metergroup-label-list-horizontal-gap, 1rem);
+
+  .qpv-metergroup--vertical & {
+    flex-direction: column;
+    gap: var(--p-metergroup-label-list-vertical-gap, 0.5rem);
+  }
+}
+
+.qpv-metergroup__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--p-metergroup-label-gap, 0.5rem);
+}
+
+.qpv-metergroup__label-marker {
+  display: inline-block;
+  width: var(--p-metergroup-label-marker-size, 0.5rem);
+  height: var(--p-metergroup-label-marker-size, 0.5rem);
+  border-radius: 100%;
+}
+
+.qpv-metergroup__label-icon {
+  font-size: var(--p-metergroup-label-icon-size, 1rem);
+}
