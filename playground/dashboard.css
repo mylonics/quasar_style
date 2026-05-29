@@ -1,0 +1,208 @@
+/*
+ * Layout for the dashboard playground pages. It reproduces the Tailwind utility
+ * layout used by PrimeVue's OverviewApp landing sample with plain CSS driven by
+ * the Aura design tokens (--p-*), so the PrimeVue and Quasar renders line up.
+ *
+ * Component internals come from PrimeVue (dashboard.primevue.html) or Quasar
+ * (dashboard.html); this file only owns the surrounding page scaffolding.
+ */
+
+:root {
+  --dash-font: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  padding-top: 64px;
+  font-family: var(--dash-font);
+  background: var(--p-content-background, #fff);
+  color: var(--p-text-color, #334155);
+}
+
+.dash {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header: "Overview" eyebrow + title, with search + bell on the right. */
+.dash-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 4px;
+}
+.dash-eyebrow {
+  color: var(--p-text-muted-color, #64748b);
+  font-weight: 500;
+  line-height: 1.5;
+}
+.dash-title {
+  color: var(--p-text-color, #1e293b);
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.dash-head-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+/* Toolbar: time SelectButton on the left, Download + DatePicker on the right. */
+.dash-toolbar {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px;
+}
+.dash-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The stacked card layout below the toolbar. */
+.dash-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.dash-card {
+  border: 1px solid var(--p-content-border-color, #e2e8f0);
+  border-radius: 16px;
+  padding: 20px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--p-content-background, #fff);
+}
+
+.dash-card-head {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.dash-card-head.tight { margin-bottom: 16px; }
+.dash-card-title {
+  flex: 1;
+  color: var(--p-text-color, #1e293b);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Crypto Analytics legend dots. */
+.dash-legend {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.dash-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dash-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+}
+.dash-legend-label {
+  font-weight: 500;
+  color: var(--p-text-color, #1e293b);
+  line-height: 1.5;
+}
+
+.dash-chart {
+  position: relative;
+  height: 20rem;
+}
+.dash-chart canvas { width: 100% !important; }
+
+/* Transactions + My Wallet row. */
+.dash-bottom {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+}
+@media (min-width: 1200px) {
+  .dash-bottom { flex-direction: row; }
+  .dash-wallet { width: 24rem; flex: 0 0 24rem; }
+}
+.dash-transactions { flex: 1; min-width: 0; }
+
+/* Table cell helpers shared by both renders. */
+.dash-muted { color: var(--p-text-muted-color, #64748b); }
+.dash-cell-name { display: flex; align-items: center; }
+.dash-cell-name .dash-muted { flex: 1; }
+.dash-coin-eth {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--p-surface-950, #020617);
+  color: var(--p-surface-0, #fff);
+}
+.dash-coin-btc { font-size: 1.5rem; color: #eab308; }
+.dash-amount { text-align: right; }
+
+/* My Wallet meter labels. */
+.dash-wallet { display: flex; flex-direction: column; justify-content: space-between; }
+.dash-meter-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 16px;
+}
+.dash-meter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dash-meter-row .dash-dot { width: 8px; height: 8px; }
+.dash-meter-name {
+  color: var(--p-text-color, #1e293b);
+  text-transform: uppercase;
+  font-weight: 500;
+  line-height: 1.5;
+  flex: 1;
+}
+.dash-meter-value { font-weight: 500; color: var(--p-text-color, #1e293b); line-height: 1.5; }
+
+/* Developer nav (hidden in screenshots) shared with the component galleries. */
+#dev-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+  background: #1e293b; color: #f8fafc; font-family: sans-serif; font-size: 13px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
+}
+#dev-nav a {
+  color: #94a3b8; text-decoration: none; padding: 4px 10px;
+  border-radius: 4px; transition: background .15s;
+}
+#dev-nav a:hover { background: #334155; color: #f8fafc; }
+#dev-nav a.active { background: #3b82f6; color: #fff; }
+#dev-nav .spacer { margin-left: auto; }
+#dev-nav label { color: #cbd5e1; }
+#dev-nav select {
+  background: #0f172a; color: #f8fafc; border: 1px solid #475569;
+  border-radius: 4px; padding: 3px 6px; font-size: 13px;
+}
+#dev-nav button {
+  padding: 4px 12px; border: 1px solid #475569;
+  background: transparent; color: #f8fafc; border-radius: 4px;
+  cursor: pointer; font-size: 13px; transition: background .15s;
+}
+#dev-nav button:hover { background: #334155; }
+#dev-nav button.on { background: #3b82f6; border-color: #3b82f6; }

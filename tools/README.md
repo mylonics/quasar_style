@@ -23,6 +23,20 @@ The README compares three renders of the same component gallery:
 | `docs/screenshots/quasar-aura.png` | `playground/index.html` + theme | Quasar with this extension's Aura theme |
 | `docs/screenshots/primevue.png` | `playground/primevue.html` | The real PrimeVue v4 Aura components, for reference |
 
+A second set captures the Overview dashboard playground (PrimeVue's OverviewApp
+sample) the same three ways:
+
+| File | Page | What it shows |
+| --- | --- | --- |
+| `docs/screenshots/dashboard-quasar-plain.png` | `playground/dashboard.html` | Plain Quasar dashboard, no theme |
+| `docs/screenshots/dashboard-quasar-aura.png` | `playground/dashboard.html` + theme | Quasar dashboard with the Aura theme |
+| `docs/screenshots/dashboard-primevue.png` | `playground/dashboard.primevue.html` | The real PrimeVue dashboard, for reference |
+
+The dashboard pages share `playground/dashboard.css` (the OverviewApp layout) and
+`playground/dashboard-data.js` (sample data + the Chart.js bar chart), and both
+draw the chart on a `<canvas>` so the three renders line up. Aura is the only
+preset; the nav's **Primary** dropdown switches the Aura primary palette.
+
 `index.html` and `primevue.html` render the **same** gallery so the three
 images line up section by section. `quasar-plain` and `quasar-aura` come from
 the identical Quasar page — the only difference is that the compiled theme

@@ -56,6 +56,7 @@ const server = http.createServer((req, res) => {
 });
 
 const VIEWPORT = { width: 1040, height: 1400 };
+const DASHBOARD_VIEWPORT = { width: 1280, height: 1600 };
 const SETTLE_MS = 600;
 
 async function shoot(page, url, file, { theme = false } = {}) {
@@ -92,6 +93,14 @@ try {
   await shoot(page, `${base}/index.html`, 'quasar-plain.png');
   await shoot(page, `${base}/index.html`, 'quasar-aura.png', { theme: true });
   await shoot(page, `${base}/primevue.html`, 'primevue.png');
+
+  // Overview dashboard playground (mirrors PrimeVue's OverviewApp sample). A
+  // wider viewport keeps the Transactions/My Wallet row side by side like the
+  // upstream sample.
+  const dash = await browser.newPage({ viewport: DASHBOARD_VIEWPORT, deviceScaleFactor: 2 });
+  await shoot(dash, `${base}/dashboard.html`, 'dashboard-quasar-plain.png');
+  await shoot(dash, `${base}/dashboard.html`, 'dashboard-quasar-aura.png', { theme: true });
+  await shoot(dash, `${base}/dashboard.primevue.html`, 'dashboard-primevue.png');
 } finally {
   await browser.close();
   server.close();
