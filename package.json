@@ -1,0 +1,25 @@
+{
+  "name": "quasar_style",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mylonics/quasar_style.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mylonics/quasar_style/issues"
+  },
+  "homepage": "https://github.com/mylonics/quasar_style#readme",
+  "dependencies": {
+    "quasar": "^2.19.3",
+    "vue": "^3.5.35"
+  }
+}
