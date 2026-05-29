@@ -1,7 +1,7 @@
 // QBtn -> PrimeVue Aura Button
 .q-btn {
-  border-radius: var(--p-button-border-radius);
   font-weight: var(--p-button-label-font-weight);
+  font-size: 1rem;
   text-transform: none;
   letter-spacing: normal;
   transition:
@@ -11,13 +11,14 @@
     box-shadow var(--p-button-transition-duration);
 }
 
+// Rectangular buttons take Aura's form-field radius; round/fab stay circular.
+.q-btn:not(.q-btn--round):not(.q-btn--fab):not(.q-btn--fab-mini):not(.q-btn--rounded) {
+  border-radius: var(--p-button-border-radius);
+}
+
 // Quasar pads buttons generously; tighten to Aura's form-field rhythm.
 .q-btn .q-btn__content {
   padding: 0;
-}
-
-.q-btn--rectangle {
-  border-radius: var(--p-button-border-radius);
 }
 
 .q-btn--rounded {
@@ -36,6 +37,12 @@
 // Outlined buttons: 1px border using the current colour, Aura radius.
 .q-btn--outline:before {
   border-width: 1px;
+}
+
+// Secondary in Aura is a light neutral button, not a solid mid-grey fill.
+.q-btn.bg-secondary {
+  background: var(--p-button-secondary-background) !important;
+  color: var(--p-button-secondary-color) !important;
 }
 
 // Size: align default button padding with Aura (0.5rem 0.75rem).

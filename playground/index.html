@@ -83,6 +83,7 @@
         data() {
           return {
             text: 'Initial value',
+            text2: '',
             sel: 'Quasar',
             options: ['Quasar', 'PrimeVue', 'Vue', 'Vite'],
             check: true,
@@ -113,9 +114,9 @@
             <div class="block" data-shot="fields">
               <h2 class="section">Inputs &amp; Select</h2>
               <div class="row-wrap">
-                <q-input outlined v-model="text" label="Label" style="width:220px" />
-                <q-input outlined v-model="text" placeholder="Placeholder" style="width:220px" />
-                <q-select outlined v-model="sel" :options="options" label="Framework" style="width:220px" />
+                <q-input outlined v-model="text" style="width:220px" />
+                <q-input outlined v-model="text2" placeholder="Placeholder" style="width:220px" />
+                <q-select outlined v-model="sel" :options="options" style="width:220px" />
               </div>
             </div>
 
@@ -134,8 +135,8 @@
               <h2 class="section">Chips &amp; Badges</h2>
               <div class="row-wrap">
                 <q-chip>Default</q-chip>
-                <q-chip color="primary" text-color="white">Primary</q-chip>
-                <q-chip removable color="secondary" text-color="white">Removable</q-chip>
+                <q-chip>Primary</q-chip>
+                <q-chip removable>Removable</q-chip>
                 <q-badge color="primary" label="Badge" />
                 <q-badge color="negative" label="9+" rounded />
               </div>
@@ -164,10 +165,9 @@
                 <q-card-section>
                   <div class="text-h6">Card title</div>
                   <div class="text-subtitle2 text-grey">Supporting subtitle</div>
-                </q-card-section>
-                <q-separator />
-                <q-card-section>
-                  Cards group related content and actions in an Aura surface.
+                  <div class="q-mt-sm">
+                    Cards group related content and actions in an Aura surface.
+                  </div>
                 </q-card-section>
                 <q-card-actions align="right">
                   <q-btn flat color="primary" label="Cancel" />
@@ -197,9 +197,6 @@
               <h2 class="section">Banner</h2>
               <q-banner>
                 This is an informational banner styled as an Aura surface.
-                <template v-slot:action>
-                  <q-btn flat color="primary" label="Dismiss" />
-                </template>
               </q-banner>
             </div>
           </div>

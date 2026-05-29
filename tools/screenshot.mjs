@@ -60,9 +60,21 @@ const SETTLE_MS = 600;
 
 async function shoot(page, url, file, { theme = false } = {}) {
   await page.goto(url, { waitUntil: 'networkidle' });
+  // index.html ships with the Aura theme link enabled by default; toggle it to
+  // match the requested capture so "plain" is genuine Material and "aura" is themed.
   if (theme) {
     await page.addStyleTag({ url: 'primevue-aura.css' });
+  } else {
+    await page.evaluate(() => {
+      const link = document.getElementById('aura-theme');
+      if (link) link.remove();
+    });
   }
+  // Hide the playground's developer nav bar (and its top offset) so the
+  // comparison screenshots show only the component gallery.
+  await page.addStyleTag({
+    content: '#dev-nav{display:none!important}body{padding-top:24px!important}',
+  });
   await page.evaluate(() => document.fonts && document.fonts.ready);
   await page.waitForTimeout(SETTLE_MS);
   const target = path.join(outDir, file);
