@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quasar + PrimeVue Aura playground</title>
+    <link href="vendor/quasar.prod.css" rel="stylesheet" />
+    <!-- The Aura theme is injected at runtime by the screenshot tooling so the
+         same page can be captured before (plain Quasar) and after (Aura). -->
+    <style>
+      body { padding: 24px; }
+      .gallery { max-width: 980px; margin: 0 auto; }
+      .row-wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+      .block { margin-bottom: 28px; }
+      h2.section { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; opacity: .6; margin: 0 0 10px; }
+    </style>
+  </head>
+  <body>
+    <div id="q-app"></div>
+
+    <script src="vendor/vue.global.prod.js"></script>
+    <script src="vendor/quasar.umd.prod.js"></script>
+    <script>
+      const { createApp } = Vue;
+      const app = createApp({
+        data() {
+          return {
+            text: 'Initial value',
+            sel: 'Quasar',
+            options: ['Quasar', 'PrimeVue', 'Vue', 'Vite'],
+            check: true,
+            check2: false,
+            radio: 'a',
+            toggle: true,
+            slider: 40,
+            progress: 0.6,
+            tab: 'one',
+          };
+        },
+        template: `
+          <div class="gallery">
+            <div class="block" data-shot="buttons">
+              <h2 class="section">Buttons</h2>
+              <div class="row-wrap">
+                <q-btn color="primary" label="Primary" />
+                <q-btn color="secondary" label="Secondary" />
+                <q-btn color="positive" label="Success" />
+                <q-btn color="negative" label="Danger" />
+                <q-btn outline color="primary" label="Outlined" />
+                <q-btn flat color="primary" label="Text" />
+                <q-btn color="primary" rounded label="Rounded" />
+                <q-btn color="primary" icon="add" round />
+              </div>
+            </div>
+
+            <div class="block" data-shot="fields">
+              <h2 class="section">Inputs &amp; Select</h2>
+              <div class="row-wrap">
+                <q-input outlined v-model="text" label="Label" style="width:220px" />
+                <q-input outlined v-model="text" placeholder="Placeholder" style="width:220px" />
+                <q-select outlined v-model="sel" :options="options" label="Framework" style="width:220px" />
+              </div>
+            </div>
+
+            <div class="block" data-shot="selection">
+              <h2 class="section">Checkbox / Radio / Toggle</h2>
+              <div class="row-wrap">
+                <q-checkbox v-model="check" label="Checked" />
+                <q-checkbox v-model="check2" label="Unchecked" />
+                <q-radio v-model="radio" val="a" label="Option A" />
+                <q-radio v-model="radio" val="b" label="Option B" />
+                <q-toggle v-model="toggle" label="Toggle" />
+              </div>
+            </div>
+
+            <div class="block" data-shot="chips">
+              <h2 class="section">Chips &amp; Badges</h2>
+              <div class="row-wrap">
+                <q-chip>Default</q-chip>
+                <q-chip color="primary" text-color="white">Primary</q-chip>
+                <q-chip removable color="secondary" text-color="white">Removable</q-chip>
+                <q-badge color="primary" label="Badge" />
+                <q-badge color="negative" label="9+" rounded />
+              </div>
+            </div>
+
+            <div class="block" data-shot="progress">
+              <h2 class="section">Progress &amp; Slider</h2>
+              <div class="row-wrap" style="flex-direction:column; align-items:stretch">
+                <q-linear-progress :value="progress" color="primary" style="height:8px" class="q-mb-md" />
+                <q-slider v-model="slider" :min="0" :max="100" color="primary" />
+              </div>
+            </div>
+
+            <div class="block" data-shot="tabs">
+              <h2 class="section">Tabs</h2>
+              <q-tabs v-model="tab" align="left" active-color="primary" indicator-color="primary">
+                <q-tab name="one" label="Overview" />
+                <q-tab name="two" label="Details" />
+                <q-tab name="three" label="Settings" />
+              </q-tabs>
+            </div>
+
+            <div class="block" data-shot="card">
+              <h2 class="section">Card</h2>
+              <q-card style="max-width:320px">
+                <q-card-section>
+                  <div class="text-h6">Card title</div>
+                  <div class="text-subtitle2 text-grey">Supporting subtitle</div>
+                </q-card-section>
+                <q-separator />
+                <q-card-section>
+                  Cards group related content and actions in an Aura surface.
+                </q-card-section>
+                <q-card-actions align="right">
+                  <q-btn flat color="primary" label="Cancel" />
+                  <q-btn color="primary" label="Save" />
+                </q-card-actions>
+              </q-card>
+            </div>
+
+            <div class="block" data-shot="list">
+              <h2 class="section">List</h2>
+              <q-card style="max-width:320px">
+                <q-list>
+                  <q-item clickable>
+                    <q-item-section>Inbox</q-item-section>
+                  </q-item>
+                  <q-item clickable active>
+                    <q-item-section>Starred</q-item-section>
+                  </q-item>
+                  <q-item clickable>
+                    <q-item-section>Sent</q-item-section>
+                  </q-item>
+                </q-list>
+              </q-card>
+            </div>
+
+            <div class="block" data-shot="banner">
+              <h2 class="section">Banner</h2>
+              <q-banner>
+                This is an informational banner styled as an Aura surface.
+                <template v-slot:action>
+                  <q-btn flat color="primary" label="Dismiss" />
+                </template>
+              </q-banner>
+            </div>
+          </div>
+        `,
+      });
+      app.use(Quasar, { config: {} });
+      app.mount('#q-app');
+    </script>
+  </body>
+</html>

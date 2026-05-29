@@ -1,0 +1,19 @@
+// QList / QItem -> PrimeVue Aura List option styling
+.q-item {
+  color: var(--p-list-option-color, var(--p-text-color));
+  border-radius: var(--p-list-option-border-radius);
+  transition:
+    background-color var(--p-list-transition-duration, 0.2s),
+    color var(--p-list-transition-duration, 0.2s);
+}
+
+.q-item.q-manual-focusable--focused,
+.q-item--clickable:hover {
+  background: var(--p-list-option-focus-background);
+  color: var(--p-list-option-focus-color);
+}
+
+.q-item--active {
+  background: var(--p-list-option-selected-background);
+  color: var(--p-list-option-selected-color);
+}

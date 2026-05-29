@@ -1,0 +1,25 @@
+// QCheckbox -> PrimeVue Aura Checkbox
+.q-checkbox__bg {
+  border-width: 1px;
+  border-radius: var(--p-checkbox-border-radius);
+  border-color: var(--p-checkbox-border-color);
+  transition:
+    background-color var(--p-checkbox-transition-duration),
+    border-color var(--p-checkbox-transition-duration);
+}
+
+.q-checkbox:hover .q-checkbox__inner:not(.q-checkbox__inner--truthy):not(.q-checkbox__inner--indet)
+  .q-checkbox__bg {
+  border-color: var(--p-checkbox-hover-border-color);
+}
+
+// Checked state colours come from `--q-primary` (remapped to the Aura primary),
+// keep the radius/border in sync with the Aura checked tokens.
+.q-checkbox__inner--truthy .q-checkbox__bg,
+.q-checkbox__inner--indet .q-checkbox__bg {
+  border-color: var(--p-checkbox-checked-border-color);
+}
+
+.q-checkbox__svg {
+  color: var(--p-checkbox-icon-checked-color);
+}

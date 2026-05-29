@@ -1,0 +1,43 @@
+// QToggle -> PrimeVue Aura ToggleSwitch
+// Quasar ships a Material-style switch (thin track, overhanging thumb); reshape
+// it into Aura's pill where the handle sits inside the track.
+.q-toggle__inner {
+  width: 1.667em;
+  min-width: 1.667em;
+  height: 1em;
+  padding: 0;
+  font-size: 24px; // 1em -> 24px tall, matching Aura's 1.5rem switch height
+}
+
+.q-toggle__track {
+  height: 1em;
+  border-radius: var(--p-toggleswitch-border-radius);
+  opacity: 1;
+  background: var(--p-toggleswitch-background);
+  transition: background-color var(--p-toggleswitch-transition-duration);
+}
+
+.q-toggle__inner--truthy .q-toggle__track {
+  background: var(--p-toggleswitch-checked-background);
+}
+
+.q-toggle__thumb {
+  width: 0.667em; // 16px handle
+  height: 0.667em;
+  top: 0.1665em;
+  left: 0.1665em;
+  transition: left var(--p-toggleswitch-slide-duration);
+}
+
+.q-toggle__inner--truthy .q-toggle__thumb {
+  left: 0.833em;
+}
+
+.q-toggle__thumb:after {
+  background: var(--p-toggleswitch-handle-background);
+  box-shadow: var(--p-toggleswitch-shadow, none);
+}
+
+.q-toggle__inner--truthy .q-toggle__thumb:after {
+  background: var(--p-toggleswitch-handle-checked-background);
+}

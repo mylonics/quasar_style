@@ -1,25 +1,46 @@
 {
-  "name": "quasar_style",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "name": "quasar-app-extension-primevue-aura",
+  "version": "0.1.0",
+  "description": "Quasar App Extension that restyles Quasar components to match the PrimeVue v4 Aura theme.",
+  "license": "MIT",
+  "author": "Mylonics",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mylonics/quasar_style.git"
+    "url": "https://github.com/mylonics/quasar_style.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "homepage": "https://github.com/mylonics/quasar_style#readme",
   "bugs": {
     "url": "https://github.com/mylonics/quasar_style/issues"
   },
-  "homepage": "https://github.com/mylonics/quasar_style#readme",
-  "dependencies": {
-    "quasar": "^2.19.3",
-    "vue": "^3.5.35"
+  "keywords": [
+    "quasar",
+    "quasar-app-extension",
+    "primevue",
+    "aura",
+    "theme",
+    "vue"
+  ],
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "generate:tokens": "node tools/generate-tokens.mjs",
+    "build:css": "sass --no-source-map src/css/primevue-aura.scss dist/primevue-aura.css",
+    "playground": "node tools/build-playground.mjs"
+  },
+  "engines": {
+    "node": ">= 18"
+  },
+  "peerDependencies": {
+    "quasar": ">=2.0.0 <4.0.0"
+  },
+  "devDependencies": {
+    "@primeuix/styled": "^0.7.0",
+    "@primeuix/themes": "^2.0.0",
+    "@primeuix/utils": "^0.6.0",
+    "sass": "^1.70.0",
+    "vue": "^3.4.0",
+    "quasar": "^2.16.0"
   }
 }

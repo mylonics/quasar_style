@@ -1,0 +1,11 @@
+// QTooltip -> PrimeVue Aura Tooltip
+.q-tooltip,
+.q-tooltip--style {
+  background: var(--p-tooltip-background);
+  color: var(--p-tooltip-color);
+  border-radius: var(--p-tooltip-border-radius);
+  padding: var(--p-tooltip-padding);
+  font-size: 0.875rem;
+  font-weight: 400;
+  box-shadow: var(--p-tooltip-shadow, none);
+}

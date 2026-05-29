@@ -1,0 +1,8 @@
+// QDialog -> PrimeVue Aura Dialog
+.q-dialog__inner > .q-card,
+.q-dialog__inner > div {
+  border-radius: var(--p-dialog-border-radius);
+  background: var(--p-dialog-background);
+  color: var(--p-dialog-color);
+  box-shadow: var(--p-overlay-modal-shadow, var(--p-card-shadow));
+}

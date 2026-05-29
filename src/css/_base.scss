@@ -1,0 +1,46 @@
+// -----------------------------------------------------------------------------
+// Base layer: maps Quasar's brand/surface variables onto PrimeVue Aura tokens
+// and applies global typography + surfaces so a Quasar app adopts the Aura look.
+// -----------------------------------------------------------------------------
+
+// Remap Quasar's brand colour variables to PrimeVue Aura semantic colours.
+// This instantly themes every `.bg-*` / `.text-*` helper and any component that
+// derives its colour from them (buttons, toggles, spinners, badges, ...).
+:root {
+  --q-primary: var(--p-primary-color);
+  --q-secondary: var(--p-surface-500);
+  --q-accent: var(--p-primary-color);
+  --q-positive: var(--p-green-500);
+  --q-negative: var(--p-red-500);
+  --q-info: var(--p-sky-500);
+  --q-warning: var(--p-orange-500);
+  --q-dark: var(--p-surface-800);
+  --q-dark-page: var(--p-surface-950);
+
+  --q-transition-duration: var(--p-transition-duration, 0.2s);
+}
+
+// PrimeVue's default font stack (matches the Aura documentation look).
+$pv-font-family:
+  'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+  'Segoe UI Symbol' !default;
+
+body {
+  font-family: $pv-font-family;
+  color: var(--p-text-color);
+  background-color: var(--p-surface-50);
+}
+
+body.body--dark {
+  color: var(--p-text-color);
+  background-color: var(--p-surface-950);
+}
+
+// Muted / secondary text helpers used across components.
+.text-grey,
+.text-grey-7,
+.text-grey-8,
+.q-field__label {
+  color: var(--p-text-muted-color) !important;
+}

@@ -1,0 +1,80 @@
+// QInput / QSelect / QField -> PrimeVue Aura form fields.
+// Aura form fields are compact, bordered boxes; the outlined Quasar variant maps
+// most naturally, so we restyle it to match and tune sizing/colours/focus ring.
+
+.q-field--outlined .q-field__control {
+  border-radius: var(--p-inputtext-border-radius);
+  background-color: var(--p-inputtext-background);
+  transition: border-color var(--p-inputtext-transition-duration),
+    box-shadow var(--p-inputtext-transition-duration);
+}
+
+// Resting border.
+.q-field--outlined .q-field__control:before {
+  border: 1px solid var(--p-inputtext-border-color);
+  transition: border-color var(--p-inputtext-transition-duration);
+}
+
+// Hover border.
+.q-field--outlined:not(.q-field--focused):not(.q-field--error)
+  .q-field__control:hover:before {
+  border-color: var(--p-inputtext-hover-border-color);
+}
+
+// Focus: primary border + Aura focus ring.
+.q-field--outlined.q-field--focused .q-field__control:after {
+  border: 1px solid var(--p-inputtext-focus-border-color);
+}
+
+.q-field--outlined.q-field--focused .q-field__control {
+  box-shadow: 0 0 0 var(--p-focus-ring-width, 1px)
+    color-mix(in srgb, var(--p-primary-color), transparent 70%);
+}
+
+// Error / invalid state.
+.q-field--outlined.q-field--error .q-field__control:before {
+  border-color: var(--p-inputtext-invalid-border-color);
+}
+
+// Text + placeholder + icon colours.
+.q-field__native,
+.q-field__input {
+  color: var(--p-inputtext-color);
+}
+
+.q-field__native::placeholder,
+.q-field__input::placeholder {
+  color: var(--p-inputtext-placeholder-color);
+  opacity: 1;
+}
+
+.q-field__prepend,
+.q-field__append,
+.q-field__marginal {
+  color: var(--p-form-field-icon-color);
+}
+
+// Compact Aura sizing (~2.5rem control height). Applied only to fields without
+// a (floating) label so Quasar's label-float behaviour keeps working; PrimeVue
+// itself favours external labels, which map to Quasar's label-less fields.
+.q-field--outlined:not(.q-textarea):not(.q-field--labeled) .q-field__control {
+  min-height: 2.5rem;
+  height: 2.5rem;
+  padding: 0 var(--p-inputtext-padding-x);
+}
+
+.q-field--outlined:not(.q-textarea):not(.q-field--labeled)
+  .q-field__control
+  .q-field__native {
+  min-height: 2.5rem;
+  padding: var(--p-inputtext-padding-y) 0;
+}
+
+// Labels sit above as muted text rather than floating Material labels.
+.q-field--outlined .q-field__label {
+  color: var(--p-form-field-float-label-color);
+}
+
+.q-field--outlined.q-field--focused .q-field__label {
+  color: var(--p-form-field-float-label-focus-color);
+}

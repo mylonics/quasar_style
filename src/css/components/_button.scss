@@ -1,0 +1,45 @@
+// QBtn -> PrimeVue Aura Button
+.q-btn {
+  border-radius: var(--p-button-border-radius);
+  font-weight: var(--p-button-label-font-weight);
+  text-transform: none;
+  letter-spacing: normal;
+  transition:
+    background-color var(--p-button-transition-duration),
+    color var(--p-button-transition-duration),
+    border-color var(--p-button-transition-duration),
+    box-shadow var(--p-button-transition-duration);
+}
+
+// Quasar pads buttons generously; tighten to Aura's form-field rhythm.
+.q-btn .q-btn__content {
+  padding: 0;
+}
+
+.q-btn--rectangle {
+  border-radius: var(--p-button-border-radius);
+}
+
+.q-btn--rounded {
+  border-radius: var(--p-button-rounded-border-radius);
+}
+
+// Filled (standard) buttons are flat in Aura - drop Quasar's elevation.
+.q-btn--standard {
+  box-shadow: none;
+}
+
+.q-btn--standard:before {
+  box-shadow: none;
+}
+
+// Outlined buttons: 1px border using the current colour, Aura radius.
+.q-btn--outline:before {
+  border-width: 1px;
+}
+
+// Size: align default button padding with Aura (0.5rem 0.75rem).
+.q-btn:not(.q-btn--round):not(.q-btn--fab):not(.q-btn--fab-mini):not(.q-btn--dense) {
+  padding: var(--p-button-padding-y) var(--p-button-padding-x);
+  min-height: 0;
+}
