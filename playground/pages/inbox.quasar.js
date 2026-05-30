@@ -91,22 +91,22 @@
           <div class="inbox-toolbar">
             <div class="inbox-toolbar-left">
               <q-checkbox v-model="checked" dense @update:model-value="onSelectionChange" />
-              <q-btn icon="mail_outline" outline dense color="grey-7" size="sm" />
-              <q-btn icon="error_outline" outline dense color="grey-7" size="sm" />
-              <q-btn icon="label" outline dense color="grey-7" size="sm" />
-              <q-btn label="Archive" icon="inbox" outline dense no-caps color="grey-7" size="sm" />
-              <q-btn label="Trash" icon="delete" outline dense no-caps color="grey-7" size="sm" />
+              <q-btn icon="mail_outline" outline dense color="grey-7" />
+              <q-btn icon="error_outline" outline dense color="grey-7" />
+              <q-btn icon="label" outline dense color="grey-7" />
+              <q-btn label="Archive" icon="inbox" outline dense no-caps color="grey-7" />
+              <q-btn label="Trash" icon="delete" outline dense no-caps color="grey-7" />
             </div>
             <div class="inbox-toolbar-right">
               <q-input v-model="search" outlined dense placeholder="Search" style="min-width:180px">
                 <template #prepend><q-icon name="search" /></template>
               </q-input>
-              <q-btn icon="filter_alt" outline dense color="grey-7" size="sm" />
+              <q-btn icon="filter_alt" outline dense color="grey-7" />
               <q-separator vertical spaced="xs" />
-              <q-btn icon="refresh" outline dense color="grey-7" size="sm" />
-              <q-btn label="1 of 15" outline dense no-caps color="grey-7" size="sm" style="white-space:nowrap" />
-              <q-btn icon="chevron_left" outline dense color="grey-7" size="sm" />
-              <q-btn icon="chevron_right" outline dense color="grey-7" size="sm" />
+              <q-btn icon="refresh" outline dense color="grey-7" />
+              <q-btn label="1 of 15" outline dense no-caps color="grey-7" style="white-space:nowrap" />
+              <q-btn icon="chevron_left" outline dense color="grey-7" />
+              <q-btn icon="chevron_right" outline dense color="grey-7" />
             </div>
           </div>
           <div class="inbox-table-wrap">

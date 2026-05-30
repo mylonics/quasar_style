@@ -90,7 +90,7 @@ body {
   transition: background 0.15s;
 }
 .dash-collapse-btn:hover { background: var(--p-content-hover-background, #f1f5f9); }
-.dash-sidebar--collapsed .dash-collapse-btn { margin-left: 0; }
+.dash-sidebar--collapsed .dash-collapse-btn { display: none; }
 .dash-nav {
   display: flex;
   flex-direction: column;
@@ -744,3 +744,91 @@ body {
 }
 #dev-nav button:hover { background: #334155; }
 #dev-nav button.on { background: #3b82f6; border-color: #3b82f6; }
+
+/* ============================================================================
+ * Quasar component overrides — close the visual gap vs PrimeVue Aura
+ * (OV7/IN6/CU2) q-badge → pill shape matching PrimeVue Tag
+ * ========================================================================== */
+
+/* Badge / Tag parity: give all non-floating q-badge a pill shape and
+   subdued background that matches PrimeVue Aura's Tag severity colours.
+   Floating badges (position:absolute) keep their compact dot style. */
+.q-badge:not([class*="absolute"]):not([style*="position:absolute"]) {
+  border-radius: 1rem !important;
+  padding: 2px 10px !important;
+  font-weight: 500 !important;
+  font-size: 0.75rem !important;
+}
+/* Secondary/neutral tag (grey-3 background) */
+.q-badge[class*="grey-3"],
+.q-badge[class*="grey-4"] {
+  background-color: var(--p-surface-100, #f1f5f9) !important;
+  color: var(--p-text-color, #1e293b) !important;
+}
+
+/* Vertical separator — match PrimeVue Divider layout="vertical" */
+.q-separator--vertical {
+  margin: 0 !important;
+  width: 1px !important;
+}
+
+/* Checkbox — Aura-style square with rounded corners and primary checked colour.
+   (IN4) — override the default Material rounded circle */
+.q-checkbox__bg {
+  border-radius: 4px !important;
+}
+.q-checkbox__svg {
+  border-radius: 2px !important;
+}
+
+/* Radio button — increase the outer ring size to match Aura RadioButton (CA7) */
+.q-radio__inner {
+  font-size: 20px !important;
+}
+
+/* Slider — Aura track and thumb colours (CA4) */
+.q-slider__track-container--h .q-slider__track {
+  background: var(--p-surface-200, #e2e8f0) !important;
+}
+.q-slider__track-container--h .q-slider__selection {
+  background: var(--p-primary-color, #10b981) !important;
+}
+.q-slider__thumb-shape path {
+  fill: var(--p-primary-color, #10b981) !important;
+}
+
+/* Toggle switch — Aura ToggleSwitch token colours (CH5/CA8) */
+.q-toggle__inner--truthy .q-toggle__track {
+  background: var(--p-primary-color, #10b981) !important;
+  opacity: 1 !important;
+}
+.q-toggle__inner--falsy .q-toggle__track {
+  background: var(--p-surface-300, #cbd5e1) !important;
+  opacity: 1 !important;
+}
+.q-toggle__thumb:after {
+  background: #fff !important;
+}
+
+/* Table paginator — match DataTable paginator spacing (OV6) */
+.q-table__bottom {
+  padding: 8px 16px !important;
+  min-height: 48px !important;
+  border-top: 1px solid var(--p-content-border-color, #e2e8f0) !important;
+}
+.q-table__bottom .q-table__separator {
+  display: none !important;
+}
+
+/* Customers sticky header — enable sticky thead via max-height on the wrapper (CU3) */
+.customers-table-wrap {
+  max-height: 100%;
+  overflow: auto;
+}
+.customers-table-wrap .q-table__top,
+.customers-table-wrap thead tr th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--p-content-background, #fff);
+}

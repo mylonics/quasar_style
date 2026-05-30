@@ -134,7 +134,7 @@
               </div>
               <q-btn @click="jobBookmarked = !jobBookmarked"
                 :icon="jobBookmarked ? 'bookmark' : 'bookmark_border'"
-                outline round dense color="grey-7" size="sm" />
+                outline round color="grey-7" />
             </div>
             <div style="display:flex;flex-wrap:wrap;gap:12px">
               <span v-for="m in [{icon:'group',t:'Senior'},{icon:'timer',t:'Full-Time'},{icon:'payments',t:'$80,000'}]"
@@ -191,7 +191,8 @@
                 <label style="font-size:.85rem;font-weight:500;display:block;margin-bottom:10px">OTP</label>
                 <div style="display:flex;gap:8px">
                   <q-input v-for="i in 4" :key="i" v-model="otp[i-1]" outlined dense maxlength="1"
-                    style="width:48px;flex-shrink:0" input-style="text-align:center;font-size:1.2rem" />
+                    style="width:48px;flex-shrink:0" input-style="text-align:center;font-size:1.2rem"
+                    @keyup="(e) => { if (otp[i-1] && e.target.nextElementSibling) e.target.nextElementSibling.querySelector('input')?.focus() }" />
                 </div>
               </div>
             </div>

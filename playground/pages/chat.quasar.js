@@ -78,7 +78,7 @@
               <div class="chat-avatar-wrap">
                 <div v-if="chat.active !== undefined"
                   class="chat-status" :class="chat.active ? 'online' : 'offline'"></div>
-                <q-avatar size="44px"
+                <q-avatar size="40px"
                   :color="!chat.image ? 'primary' : undefined"
                   :text-color="!chat.image ? 'white' : undefined">
                   <img v-if="chat.image" :src="chat.image" />
@@ -144,7 +144,7 @@
             <div class="chat-textarea-wrap">
               <q-input v-model="newMessage" placeholder="Write your message..." dense outlined autogrow style="background:var(--p-surface-100,#f1f5f9);border-radius:6px" />
             </div>
-            <q-btn icon="send" color="primary" round />
+            <q-btn icon="send" color="primary" />
           </div>
         </div>
 
