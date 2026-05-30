@@ -25,149 +25,75 @@
     <script src="vendor/primeuix-aura.js"></script>
     <script src="vendor/chart.umd.js"></script>
     <script src="dashboard-data.js"></script>
+    <script src="pages/overview.primevue.js"></script>
     <script>
-      const { createApp } = Vue;
+      const { createApp, shallowRef } = Vue;
       const D = window.DASHBOARD;
+
+      const NAV_ITEMS = [
+        { label: 'Overview',  icon: 'pi pi-th-large', page: 'Overview' },
+        { label: 'Chat',      icon: 'pi pi-comments',  page: null },
+        { label: 'Inbox',     icon: 'pi pi-inbox',     page: null },
+        { label: 'Cards',     icon: 'pi pi-credit-card', page: null },
+        { label: 'Customers', icon: 'pi pi-users',     page: null },
+        { label: 'Movies',    icon: 'pi pi-video',     page: null },
+      ];
 
       const app = createApp({
         data() {
           return {
-            selectedTime: 'Monthly',
-            timeOptions: D.TIME_OPTIONS,
-            dates: null,
-            menuItems: D.MENU_ITEMS,
-            tableData: D.TABLE_DATA,
-            metersData: D.METERS_DATA,
-            chart: null,
+            navItems: NAV_ITEMS,
+            activePage: 'Overview',
+            currentComponent: shallowRef(window.DASH_PV.Overview),
           };
         },
-        mounted() {
-          this.renderChart();
-          window.__dashApp = this;
-        },
-        beforeUnmount() {
-          if (this.chart) this.chart.destroy();
-        },
         methods: {
-          renderChart() {
-            const ctx = this.$refs.chart;
-            if (!ctx) return;
-            if (this.chart) this.chart.destroy();
-            this.chart = new Chart(ctx, {
-              type: 'bar',
-              data: D.buildChartData(this.selectedTime),
-              options: D.buildChartOptions(),
-            });
+          navigate(item) {
+            if (!item.page) return;
+            this.activePage = item.page;
+            this.currentComponent = shallowRef(window.DASH_PV[item.page]);
           },
           rebuildChart() {
-            this.renderChart();
-          },
-          toggle(event) {
-            this.$refs.menu.toggle(event);
+            if (window.__dashChart) window.__dashChart.rebuildChart();
           },
         },
         template: `
-          <div class="dash">
-            <div class="dash-head">
-              <div style="flex:1">
-                <div class="dash-eyebrow">Overview</div>
-                <div class="dash-title">Welcome to PrimeVue</div>
-              </div>
-              <div class="dash-head-actions">
-                <IconField>
-                  <InputIcon class="pi pi-search" />
-                  <InputText placeholder="Search" />
-                </IconField>
-                <Button severity="secondary" variant="outlined">
-                  <OverlayBadge severity="danger" :pt="{ pcbadge: { root: { class: '!min-w-0 !w-2.5 !h-2.5' } } }">
-                    <i class="pi pi-bell" />
-                  </OverlayBadge>
-                </Button>
-              </div>
-            </div>
-
-            <div class="dash-toolbar">
-              <SelectButton v-model="selectedTime" :options="timeOptions" :allowEmpty="false" @change="rebuildChart" />
-              <div class="dash-toolbar-actions">
-                <Button label="Download" icon="pi pi-download" iconPos="right" />
-                <DatePicker v-model="dates" selectionMode="range" :manualInput="false" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" />
-              </div>
-            </div>
-
-            <div class="dash-body">
-              <div class="dash-card">
-                <div class="dash-card-head">
-                  <div class="dash-card-title">Crypto Analytics</div>
-                  <div class="dash-legend">
-                    <div v-for="(item, index) in chart?.data?.datasets || []" :key="index" class="dash-legend-item">
-                      <div class="dash-dot" :style="{ backgroundColor: item.backgroundColor }"></div>
-                      <span class="dash-legend-label">{{ item.label }}</span>
-                    </div>
-                  </div>
+          <div class="dash-shell">
+            <aside class="dash-sidebar">
+              <div>
+                <div class="dash-brand">
+                  <svg class="dash-brand-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="var(--p-primary-color,#10b981)"/>
+                    <path d="M8 20l6-8 4 5 3-4 5 7H8z" fill="white" opacity="0.9"/>
+                  </svg>
+                  <span class="dash-brand-name">App</span>
                 </div>
-                <div class="dash-chart"><canvas ref="chart"></canvas></div>
+                <nav class="dash-nav">
+                  <button
+                    v-for="item in navItems"
+                    :key="item.label"
+                    class="dash-nav-item"
+                    :class="{ active: activePage === item.page, 'dash-nav-disabled': !item.page }"
+                    @click="navigate(item)"
+                  >
+                    <i :class="item.icon"></i>
+                    {{ item.label }}
+                  </button>
+                </nav>
               </div>
-
-              <div class="dash-bottom">
-                <div class="dash-card dash-transactions">
-                  <div class="dash-card-head tight">
-                    <div class="dash-card-title">Transactions</div>
-                    <Button type="button" icon="pi pi-ellipsis-h" severity="secondary" text @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
-                    <Menu ref="menu" id="overlay_menu" :model="menuItems" :popup="true" />
-                  </div>
-                  <DataTable :value="tableData" paginator :rows="5" dataKey="id"
-                    paginatorTemplate="PrevPageLink PageLinks NextPageLink CurrentPageReport RowsPerPageDropdown"
-                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
-                    <Column header="Id">
-                      <template #body="slotProps"><div class="dash-muted">{{ slotProps.data.id }}</div></template>
-                    </Column>
-                    <Column header="Name">
-                      <template #body="slotProps">
-                        <div class="dash-cell-name">
-                          <Avatar :label="slotProps.data.name.label" class="mr-2" style="background-color:#ece9fc;color:#2a1261;font-size:.75rem;font-weight:500" shape="circle" />
-                          <div class="dash-muted">{{ slotProps.data.name.text }}</div>
-                        </div>
-                      </template>
-                    </Column>
-                    <Column header="Coin">
-                      <template #body="slotProps">
-                        <i v-if="slotProps.data.coin === 'btc'" class="pi pi-bitcoin dash-coin-btc"></i>
-                        <span v-else class="dash-coin-eth"><i class="pi pi-ethereum"></i></span>
-                      </template>
-                    </Column>
-                    <Column header="Date">
-                      <template #body="slotProps"><div class="dash-muted">{{ slotProps.data.date }}</div></template>
-                    </Column>
-                    <Column header="Process">
-                      <template #body="slotProps"><Tag :severity="slotProps.data.process.type" :value="slotProps.data.process.value" /></template>
-                    </Column>
-                    <Column header="Amount">
-                      <template #body="slotProps"><div class="dash-muted dash-amount">{{ slotProps.data.amount }}</div></template>
-                    </Column>
-                  </DataTable>
-                </div>
-
-                <div class="dash-card dash-wallet">
+              <div class="dash-sidebar-foot">
+                <div class="dash-sidebar-divider"></div>
+                <div class="dash-sidebar-user">
+                  <Avatar label="AE" size="normal" shape="circle" style="background-color:var(--p-primary-color);color:var(--p-primary-contrast-color)" />
                   <div>
-                    <div class="dash-card-head">
-                      <div class="dash-card-title">My Wallet</div>
-                      <Button type="button" icon="pi pi-ellipsis-h" severity="secondary" text @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" />
-                    </div>
-                    <MeterGroup :value="metersData" labelPosition="end">
-                      <template #label="{ value }">
-                        <div class="dash-meter-labels">
-                          <div v-for="val of value" :key="val.label" class="dash-meter-row">
-                            <div class="dash-dot" :style="{ backgroundColor: val.color }"></div>
-                            <div class="dash-meter-name">{{ val.label }} <span class="dash-muted">({{ val.value }}%)</span></div>
-                            <div class="dash-meter-value">{{ val.text }}</div>
-                          </div>
-                        </div>
-                      </template>
-                    </MeterGroup>
+                    <div class="dash-sidebar-user-name">Amy Elder</div>
+                    <div class="dash-sidebar-user-mail">amyrosegomes@email.com</div>
                   </div>
-                  <Button label="Show All" variant="outlined" style="margin-top:24px" />
                 </div>
               </div>
+            </aside>
+            <div class="dash-main">
+              <component :is="currentComponent" />
             </div>
           </div>
         `,
@@ -196,7 +122,7 @@
         app.component(name, PrimeVue[comp]);
       }
 
-      app.mount('#app');
+      window.__dashApp = app.mount('#app');
 
       // Playground control: switch the Aura primary palette (Aura preset only).
       (function () {

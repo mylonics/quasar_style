@@ -89,6 +89,8 @@ body {
   color: var(--p-primary-contrast-color, #fff);
 }
 .dash-nav-item.active:hover { background: var(--p-primary-hover-color, #059669); }
+.dash-nav-item.dash-nav-disabled { opacity: 0.45; cursor: not-allowed; }
+.dash-nav-item.dash-nav-disabled:hover { background: transparent; }
 .dash-nav-item i { font-size: 1rem; }
 .dash-sidebar-foot { margin-top: 24px; }
 .dash-sidebar-divider {
