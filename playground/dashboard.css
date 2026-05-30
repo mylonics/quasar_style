@@ -817,8 +817,13 @@ body {
   background: transparent !important;
 }
 /* Selected option: raised surface chip with primary-coloured text — overrides
-   the toggle-color="primary" solid fill that Quasar applies to the active btn. */
+   the toggle-color="primary" solid fill that Quasar applies to the active btn.
+   Standard (unelevated) toggles tag the active button `bg-primary`; `outline`
+   toggles (Cards Follow/Message, payment-type, donate amounts, Movies view
+   mode) instead tag it `text-primary`, so both selectors are needed for the
+   chip to show on every SelectButton variant. */
 .q-btn-toggle .q-btn.bg-primary,
+.q-btn-toggle .q-btn.text-primary,
 .q-btn-toggle .q-btn[class*="text-white"] {
   background: var(--p-surface-0, #ffffff) !important;
   color: var(--p-text-color, #1e293b) !important;

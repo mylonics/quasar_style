@@ -57,8 +57,8 @@
           <q-input v-model="search" outlined dense placeholder="Search by movie title" style="flex:1">
             <template #prepend><q-icon name="search" /></template>
           </q-input>
-          <q-btn icon="chevron_left" round outline color="grey-7" @click="scrollCarousel(-1)" />
-          <q-btn icon="chevron_right" round outline color="grey-7" @click="scrollCarousel(1)" />
+          <q-btn icon="chevron_left" round outline dense color="grey-7" size="sm" @click="scrollCarousel(-1)" />
+          <q-btn icon="chevron_right" round outline dense color="grey-7" size="sm" @click="scrollCarousel(1)" />
         </div>
 
         <!-- Carousel track -->
