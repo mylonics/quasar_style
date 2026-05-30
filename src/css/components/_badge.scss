@@ -12,3 +12,14 @@
 .q-badge--rounded {
   border-radius: 9999px;
 }
+
+// A floating badge with no content is an Aura "dot" indicator (e.g. an unread
+// marker or status dot). The min-height/min-width + padding above would stretch
+// the empty badge into a tall pill, so collapse it back to a small round dot.
+.q-badge--floating:empty {
+  min-width: 0;
+  min-height: 0;
+  width: var(--p-badge-dot-size);
+  height: var(--p-badge-dot-size);
+  padding: 0;
+}

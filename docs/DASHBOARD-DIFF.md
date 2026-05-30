@@ -15,8 +15,11 @@ npm run screenshots     # writes docs/screenshots/dashboard-*.png
 ```
 
 `docs/screenshots/dashboard-quasar-aura.png` and `dashboard-primevue.png` capture
-the **Overview** page. The remaining pages are reached through the sidebar nav;
-both dashboards switch pages with the same `.dash-nav-item` buttons.
+the **Overview** page. Every page is also captured individually as
+`dashboard-<page>-quasar-aura.png` and `dashboard-<page>-primevue.png` (overview,
+chat, inbox, cards, customers, movies) so each page can be diffed image-to-image.
+`tools/screenshot.mjs` walks the shared `.dash-nav-item` sidebar buttons to reach
+each page; both dashboards switch pages with the same nav.
 
 > **Palette note.** Both dashboards share `playground/dashboard-data.js`, whose
 > `DEFAULT_PALETTE` is `noir`. The primary colour therefore renders as the Aura
@@ -29,7 +32,22 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 
 ---
 
-## Cross-cutting fixes applied in this pass
+## Latest review pass — full per-page image analysis
+
+A fresh screenshot of **all six pages** (captured individually, not just the
+Overview landing) surfaced three genuine theme bugs that the previous pass had
+only partially closed. All three are now fixed and re-verified from the
+regenerated per-page screenshots.
+
+| Fix | Where | What changed |
+|-----|-------|--------------|
+| Dense toggle crescent (CH5/CA8) | `src/css/components/_toggle.scss` | The Chat (Notification/Sound/Save) and Cards (Switch to Dark) switches use `q-toggle … dense`. Quasar's `.q-toggle--dense` rules (higher specificity) reset the inner track to `.8em×.5em` and pin the thumb to top-left, so the Aura-sized `0.667em` handle overhung the collapsed track as a **dark crescent**. Added `.q-toggle--dense` overrides that re-apply the Aura track + thumb geometry, so a dense `q-toggle` now renders as a proper Aura switch. |
+| Empty floating badge dot (OV2/CU2) | `src/css/components/_badge.scss` | An empty floating `q-badge` (unread / status dot) inherited `min-height: var(--p-badge-height)` (1.5 rem) from the Aura Badge rule, stretching the dot into a **tall red pill**. This showed on the Overview notification bell and every Customers status dot. Added `.q-badge--floating:empty` (min-height/min-width 0, `--p-badge-dot-size`) to collapse content-less floating badges to a round dot. |
+| SelectButton `outline` variant (CA1/CA2/CA6) | `playground/dashboard.css` | The Cards Follow/Message, payment-type and donate-amount toggles use the `outline` prop, which draws a per-button border via `.q-btn--outline::before`. That produced a **doubled outer border + inter-segment dividers** PrimeVue's single-pill SelectButton lacks. Extended the divider-hiding rule to `.q-btn-toggle .q-btn--outline:before`. |
+
+---
+
+## Previous cross-cutting fixes
 
 | Fix | Where | What changed |
 |-----|-------|--------------|
@@ -59,7 +77,7 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 | ID | Area | Quasar | PrimeVue | Status |
 |----|------|--------|----------|--------|
 | OV1 | Search input | `q-input outlined dense` + `#prepend` | `IconField + InputIcon + InputText` | ✅ |
-| OV2 | Notification button | `q-btn … round` + floating `q-badge` | `Button variant="outlined"` (rounded **square**) + small `OverlayBadge` dot | 🔧 Fixed — button changed to rounded-square (`notif-btn` class) and badge dot sized down to 10×10 px (`notif-badge` class). |
+| OV2 | Notification button | `q-btn … round` + floating `q-badge` | `Button variant="outlined"` (rounded **square**) + small `OverlayBadge` dot | 🔧 Fixed — button is a rounded-square (`notif-btn`); badge is now a round dot. The empty floating badge previously stretched to a tall red pill because it inherited the Aura Badge `min-height`; `.q-badge--floating:empty` in `_badge.scss` collapses it to `--p-badge-dot-size`. |
 | OV3 | Weekly/Monthly/Yearly | `q-btn-toggle` | `SelectButton` | 🔧 Fixed — `q-btn-toggle` now renders as an Aura SelectButton pill with a raised chip for the selected option (was a solid primary fill). |
 | OV4 | Download button | `q-btn color="primary"` | `Button` | ✅ |
 | OV5 | Date picker | `q-input` + `q-date` popup | `DatePicker showIcon iconDisplay="input"` | ⛔ No Quasar built-in DatePicker equivalent. |
@@ -80,7 +98,7 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 | CH2 | Chat-list avatars | `q-avatar size="40px"` | `Avatar size="large"` | 🌐 Both use the same primefaces CDN images; offline they fall back to broken-image glyphs on both sides. |
 | CH3 | Unread-count badge | `q-badge color="grey-8"` | `Badge severity="contrast"` | ✅ Dark contrast badge. |
 | CH4 | Message textarea | `q-input autogrow` | `Textarea autoResize` | ✅ |
-| CH5 | Toggle switches | `q-toggle` | `ToggleSwitch` | ✅ Aura track/thumb tokens. |
+| CH5 | Toggle switches | `q-toggle` | `ToggleSwitch` | 🔧 Fixed — the `dense` toggles rendered as a dark crescent (Quasar's `.q-toggle--dense` geometry overrode the Aura sizing); `_toggle.scss` now re-applies the Aura track/thumb geometry for the dense variant. |
 | CH6 | Media type tabs | `q-btn-toggle` | `SelectButton` | 🔧 Fixed by the SelectButton pass. |
 | CH7 | Send button | `q-btn icon="send"` (square radius) | `Button icon="pi pi-send"` | ✅ |
 | CH8 | Member chevron | `q-icon chevron_right` | `pi pi-chevron-right` | ✅ |
@@ -108,14 +126,14 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 
 | ID | Area | Quasar | PrimeVue | Status |
 |----|------|--------|----------|--------|
-| CA1 | Follow / Message | `q-btn-toggle spread` | `SelectButton` | 🔧 Fixed by the SelectButton pass. |
-| CA2 | Payment-type toggle | `q-btn-toggle` icon-only | `SelectButton #option` | 🔧 Fixed by the SelectButton pass. |
+| CA1 | Follow / Message | `q-btn-toggle spread` | `SelectButton` | 🔧 Fixed by the SelectButton pass; the `outline`-variant per-button border is now hidden so it matches the single-pill SelectButton. |
+| CA2 | Payment-type toggle | `q-btn-toggle` icon-only | `SelectButton #option` | 🔧 Fixed by the SelectButton pass (outline border removed). |
 | CA3 | OTP input | 4 × `q-input` | `InputOtp :length="4"` | ⚠️ Manual workaround; visually close, no built-in paste/auto-advance semantics. |
 | CA4 | Slider | `q-slider` | `Slider` | ✅ Aura track/thumb tokens. |
 | CA5 | Custom Amount | `q-input type=number` | `InputNumber showButtons` | ⛔ `q-input` has no +/- spinner buttons. |
-| CA6 | Donate amount toggle | `q-btn-toggle spread` | `SelectButton` | 🔧 Fixed by the SelectButton pass. |
+| CA6 | Donate amount toggle | `q-btn-toggle spread` | `SelectButton` | 🔧 Fixed by the SelectButton pass (outline border removed). |
 | CA7 | Radio (delivery) | `q-radio` | `RadioButton` | 🔧 Fixed — removed the white `q-radio__check` colour override in `_radio.scss`; inner dot now inherits primary colour and is clearly visible against a light background. |
-| CA8 | Dark-mode toggle | `q-toggle` | `ToggleSwitch` | 🔧 Fixed — added `.q-toggle__thumb:before { display:none }` to `_toggle.scss`; suppresses the Material scale(2) ripple circle that bled outside the Aura-sized pill track. |
+| CA8 | Dark-mode toggle | `q-toggle` | `ToggleSwitch` | 🔧 Fixed — the dense toggle rendered as a crescent; `_toggle.scss` now re-applies the Aura geometry to `.q-toggle--dense` (in addition to the earlier `.q-toggle__thumb:before { display:none }`). |
 | CA9 | Divider | `q-separator` | `Divider` | ✅ |
 | CA10 | AvatarGroup | overlapping `q-avatar` | `AvatarGroup` | ✅ |
 | CA11 | Job bookmark button | `q-btn outline round` | `Button rounded variant="outlined"` | ✅ |
@@ -127,7 +145,7 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 | ID | Area | Quasar | PrimeVue | Status |
 |----|------|--------|----------|--------|
 | CU1 | "950 Active User" | `q-btn icon="circle"` | `Button` + green pt icon | 🔧 Fixed — replaced `icon-color="positive"` (overridden by btn colour) with an explicit inline `q-icon` using `color:var(--p-green-500)`. |
-| CU2 | Status tag | `q-badge positive/negative/info` | `Tag success/danger/info` | 🔧 Fixed — soft tinted pills (green/red/blue). |
+| CU2 | Status tag | `q-badge positive/negative/info` | `Tag success/danger/info` | 🔧 Fixed — soft tinted pills (green/red/blue). The per-row avatar **status dot** (empty floating badge) also stretched to a tall pill until `.q-badge--floating:empty` collapsed it to a round dot. |
 | CU3 | DataTable header | `q-table` sticky-header wrap | `DataTable` sticky thead | ✅ |
 | CU4 | Row checkboxes | `q-table selection="multiple"` | `Column selectionMode` | ✅ |
 | CU5 | More/Details popover | per-row `q-menu` | shared `Popover` | ✅ Functional parity. |
