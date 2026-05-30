@@ -59,6 +59,11 @@ const VIEWPORT = { width: 1040, height: 1400 };
 const DASHBOARD_VIEWPORT = { width: 1280, height: 1600 };
 const SETTLE_MS = 600;
 
+// The dashboard sidebar exposes one `.dash-nav-item` button per page, in this
+// order. Both the Quasar and PrimeVue dashboards share the same nav markup, so
+// the same index switches the same page on either side.
+const DASHBOARD_PAGES = ['overview', 'chat', 'inbox', 'cards', 'customers', 'movies'];
+
 async function shoot(page, url, file, { theme = false } = {}) {
   await page.goto(url, { waitUntil: 'networkidle' });
   // index.html ships with the Aura theme link enabled by default; toggle it to
@@ -83,6 +88,37 @@ async function shoot(page, url, file, { theme = false } = {}) {
   console.log(`wrote ${path.relative(root, target)}`);
 }
 
+// Walk every dashboard page (via the shared `.dash-nav-item` sidebar buttons)
+// and capture a full-page screenshot of each. `prefix` distinguishes the two
+// renders, e.g. `dashboard-chat-quasar-aura.png`.
+async function shootDashboardPages(page, url, prefix, { theme = false } = {}) {
+  await page.goto(url, { waitUntil: 'networkidle' });
+  if (theme) {
+    await page.addStyleTag({ url: 'primevue-aura.css' });
+  } else {
+    await page.evaluate(() => {
+      const link = document.getElementById('aura-theme');
+      if (link) link.remove();
+    });
+  }
+  await page.addStyleTag({
+    content: '#dev-nav{display:none!important}body{padding-top:24px!important}',
+  });
+  await page.evaluate(() => document.fonts && document.fonts.ready);
+
+  for (let i = 0; i < DASHBOARD_PAGES.length; i++) {
+    await page.evaluate((index) => {
+      const items = document.querySelectorAll('.dash-nav-item');
+      if (items[index]) items[index].click();
+    }, i);
+    await page.waitForTimeout(SETTLE_MS);
+    const file = `dashboard-${DASHBOARD_PAGES[i]}-${prefix}.png`;
+    const target = path.join(outDir, file);
+    await page.screenshot({ path: target, fullPage: true });
+    console.log(`wrote ${path.relative(root, target)}`);
+  }
+}
+
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const { port } = server.address();
 const base = `http://127.0.0.1:${port}`;
@@ -101,6 +137,12 @@ try {
   await shoot(dash, `${base}/dashboard.html`, 'dashboard-quasar-plain.png');
   await shoot(dash, `${base}/dashboard.html`, 'dashboard-quasar-aura.png', { theme: true });
   await shoot(dash, `${base}/dashboard.primevue.html`, 'dashboard-primevue.png');
+
+  // Per-page captures for the full Aura-vs-PrimeVue review. Each dashboard page
+  // is reached through the shared sidebar nav and written as a separate PNG so
+  // every page can be diffed image-to-image, not just the Overview landing.
+  await shootDashboardPages(dash, `${base}/dashboard.html`, 'quasar-aura', { theme: true });
+  await shootDashboardPages(dash, `${base}/dashboard.primevue.html`, 'primevue');
 } finally {
   await browser.close();
   server.close();
