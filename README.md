@@ -19,6 +19,20 @@ app gets the clean PrimeVue look out of the box while you keep using Quasar's
 The middle image is Quasar's own components restyled by this extension; the
 right image is upstream PrimeVue rendered with the same gallery, for comparison.
 
+### Overview dashboard
+
+A second playground mirrors PrimeVue's
+[OverviewApp landing sample](https://github.com/primefaces/primevue/blob/master/apps/showcase/components/landing/samples/OverviewApp.vue)
+as a full dashboard (header, time filter, bar chart, transactions table and a
+wallet meter). It renders the same three ways, so the PrimeVue reference matches
+the website, Quasar + Aura matches the reference, and plain Quasar stays as close
+as Quasar's own components allow. The **Aura** preset is the only theme, but the
+primary colour can be switched between Aura palettes via the playground nav.
+
+| Plain Quasar (Material) | This extension's Aura theme | Real PrimeVue v4 Aura (reference) |
+| --- | --- | --- |
+| ![plain Quasar dashboard](docs/screenshots/dashboard-quasar-plain.png) | ![Quasar + Aura dashboard](docs/screenshots/dashboard-quasar-aura.png) | ![PrimeVue Aura dashboard](docs/screenshots/dashboard-primevue.png) |
+
 ## How it works
 
 PrimeVue's design is driven by [design tokens](https://primevue.org/theming/styled/).
@@ -136,7 +150,10 @@ The playground renders the **same** component gallery two ways:
 `playground/index.html` is plain Quasar (attaching `playground/primevue-aura.css`
 switches it to the Aura theme) and `playground/primevue.html` is the real
 PrimeVue v4 Aura components for reference. `playground/components.html` demos the
-new components from [Phase 3/4](#new-components-phase-34). See
+new components from [Phase 3/4](#new-components-phase-34). A second playground —
+`playground/dashboard.html` (Quasar, with a nav toggle for the Aura theme) and
+`playground/dashboard.primevue.html` (real PrimeVue) — mirrors PrimeVue's
+OverviewApp dashboard sample and lets you switch the Aura primary colour. See
 [`tools/README.md`](tools/README.md) for the full screenshot workflow.
 
 ## License

@@ -45,6 +45,7 @@
     "@quasar/extras": "^1.18.0",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/test-utils": "^2.4.10",
+    "chart.js": "^4.5.1",
     "happy-dom": "^20.9.0",
     "playwright": "^1.60.0",
     "primeicons": "^7.0.0",

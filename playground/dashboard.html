@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quasar Aura — Overview dashboard</title>
+    <link href="vendor/quasar.prod.css" rel="stylesheet" />
+    <link href="vendor/material-icons/material-icons.css" rel="stylesheet" />
+    <link href="vendor/primeicons/primeicons.css" rel="stylesheet" />
+    <link href="primevue-aura.css" rel="stylesheet" id="aura-theme" />
+    <link href="dashboard.css" rel="stylesheet" />
+    <!-- Quasar rendering of PrimeVue's OverviewApp dashboard. The Aura theme
+         (#aura-theme) makes it match the PrimeVue reference; removing it shows
+         plain Quasar, which stays as close as Quasar's own components allow. -->
+  </head>
+  <body>
+    <nav id="dev-nav">
+      <div class="nav-group">
+        <span class="nav-group-label">Components</span>
+        <a href="index.html">Quasar</a>
+        <a href="primevue.html">PrimeVue</a>
+        <a href="components.html">New</a>
+      </div>
+      <div class="nav-sep"></div>
+      <div class="nav-group">
+        <span class="nav-group-label">Dashboards</span>
+        <a href="dashboard.html" id="nav-quasar" class="active">Quasar</a>
+        <a href="dashboard.primevue.html">PrimeVue</a>
+        <a href="dashboard-split.html">Side by Side</a>
+      </div>
+      <span class="spacer"></span>
+      <label for="palette">Primary</label>
+      <select id="palette"></select>
+      <button id="theme-toggle">Disable Aura theme</button>
+    </nav>
+    <div id="q-app"></div>
+
+    <script src="vendor/vue.global.prod.js"></script>
+    <script src="vendor/quasar.umd.prod.js"></script>
+    <script src="vendor/aura-components.js"></script>
+    <script src="vendor/chart.umd.js"></script>
+    <script src="dashboard-data.js"></script>
+    <script src="pages/overview.quasar.js"></script>
+    <script src="pages/chat.quasar.js"></script>
+    <script src="pages/inbox.quasar.js"></script>
+    <script src="pages/cards.quasar.js"></script>
+    <script src="pages/customers.quasar.js"></script>
+    <script src="pages/movies.quasar.js"></script>
+    <script>
+      const { createApp, shallowRef } = Vue;
+      const D = window.DASHBOARD;
+
+      const NAV_ITEMS = [
+        { label: 'Overview',  icon: 'dashboard',   page: 'Overview' },
+        { label: 'Chat',      icon: 'chat',         page: 'Chat' },
+        { label: 'Inbox',     icon: 'inbox',        page: 'Inbox' },
+        { label: 'Cards',     icon: 'credit_card',  page: 'Cards' },
+        { label: 'Customers', icon: 'people',       page: 'Customers' },
+        { label: 'Movies',    icon: 'movie',        page: 'Movies' },
+      ];
+
+      const app = createApp({
+        data() {
+          return {
+            navItems: NAV_ITEMS,
+            activePage: 'Overview',
+            currentComponent: shallowRef(window.DASH_Q.Overview),
+            sidebarCollapsed: new URLSearchParams(window.location.search).has('embedded'),
+          };
+        },
+        methods: {
+          navigate(item) {
+            if (!item.page) return;
+            this.activePage = item.page;
+            this.currentComponent = shallowRef(window.DASH_Q[item.page]);
+          },
+          rebuildChart() {
+            if (window.__dashChart) window.__dashChart.rebuildChart();
+          },
+        },
+        template: `
+          <div class="dash-shell">
+            <aside class="dash-sidebar" :class="{'dash-sidebar--collapsed': sidebarCollapsed}">
+              <div>
+                <div class="dash-brand">
+                  <svg class="dash-brand-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="var(--p-primary-color,#10b981)"/>
+                    <path d="M8 20l6-8 4 5 3-4 5 7H8z" fill="white" opacity="0.9"/>
+                  </svg>
+                  <span class="dash-brand-name">App</span>
+                  <button class="dash-collapse-btn" @click="sidebarCollapsed = !sidebarCollapsed" :title="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'">
+                    <q-icon :name="sidebarCollapsed ? 'chevron_right' : 'chevron_left'" size="16px" />
+                  </button>
+                </div>
+                <nav class="dash-nav">
+                  <button
+                    v-for="item in navItems"
+                    :key="item.label"
+                    class="dash-nav-item"
+                    :class="{ active: activePage === item.page, 'dash-nav-disabled': !item.page }"
+                    :title="sidebarCollapsed ? item.label : ''"
+                    @click="navigate(item)"
+                  >
+                    <q-icon :name="item.icon" />
+                    <span class="dash-nav-label">{{ item.label }}</span>
+                  </button>
+                </nav>
+              </div>
+              <div class="dash-sidebar-foot">
+                <div class="dash-sidebar-divider"></div>
+                <div class="dash-sidebar-user">
+                  <q-avatar size="40px" color="primary" text-color="white">AE</q-avatar>
+                  <div>
+                    <div class="dash-sidebar-user-name">Amy Elder</div>
+                    <div class="dash-sidebar-user-mail">amyrosegomes@email.com</div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+            <div class="dash-main">
+              <component :is="currentComponent" />
+            </div>
+          </div>
+        `,
+      });
+      app.use(Quasar, { config: {} });
+      app.use(QuasarAuraComponents.default || QuasarAuraComponents);
+      window.__dashApp = app.mount('#q-app');
+
+      // Playground controls: Aura theme toggle + Aura primary palette switch.
+      (function () {
+        const select = document.getElementById('palette');
+        D.PALETTE_NAMES.forEach((name) => {
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+          select.appendChild(opt);
+        });
+        select.value = D.DEFAULT_PALETTE;
+        function applyPalette() {
+          D.applyPrimaryPalette(select.value);
+          if (window.__dashApp) window.__dashApp.rebuildChart();
+        }
+        select.addEventListener('change', applyPalette);
+        applyPalette();
+
+        const btn = document.getElementById('theme-toggle');
+        let auraEnabled = true;
+        btn.classList.add('on');
+        btn.addEventListener('click', function () {
+          auraEnabled = !auraEnabled;
+          if (auraEnabled) {
+            if (!document.getElementById('aura-theme')) {
+              const link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = 'primevue-aura.css';
+              link.id = 'aura-theme';
+              document.head.appendChild(link);
+            }
+            btn.textContent = 'Disable Aura theme';
+            btn.classList.add('on');
+            document.getElementById('nav-quasar').textContent = 'Quasar + Aura';
+          } else {
+            const el = document.getElementById('aura-theme');
+            if (el) el.parentNode.removeChild(el);
+            btn.textContent = 'Enable Aura theme';
+            btn.classList.remove('on');
+            document.getElementById('nav-quasar').textContent = 'Plain Quasar';
+          }
+          if (window.__dashApp) window.__dashApp.rebuildChart();
+        });
+      })();
+    </script>
+  </body>
+</html>

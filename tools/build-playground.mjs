@@ -38,6 +38,9 @@ const assets = [
   // Real PrimeVue v4 + Aura preset (reference screenshot)
   ['primevue/umd/primevue.min.js', 'primevue.min.js'],
   ['@primeuix/themes/umd/aura.js', 'primeuix-aura.js'],
+  // Chart.js UMD, used by the Overview dashboard playground (both renders draw
+  // the same bar chart on a canvas).
+  ['chart.js/dist/chart.umd.js', 'chart.umd.js'],
   ['primeicons/primeicons.css', 'primeicons/primeicons.css'],
   ['primeicons/fonts/primeicons.woff2', 'primeicons/fonts/primeicons.woff2'],
   ['primeicons/fonts/primeicons.woff', 'primeicons/fonts/primeicons.woff'],

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PrimeVue Aura — Overview dashboard</title>
+    <link href="vendor/primeicons/primeicons.css" rel="stylesheet" />
+    <link href="dashboard.css" rel="stylesheet" />
+    <!-- Reference dashboard: the real PrimeVue v4 Aura components rendering the
+         OverviewApp landing sample, used to compare the Quasar Aura theme. -->
+  </head>
+  <body>
+    <nav id="dev-nav">
+      <div class="nav-group">
+        <span class="nav-group-label">Components</span>
+        <a href="index.html">Quasar</a>
+        <a href="primevue.html">PrimeVue</a>
+        <a href="components.html">New</a>
+      </div>
+      <div class="nav-sep"></div>
+      <div class="nav-group">
+        <span class="nav-group-label">Dashboards</span>
+        <a href="dashboard.html">Quasar</a>
+        <a href="dashboard.primevue.html" class="active">PrimeVue</a>
+        <a href="dashboard-split.html">Side by Side</a>
+      </div>
+      <span class="spacer"></span>
+      <label for="palette">Primary</label>
+      <select id="palette"></select>
+    </nav>
+    <div id="app"></div>
+
+    <script src="vendor/vue.global.prod.js"></script>
+    <script src="vendor/primevue.min.js"></script>
+    <script src="vendor/primeuix-aura.js"></script>
+    <script src="vendor/chart.umd.js"></script>
+    <script src="dashboard-data.js"></script>
+    <script src="pages/overview.primevue.js"></script>
+    <script src="pages/chat.primevue.js"></script>
+    <script src="pages/inbox.primevue.js"></script>
+    <script src="pages/cards.primevue.js"></script>
+    <script src="pages/customers.primevue.js"></script>
+    <script src="pages/movies.primevue.js"></script>
+    <script>
+      const { createApp, shallowRef } = Vue;
+      const D = window.DASHBOARD;
+
+      const NAV_ITEMS = [
+        { label: 'Overview',  icon: 'pi pi-th-large',    page: 'Overview' },
+        { label: 'Chat',      icon: 'pi pi-comments',    page: 'Chat' },
+        { label: 'Inbox',     icon: 'pi pi-inbox',       page: 'Inbox' },
+        { label: 'Cards',     icon: 'pi pi-credit-card', page: 'Cards' },
+        { label: 'Customers', icon: 'pi pi-users',       page: 'Customers' },
+        { label: 'Movies',    icon: 'pi pi-video',       page: 'Movies' },
+      ];
+
+      const app = createApp({
+        data() {
+          return {
+            navItems: NAV_ITEMS,
+            activePage: 'Overview',
+            currentComponent: shallowRef(window.DASH_PV.Overview),
+            sidebarCollapsed: new URLSearchParams(window.location.search).has('embedded'),
+          };
+        },
+        methods: {
+          navigate(item) {
+            if (!item.page) return;
+            this.activePage = item.page;
+            this.currentComponent = shallowRef(window.DASH_PV[item.page]);
+          },
+          rebuildChart() {
+            if (window.__dashChart) window.__dashChart.rebuildChart();
+          },
+        },
+        template: `
+          <div class="dash-shell">
+            <aside class="dash-sidebar" :class="{'dash-sidebar--collapsed': sidebarCollapsed}">
+              <div>
+                <div class="dash-brand">
+                  <svg class="dash-brand-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="var(--p-primary-color,#10b981)"/>
+                    <path d="M8 20l6-8 4 5 3-4 5 7H8z" fill="white" opacity="0.9"/>
+                  </svg>
+                  <span class="dash-brand-name">App</span>
+                  <button class="dash-collapse-btn" @click="sidebarCollapsed = !sidebarCollapsed" :title="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'">
+                    <i :class="sidebarCollapsed ? 'pi pi-chevron-right' : 'pi pi-chevron-left'" style="font-size:12px"></i>
+                  </button>
+                </div>
+                <nav class="dash-nav">
+                  <button
+                    v-for="item in navItems"
+                    :key="item.label"
+                    class="dash-nav-item"
+                    :class="{ active: activePage === item.page, 'dash-nav-disabled': !item.page }"
+                    :title="sidebarCollapsed ? item.label : ''"
+                    @click="navigate(item)"
+                  >
+                    <i :class="item.icon"></i>
+                    <span class="dash-nav-label">{{ item.label }}</span>
+                  </button>
+                </nav>
+              </div>
+              <div class="dash-sidebar-foot">
+                <div class="dash-sidebar-divider"></div>
+                <div class="dash-sidebar-user">
+                  <Avatar label="AE" size="normal" shape="circle" style="background-color:var(--p-primary-color);color:var(--p-primary-contrast-color)" />
+                  <div>
+                    <div class="dash-sidebar-user-name">Amy Elder</div>
+                    <div class="dash-sidebar-user-mail">amyrosegomes@email.com</div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+            <div class="dash-main">
+              <component :is="currentComponent" />
+            </div>
+          </div>
+        `,
+      });
+
+      app.use(PrimeVue.Config, {
+        theme: { preset: PrimeUIX.Themes.Aura, options: { darkModeSelector: '.app-dark' } },
+      });
+
+      const components = {
+        Avatar: 'Avatar',
+        AvatarGroup: 'AvatarGroup',
+        AutoComplete: 'AutoComplete',
+        Badge: 'Badge',
+        Button: 'Button',
+        Carousel: 'Carousel',
+        Checkbox: 'Checkbox',
+        Column: 'Column',
+        DataTable: 'DataTable',
+        DatePicker: 'DatePicker',
+        Divider: 'Divider',
+        FileUpload: 'FileUpload',
+        IconField: 'IconField',
+        InputIcon: 'InputIcon',
+        InputNumber: 'InputNumber',
+        InputOtp: 'InputOtp',
+        InputText: 'InputText',
+        Menu: 'Menu',
+        MeterGroup: 'MeterGroup',
+        OverlayBadge: 'OverlayBadge',
+        Popover: 'Popover',
+        ProgressBar: 'ProgressBar',
+        RadioButton: 'RadioButton',
+        Select: 'Select',
+        SelectButton: 'SelectButton',
+        Slider: 'Slider',
+        Tag: 'Tag',
+        Textarea: 'Textarea',
+        ToggleSwitch: 'ToggleSwitch',
+      };
+      for (const [name, comp] of Object.entries(components)) {
+        app.component(name, PrimeVue[comp]);
+      }
+
+      window.__dashApp = app.mount('#app');
+
+      // Playground control: switch the Aura primary palette (Aura preset only).
+      (function () {
+        const select = document.getElementById('palette');
+        D.PALETTE_NAMES.forEach((name) => {
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+          select.appendChild(opt);
+        });
+        select.value = D.DEFAULT_PALETTE;
+        function setPalette(name) {
+          D.applyPrimaryPalette(name);
+          PrimeVue.updatePrimaryPalette(D.PALETTES[name]);
+          if (window.__dashApp) window.__dashApp.rebuildChart();
+        }
+        select.addEventListener('change', () => setPalette(select.value));
+        setPalette(D.DEFAULT_PALETTE);
+      })();
+    </script>
+  </body>
+</html>
