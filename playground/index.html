@@ -17,7 +17,7 @@
       h2.section { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; opacity: .6; margin: 0 0 10px; }
       #dev-nav {
         position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
-        display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+        display: flex; align-items: center; gap: 6px; padding: 6px 14px;
         background: #1e293b; color: #f8fafc; font-family: sans-serif; font-size: 13px;
         box-shadow: 0 2px 6px rgba(0,0,0,.3);
       }
@@ -27,6 +27,9 @@
       }
       #dev-nav a:hover { background: #334155; color: #f8fafc; }
       #dev-nav a.active { background: #3b82f6; color: #fff; }
+      .nav-group { display: flex; align-items: center; gap: 3px; border: 1px solid #334155; border-radius: 6px; padding: 2px; }
+      .nav-group-label { color: #64748b; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 0 6px; white-space: nowrap; }
+      .nav-sep { width: 1px; height: 20px; background: #334155; margin: 0 4px; }
       #dev-nav button {
         margin-left: auto; padding: 4px 12px; border: 1px solid #475569;
         background: transparent; color: #f8fafc; border-radius: 4px;
@@ -38,10 +41,19 @@
   </head>
   <body>
     <nav id="dev-nav">
-      <a href="index.html" id="nav-plain" class="active">Plain Quasar</a>
-      <a href="primevue.html">PrimeVue Reference</a>
-      <a href="components.html">New components</a>
-      <a href="dashboard.html">Dashboard</a>
+      <div class="nav-group">
+        <span class="nav-group-label">Components</span>
+        <a href="index.html" id="nav-plain" class="active">Quasar</a>
+        <a href="primevue.html">PrimeVue</a>
+        <a href="components.html">New</a>
+      </div>
+      <div class="nav-sep"></div>
+      <div class="nav-group">
+        <span class="nav-group-label">Dashboards</span>
+        <a href="dashboard.html">Quasar</a>
+        <a href="dashboard.primevue.html">PrimeVue</a>
+        <a href="dashboard-split.html">Side by Side</a>
+      </div>
       <button id="theme-toggle">Enable Aura theme</button>
     </nav>
     <script>

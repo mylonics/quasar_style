@@ -15,9 +15,19 @@
   </head>
   <body>
     <nav id="dev-nav">
-      <a href="index.html">Components</a>
-      <a href="dashboard.html" id="nav-quasar" class="active">Quasar dashboard</a>
-      <a href="dashboard.primevue.html">PrimeVue dashboard</a>
+      <div class="nav-group">
+        <span class="nav-group-label">Components</span>
+        <a href="index.html">Quasar</a>
+        <a href="primevue.html">PrimeVue</a>
+        <a href="components.html">New</a>
+      </div>
+      <div class="nav-sep"></div>
+      <div class="nav-group">
+        <span class="nav-group-label">Dashboards</span>
+        <a href="dashboard.html" id="nav-quasar" class="active">Quasar</a>
+        <a href="dashboard.primevue.html">PrimeVue</a>
+        <a href="dashboard-split.html">Side by Side</a>
+      </div>
       <span class="spacer"></span>
       <label for="palette">Primary</label>
       <select id="palette"></select>
@@ -31,17 +41,22 @@
     <script src="vendor/chart.umd.js"></script>
     <script src="dashboard-data.js"></script>
     <script src="pages/overview.quasar.js"></script>
+    <script src="pages/chat.quasar.js"></script>
+    <script src="pages/inbox.quasar.js"></script>
+    <script src="pages/cards.quasar.js"></script>
+    <script src="pages/customers.quasar.js"></script>
+    <script src="pages/movies.quasar.js"></script>
     <script>
       const { createApp, shallowRef } = Vue;
       const D = window.DASHBOARD;
 
       const NAV_ITEMS = [
-        { label: 'Overview',  icon: 'dashboard',  page: 'Overview' },
-        { label: 'Chat',      icon: 'chat',        page: null },
-        { label: 'Inbox',     icon: 'inbox',       page: null },
-        { label: 'Cards',     icon: 'credit_card', page: null },
-        { label: 'Customers', icon: 'people',      page: null },
-        { label: 'Movies',    icon: 'movie',       page: null },
+        { label: 'Overview',  icon: 'dashboard',   page: 'Overview' },
+        { label: 'Chat',      icon: 'chat',         page: 'Chat' },
+        { label: 'Inbox',     icon: 'inbox',        page: 'Inbox' },
+        { label: 'Cards',     icon: 'credit_card',  page: 'Cards' },
+        { label: 'Customers', icon: 'people',       page: 'Customers' },
+        { label: 'Movies',    icon: 'movie',        page: 'Movies' },
       ];
 
       const app = createApp({

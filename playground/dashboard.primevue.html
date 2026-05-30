@@ -11,9 +11,19 @@
   </head>
   <body>
     <nav id="dev-nav">
-      <a href="index.html">Components</a>
-      <a href="dashboard.html">Quasar dashboard</a>
-      <a href="dashboard.primevue.html" class="active">PrimeVue dashboard</a>
+      <div class="nav-group">
+        <span class="nav-group-label">Components</span>
+        <a href="index.html">Quasar</a>
+        <a href="primevue.html">PrimeVue</a>
+        <a href="components.html">New</a>
+      </div>
+      <div class="nav-sep"></div>
+      <div class="nav-group">
+        <span class="nav-group-label">Dashboards</span>
+        <a href="dashboard.html">Quasar</a>
+        <a href="dashboard.primevue.html" class="active">PrimeVue</a>
+        <a href="dashboard-split.html">Side by Side</a>
+      </div>
       <span class="spacer"></span>
       <label for="palette">Primary</label>
       <select id="palette"></select>
@@ -26,17 +36,22 @@
     <script src="vendor/chart.umd.js"></script>
     <script src="dashboard-data.js"></script>
     <script src="pages/overview.primevue.js"></script>
+    <script src="pages/chat.primevue.js"></script>
+    <script src="pages/inbox.primevue.js"></script>
+    <script src="pages/cards.primevue.js"></script>
+    <script src="pages/customers.primevue.js"></script>
+    <script src="pages/movies.primevue.js"></script>
     <script>
       const { createApp, shallowRef } = Vue;
       const D = window.DASHBOARD;
 
       const NAV_ITEMS = [
-        { label: 'Overview',  icon: 'pi pi-th-large', page: 'Overview' },
-        { label: 'Chat',      icon: 'pi pi-comments',  page: null },
-        { label: 'Inbox',     icon: 'pi pi-inbox',     page: null },
-        { label: 'Cards',     icon: 'pi pi-credit-card', page: null },
-        { label: 'Customers', icon: 'pi pi-users',     page: null },
-        { label: 'Movies',    icon: 'pi pi-video',     page: null },
+        { label: 'Overview',  icon: 'pi pi-th-large',    page: 'Overview' },
+        { label: 'Chat',      icon: 'pi pi-comments',    page: 'Chat' },
+        { label: 'Inbox',     icon: 'pi pi-inbox',       page: 'Inbox' },
+        { label: 'Cards',     icon: 'pi pi-credit-card', page: 'Cards' },
+        { label: 'Customers', icon: 'pi pi-users',       page: 'Customers' },
+        { label: 'Movies',    icon: 'pi pi-video',       page: 'Movies' },
       ];
 
       const app = createApp({
@@ -104,19 +119,35 @@
       });
 
       const components = {
+        Avatar: 'Avatar',
+        AvatarGroup: 'AvatarGroup',
+        AutoComplete: 'AutoComplete',
+        Badge: 'Badge',
         Button: 'Button',
-        InputText: 'InputText',
+        Carousel: 'Carousel',
+        Checkbox: 'Checkbox',
+        Column: 'Column',
+        DataTable: 'DataTable',
+        DatePicker: 'DatePicker',
+        Divider: 'Divider',
+        FileUpload: 'FileUpload',
         IconField: 'IconField',
         InputIcon: 'InputIcon',
-        OverlayBadge: 'OverlayBadge',
-        SelectButton: 'SelectButton',
-        DatePicker: 'DatePicker',
-        DataTable: 'DataTable',
-        Column: 'Column',
-        Avatar: 'Avatar',
-        Tag: 'Tag',
+        InputNumber: 'InputNumber',
+        InputOtp: 'InputOtp',
+        InputText: 'InputText',
         Menu: 'Menu',
         MeterGroup: 'MeterGroup',
+        OverlayBadge: 'OverlayBadge',
+        Popover: 'Popover',
+        ProgressBar: 'ProgressBar',
+        RadioButton: 'RadioButton',
+        Select: 'Select',
+        SelectButton: 'SelectButton',
+        Slider: 'Slider',
+        Tag: 'Tag',
+        Textarea: 'Textarea',
+        ToggleSwitch: 'ToggleSwitch',
       };
       for (const [name, comp] of Object.entries(components)) {
         app.component(name, PrimeVue[comp]);
