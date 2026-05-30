@@ -47,3 +47,25 @@
 .q-toggle__thumb:before {
   display: none;
 }
+
+// Quasar's `dense` modifier (`.q-toggle--dense`) carries higher specificity and
+// overrides the inner track + thumb geometry with Material values (width .8em /
+// height .5em, thumb pinned to top-left). With the Aura-sized 0.667em handle the
+// track collapses to a narrow oval and the handle overhangs it as a crescent.
+// Re-apply the Aura geometry to the dense variant so a dense q-toggle renders as
+// a proper Aura switch rather than a broken crescent.
+.q-toggle--dense .q-toggle__inner {
+  width: 1.667em;
+  min-width: 1.667em;
+  height: 1em;
+  padding: 0;
+}
+
+.q-toggle--dense .q-toggle__thumb {
+  top: 0.1665em;
+  left: 0.1665em;
+}
+
+.q-toggle--dense .q-toggle__inner--truthy .q-toggle__thumb {
+  left: 0.833em;
+}

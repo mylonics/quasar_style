@@ -800,10 +800,14 @@ body {
   font-weight: 500 !important;
   min-height: 0 !important;
 }
-/* Hide Quasar's internal segment dividers between toggle buttons. */
+/* Hide Quasar's internal segment dividers between toggle buttons. The cards page
+   uses the `outline` prop, which draws a per-button border via `.q-btn--outline`
+   `:before`; without hiding it the SelectButton shows a doubled outer border and
+   inter-segment dividers that PrimeVue's single-pill SelectButton does not have. */
 .q-btn-toggle .q-btn__content + .q-separator,
 .q-btn-toggle > .q-separator,
-.q-btn-toggle .q-btn--standard:before {
+.q-btn-toggle .q-btn--standard:before,
+.q-btn-toggle .q-btn--outline:before {
   display: none !important;
   border: 0 !important;
 }
