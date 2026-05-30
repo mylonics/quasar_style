@@ -65,6 +65,7 @@
             navItems: NAV_ITEMS,
             activePage: 'Overview',
             currentComponent: shallowRef(window.DASH_Q.Overview),
+            sidebarCollapsed: new URLSearchParams(window.location.search).has('embedded'),
           };
         },
         methods: {
@@ -79,7 +80,7 @@
         },
         template: `
           <div class="dash-shell">
-            <aside class="dash-sidebar">
+            <aside class="dash-sidebar" :class="{'dash-sidebar--collapsed': sidebarCollapsed}">
               <div>
                 <div class="dash-brand">
                   <svg class="dash-brand-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,6 +88,9 @@
                     <path d="M8 20l6-8 4 5 3-4 5 7H8z" fill="white" opacity="0.9"/>
                   </svg>
                   <span class="dash-brand-name">App</span>
+                  <button class="dash-collapse-btn" @click="sidebarCollapsed = !sidebarCollapsed" :title="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'">
+                    <q-icon :name="sidebarCollapsed ? 'chevron_right' : 'chevron_left'" size="16px" />
+                  </button>
                 </div>
                 <nav class="dash-nav">
                   <button
@@ -94,10 +98,11 @@
                     :key="item.label"
                     class="dash-nav-item"
                     :class="{ active: activePage === item.page, 'dash-nav-disabled': !item.page }"
+                    :title="sidebarCollapsed ? item.label : ''"
                     @click="navigate(item)"
                   >
                     <q-icon :name="item.icon" />
-                    {{ item.label }}
+                    <span class="dash-nav-label">{{ item.label }}</span>
                   </button>
                 </nav>
               </div>
