@@ -20,7 +20,104 @@ body {
   color: var(--p-text-color, #334155);
 }
 
+/* ----------------------------------------------------------------------------
+ * Shell: a left sidebar (Overview / Chat / Inbox / Cards / Customers / Movies
+ * + Settings) and a main area that renders the active page, mirroring the
+ * PrimeVue Apps landing demo's HeroSection wrapper.
+ * ------------------------------------------------------------------------- */
+.dash-shell {
+  display: flex;
+  gap: 24px;
+  height: calc(100vh - 112px);
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.dash-sidebar {
+  width: 220px;
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 8px;
+  border: 1px solid var(--p-content-border-color, #e2e8f0);
+  border-radius: 16px;
+  background: var(--p-content-background, #fff);
+  overflow: auto;
+}
+.dash-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+}
+.dash-brand-logo {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  color: var(--p-primary-color, #10b981);
+}
+.dash-brand-name {
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--p-text-color, #1e293b);
+}
+.dash-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 32px;
+}
+.dash-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+  text-align: left;
+  color: var(--p-text-muted-color, #64748b);
+  transition: background 0.15s, color 0.15s;
+}
+.dash-nav-item:hover { background: var(--p-content-hover-background, #f1f5f9); }
+.dash-nav-item.active {
+  background: var(--p-primary-color, #10b981);
+  color: var(--p-primary-contrast-color, #fff);
+}
+.dash-nav-item.active:hover { background: var(--p-primary-hover-color, #059669); }
+.dash-nav-item i { font-size: 1rem; }
+.dash-sidebar-foot { margin-top: 24px; }
+.dash-sidebar-divider {
+  height: 1px;
+  background: var(--p-content-border-color, #e2e8f0);
+  margin: 16px 0;
+}
+.dash-sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px;
+}
+.dash-sidebar-user-name { font-weight: 500; line-height: 1.25; color: var(--p-text-color, #1e293b); }
+.dash-sidebar-user-mail { font-size: 0.875rem; color: var(--p-text-muted-color, #64748b); margin-top: 2px; }
+
+.dash-main {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
 .dash {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow: auto;
   max-width: 1100px;
   margin: 0 auto;
 }
