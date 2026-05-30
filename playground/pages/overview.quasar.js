@@ -62,8 +62,8 @@
             <q-input outlined dense placeholder="Search">
               <template #prepend><q-icon name="search" /></template>
             </q-input>
-            <q-btn outline color="grey-7" icon="notifications" round>
-              <q-badge floating rounded color="negative" />
+            <q-btn outline color="grey-7" icon="notifications" class="notif-btn">
+              <q-badge floating rounded color="negative" class="notif-badge" />
             </q-btn>
           </div>
         </div>

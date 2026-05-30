@@ -77,7 +77,7 @@
             <div>
               <div class="inbox-upgrade-box">
                 <div class="inbox-upgrade-title">Free Version</div>
-                <q-linear-progress :value="storageUsed / 100" color="negative" style="height:12px;border-radius:6px">
+                <q-linear-progress :value="storageUsed / 100" color="negative" class="inbox-trial-bar" style="height:12px;border-radius:6px">
                   <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.7rem;white-space:nowrap;color:#fff">4 days left</div>
                 </q-linear-progress>
               </div>

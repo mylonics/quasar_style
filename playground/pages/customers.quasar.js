@@ -46,8 +46,10 @@
             <div class="customers-head-title">Customers</div>
             <div class="customers-head-sub">The analysis list here shows all users</div>
           </div>
-          <q-btn icon="circle" label="950 Active User" outline no-caps color="grey-7"
-            style="font-size:.8rem" icon-color="positive" />
+          <q-btn outline no-caps color="grey-7" style="font-size:.8rem">
+              <q-icon name="circle" style="color:var(--p-green-500,#22c55e);margin-right:6px;font-size:10px" />
+              950 Active User
+            </q-btn>
         </div>
         <div class="customers-toolbar">
           <q-input v-model="search" outlined dense placeholder="Search" style="min-width:200px">
@@ -66,6 +68,7 @@
           <q-table flat :rows="tableData" :columns="columns" row-key="id"
             v-model:selected="selectedRows" selection="multiple"
             v-model:pagination="pagination" :rows-per-page-options="[10, 20]"
+            hide-bottom
             :filter="search">
             <template #body-cell-name="props">
               <q-td :props="props">

@@ -752,18 +752,73 @@ body {
 
 /* Badge / Tag parity: give all non-floating q-badge a pill shape and
    subdued background that matches PrimeVue Aura's Tag severity colours.
-   Floating badges (position:absolute) keep their compact dot style. */
-.q-badge:not([class*="absolute"]):not([style*="position:absolute"]) {
-  border-radius: 1rem !important;
-  padding: 2px 10px !important;
-  font-weight: 500 !important;
+   Floating badges (q-badge--floating) keep their compact dot/count style. */
+.q-badge:not(.q-badge--floating) {
+  border-radius: 6px !important;
+  padding: 0.125rem 0.5rem !important;
+  font-weight: 700 !important;
   font-size: 0.75rem !important;
+  line-height: 1.25 !important;
 }
 /* Secondary/neutral tag (grey-3 background) */
 .q-badge[class*="grey-3"],
 .q-badge[class*="grey-4"] {
   background-color: var(--p-surface-100, #f1f5f9) !important;
   color: var(--p-text-color, #1e293b) !important;
+}
+/* Semantic tags (success/danger/info) — PrimeVue Aura Tag renders a soft tinted
+   background with a saturated text colour, not the solid-filled Material badge.
+   Quasar emits bg-positive/bg-negative/bg-info on q-badge color="positive"… */
+.q-badge.bg-positive:not(.q-badge--floating) {
+  background-color: var(--p-green-100, #dcfce7) !important;
+  color: var(--p-green-700, #15803d) !important;
+}
+.q-badge.bg-negative:not(.q-badge--floating) {
+  background-color: var(--p-red-100, #fee2e2) !important;
+  color: var(--p-red-700, #b91c1c) !important;
+}
+.q-badge.bg-info:not(.q-badge--floating) {
+  background-color: var(--p-blue-100, #dbeafe) !important;
+  color: var(--p-blue-700, #1d4ed8) !important;
+}
+
+/* SelectButton parity — PrimeVue Aura's SelectButton is a single pill-shaped
+   container (surface-100) whose selected option gets a raised surface-0 chip,
+   not Quasar's default segmented buttons with a solid primary fill.
+   Restyle q-btn-toggle (used for Weekly/Monthly/Yearly, Chat/Call, payment
+   type, donate amounts, grid/list view, etc.). */
+.q-btn-toggle {
+  background: var(--p-surface-100, #f1f5f9) !important;
+  border: 1px solid var(--p-surface-200, #e2e8f0) !important;
+  border-radius: 8px !important;
+  padding: 4px !important;
+  box-shadow: none !important;
+  gap: 2px;
+}
+.q-btn-toggle .q-btn {
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+  min-height: 0 !important;
+}
+/* Hide Quasar's internal segment dividers between toggle buttons. */
+.q-btn-toggle .q-btn__content + .q-separator,
+.q-btn-toggle > .q-separator,
+.q-btn-toggle .q-btn--standard:before {
+  display: none !important;
+  border: 0 !important;
+}
+/* Unselected option: transparent with muted text. */
+.q-btn-toggle .q-btn {
+  color: var(--p-text-muted-color, #64748b) !important;
+  background: transparent !important;
+}
+/* Selected option: raised surface chip with primary-coloured text — overrides
+   the toggle-color="primary" solid fill that Quasar applies to the active btn. */
+.q-btn-toggle .q-btn.bg-primary,
+.q-btn-toggle .q-btn[class*="text-white"] {
+  background: var(--p-surface-0, #ffffff) !important;
+  color: var(--p-text-color, #1e293b) !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Vertical separator — match PrimeVue Divider layout="vertical" */
@@ -831,4 +886,30 @@ body {
   top: 0;
   z-index: 1;
   background: var(--p-content-background, #fff);
+}
+
+/* OV2 — notification button: PrimeVue uses a rounded-square outlined button,
+   not a full circle.  Replace the `round` class with a border-radius override
+   and size the floating badge dot to match the small clipped OverlayBadge. */
+.notif-btn {
+  border-radius: var(--p-border-radius-md, 8px) !important;
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+.notif-badge {
+  width: 10px !important;
+  height: 10px !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  top: -2px !important;
+  right: -2px !important;
+}
+
+/* IN9 — trial progress bar: force the danger/red fill colour.
+   The Aura theme normalises .q-linear-progress__model to the progressbar token
+   which follows the primary palette; override explicitly for the trial bar. */
+.inbox-trial-bar .q-linear-progress__model {
+  background: var(--p-red-600, #dc2626) !important;
 }

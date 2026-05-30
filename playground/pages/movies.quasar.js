@@ -105,7 +105,7 @@
             <div class="movies-row-badge">
               <div style="position:relative;display:inline-flex">
                 <q-btn icon="bookmark_border" round outline dense color="grey-7" size="sm" />
-                <q-badge :label="m.want" color="negative" floating rounded />
+                <q-badge :label="m.want" color="grey-3" text-color="grey-8" floating rounded />
               </div>
             </div>
           </div>
