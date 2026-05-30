@@ -36,6 +36,12 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 | Tag parity | `dashboard.css` | `q-badge color="positive/negative/info"` rendered as a **solid** filled Material badge. PrimeVue `Tag` uses a soft tinted background + saturated text. Added `.q-badge.bg-positive/.bg-negative/.bg-info` rules (soft `--p-*-100` background, `--p-*-700` text, 6 px radius). Affects Buy/Sell (Overview) and Active/Inactive/Prospect (Customers). |
 | SelectButton parity | `dashboard.css` | `q-btn-toggle` rendered as segmented buttons with a **solid primary fill** on the selected option. PrimeVue `SelectButton` is one `surface-100` pill whose selected option is a raised `surface-0` chip. Restyled `.q-btn-toggle` (container + selected `.bg-primary` override + removed inner dividers). Affects the Weekly/Monthly/Yearly filter, Chat/Call & media tabs, payment-type / donate-amount toggles, and the Movies grid/list switch. |
 | Overlay count badge | `movies.quasar.js` | The "want" count badge used `color="negative"` (red); PrimeVue's `OverlayBadge` count is neutral. Changed to `color="grey-3" text-color="grey-8"`. |
+| Notification button + badge (OV2) | `overview.quasar.js`, `dashboard.css` | Removed `round` from the bell button; added `.notif-btn` (rounded-square, 2.25 rem) and `.notif-badge` (10×10 px dot). |
+| Trial bar colour (IN9) | `inbox.quasar.js`, `dashboard.css` | Added `.inbox-trial-bar` class; `dashboard.css` forces `var(--p-red-600)` fill to match PrimeVue's fixed danger colour. |
+| Active-user dot colour (CU1) | `customers.quasar.js` | Replaced `icon-color="positive"` (overridden by button's outline colour) with an explicit `<q-icon>` using `color:var(--p-green-500)`. |
+| Customers bottom paginator (CU7) | `customers.quasar.js` | Added `hide-bottom` prop to the customers `q-table`; removes the extra "Records per page" bar PrimeVue does not show. |
+| Radio inner dot (CA7) | `src/css/components/_radio.scss` | Removed the `.q-radio__check { color: white }` rule — white dot on white background was invisible. Inner dot now inherits primary colour from `.q-radio__inner--truthy`, giving a solid filled-circle appearance. |
+| Toggle crescent artifact (CA8) | `src/css/components/_toggle.scss` | Added `.q-toggle__thumb:before { display:none }`. Quasar's Material ripple circle is always at `scale(2)`, bleeding outside the Aura pill track as a crescent ghost. |
 
 ---
 
@@ -53,7 +59,7 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 | ID | Area | Quasar | PrimeVue | Status |
 |----|------|--------|----------|--------|
 | OV1 | Search input | `q-input outlined dense` + `#prepend` | `IconField + InputIcon + InputText` | ✅ |
-| OV2 | Notification button | `q-btn … round` + floating `q-badge` | `Button variant="outlined"` (rounded **square**) + small `OverlayBadge` dot | ⚠️ Quasar button is a full circle and the floating badge is a larger oval near the corner; PrimeVue is a rounded-square button with a small clipped dot. Shape/size still differ. |
+| OV2 | Notification button | `q-btn … round` + floating `q-badge` | `Button variant="outlined"` (rounded **square**) + small `OverlayBadge` dot | 🔧 Fixed — button changed to rounded-square (`notif-btn` class) and badge dot sized down to 10×10 px (`notif-badge` class). |
 | OV3 | Weekly/Monthly/Yearly | `q-btn-toggle` | `SelectButton` | 🔧 Fixed — `q-btn-toggle` now renders as an Aura SelectButton pill with a raised chip for the selected option (was a solid primary fill). |
 | OV4 | Download button | `q-btn color="primary"` | `Button` | ✅ |
 | OV5 | Date picker | `q-input` + `q-date` popup | `DatePicker showIcon iconDisplay="input"` | ⛔ No Quasar built-in DatePicker equivalent. |
@@ -62,7 +68,7 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 | OV8 | Overflow menu | `q-btn` + `q-menu > q-list` | `Button text` + `Menu popup` | ⚠️ Material popover vs compact floating list. |
 | OV9 | My Wallet MeterGroup | aura `MeterGroup` | `MeterGroup` | ✅ Component parity. |
 | OV10 | Show All button | `q-btn outline` | `Button variant="outlined"` | ✅ |
-| OV11 | Transactions avatars | `q-avatar size="32px"` | `Avatar` | ⚠️ Initials avatars render noticeably smaller / lower-contrast than PrimeVue's. |
+| OV11 | Transactions avatars | `q-avatar size="32px"` | `Avatar` | ✅ Both render at 32 px with identical inline colour/font styles. |
 
 ---
 
@@ -94,7 +100,7 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 | IN6 | Type tag | `q-badge color="grey-3"` | `Tag severity="secondary"` | ✅ surface-100 pill. |
 | IN7 | Row avatar + unread dot | `q-avatar` + floating `q-badge` | `OverlayBadge + Avatar` | 🌐 Avatar images come from the primefaces CDN; offline the Quasar `q-avatar` collapses to just the red unread dot while PrimeVue shows a broken-image glyph. Driven by the missing asset, not the theme. |
 | IN8 | Upgrade button | `q-btn outline` | `Button variant="outlined"` | ✅ |
-| IN9 | "4 days left" bar | `q-linear-progress` (primary/noir) | red bar | ⚠️ Colour differs (Quasar follows the primary palette, PrimeVue is fixed red). |
+| IN9 | "4 days left" bar | `q-linear-progress` (primary/noir) | red bar | 🔧 Fixed — added `.inbox-trial-bar` class; `dashboard.css` forces `var(--p-red-600)` fill. |
 
 ---
 
@@ -108,8 +114,8 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 | CA4 | Slider | `q-slider` | `Slider` | ✅ Aura track/thumb tokens. |
 | CA5 | Custom Amount | `q-input type=number` | `InputNumber showButtons` | ⛔ `q-input` has no +/- spinner buttons. |
 | CA6 | Donate amount toggle | `q-btn-toggle spread` | `SelectButton` | 🔧 Fixed by the SelectButton pass. |
-| CA7 | Radio (delivery) | `q-radio` | `RadioButton` | ⚠️ Selected state reads faint vs PrimeVue's filled inner dot. |
-| CA8 | Dark-mode toggle | `q-toggle` | `ToggleSwitch` | ⚠️ A stray crescent artifact renders next to the toggle (loading-icon ghost). |
+| CA7 | Radio (delivery) | `q-radio` | `RadioButton` | 🔧 Fixed — removed the white `q-radio__check` colour override in `_radio.scss`; inner dot now inherits primary colour and is clearly visible against a light background. |
+| CA8 | Dark-mode toggle | `q-toggle` | `ToggleSwitch` | 🔧 Fixed — added `.q-toggle__thumb:before { display:none }` to `_toggle.scss`; suppresses the Material scale(2) ripple circle that bled outside the Aura-sized pill track. |
 | CA9 | Divider | `q-separator` | `Divider` | ✅ |
 | CA10 | AvatarGroup | overlapping `q-avatar` | `AvatarGroup` | ✅ |
 | CA11 | Job bookmark button | `q-btn outline round` | `Button rounded variant="outlined"` | ✅ |
@@ -120,13 +126,13 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 
 | ID | Area | Quasar | PrimeVue | Status |
 |----|------|--------|----------|--------|
-| CU1 | "950 Active User" | `q-btn icon="circle"` | `Button` + green pt icon | ⚠️ The leading dot is noir/grey in Quasar vs green in PrimeVue. |
+| CU1 | "950 Active User" | `q-btn icon="circle"` | `Button` + green pt icon | 🔧 Fixed — replaced `icon-color="positive"` (overridden by btn colour) with an explicit inline `q-icon` using `color:var(--p-green-500)`. |
 | CU2 | Status tag | `q-badge positive/negative/info` | `Tag success/danger/info` | 🔧 Fixed — soft tinted pills (green/red/blue). |
 | CU3 | DataTable header | `q-table` sticky-header wrap | `DataTable` sticky thead | ✅ |
 | CU4 | Row checkboxes | `q-table selection="multiple"` | `Column selectionMode` | ✅ |
 | CU5 | More/Details popover | per-row `q-menu` | shared `Popover` | ✅ Functional parity. |
 | CU6 | Toolbar divider | `q-separator vertical` | `Divider layout="vertical"` | ✅ |
-| CU7 | Bottom paginator | `q-table` "Records per page / 1-10 of 11" bar | none (top arrows only) | ⚠️ Quasar shows an extra bottom paginator bar the PrimeVue page does not. |
+| CU7 | Bottom paginator | `q-table` "Records per page / 1-10 of 11" bar | none (top arrows only) | 🔧 Fixed — added `hide-bottom` prop to the customers `q-table`; extra bottom bar no longer shown. |
 | CU8 | Row avatars | `q-avatar` + status dot | `Avatar` + status dot | 🌐 CDN avatar images fail offline; Quasar rows show only the status dot. |
 
 ---
@@ -147,19 +153,15 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 
 ## Open items (not yet addressed)
 
-These are the remaining real gaps after this pass, in rough priority order:
+These are the remaining real gaps that cannot be closed without new built-in
+components or are explicitly deferred:
 
-1. **OV2 / IN7 / MO6 OverlayBadge geometry** — Quasar's floating `q-badge` sits
-   further from the host and is larger than PrimeVue's tightly-clipped
-   `OverlayBadge` dot. Needs a positioning/size override (and a round vs
-   rounded-square choice for the bell button, OV2).
-2. **OV6 / CU7 paginator** — `q-table`'s built-in "Records per page" bar differs
-   from PrimeVue's numbered paginator (Overview) and appears where PrimeVue shows
-   none (Customers).
-3. **OV11 transaction avatars** — render smaller / lower-contrast than PrimeVue.
-4. **CU1 active-user dot**, **IN9 trial bar**, **IN1 tag icon** — small colour /
-   glyph mismatches.
-5. **CA7 radio selected state**, **CA8 toggle crescent artifact** — Cards polish.
+1. **OV6 paginator** — `q-table`'s built-in "Records per page" row differs from
+   PrimeVue's numbered paginator. Visually close enough for most uses; a full
+   match would require a custom paginator component.
+2. **IN1 tag icon** — `q-btn icon="label"` (filled) vs PrimeVue's `pi pi-tag`
+   (outlined). The standard Material Icons font does not include outlined
+   variants; minor glyph difference only.
 
 ## Deferred — component gaps (no Quasar built-in equivalent)
 

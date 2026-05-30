@@ -887,3 +887,29 @@ body {
   z-index: 1;
   background: var(--p-content-background, #fff);
 }
+
+/* OV2 — notification button: PrimeVue uses a rounded-square outlined button,
+   not a full circle.  Replace the `round` class with a border-radius override
+   and size the floating badge dot to match the small clipped OverlayBadge. */
+.notif-btn {
+  border-radius: var(--p-border-radius-md, 8px) !important;
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+.notif-badge {
+  width: 10px !important;
+  height: 10px !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  top: -2px !important;
+  right: -2px !important;
+}
+
+/* IN9 — trial progress bar: force the danger/red fill colour.
+   The Aura theme normalises .q-linear-progress__model to the progressbar token
+   which follows the primary palette; override explicitly for the trial bar. */
+.inbox-trial-bar .q-linear-progress__model {
+  background: var(--p-red-600, #dc2626) !important;
+}

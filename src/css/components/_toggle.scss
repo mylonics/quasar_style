@@ -41,3 +41,9 @@
 .q-toggle__inner--truthy .q-toggle__thumb:after {
   background: var(--p-toggleswitch-handle-checked-background);
 }
+
+// Quasar's Material thumb :before is a scale(2) ripple indicator that overflows
+// the Aura-sized pill track and appears as a crescent artifact (CA8).
+.q-toggle__thumb:before {
+  display: none;
+}
