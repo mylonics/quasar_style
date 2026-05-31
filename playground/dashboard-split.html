@@ -89,9 +89,16 @@
         <a href="dashboard-split.html" class="active">Side by Side</a>
       </div>
       <span class="spacer"></span>
+      <label for="theme-select">Theme</label>
+      <select id="theme-select">
+        <option value="aura">Aura</option>
+        <option value="material">Material</option>
+        <option value="lara">Lara</option>
+        <option value="nora">Nora</option>
+      </select>
       <label for="palette-select">Primary</label>
       <select id="palette-select"></select>
-      <button id="aura-toggle">Disable Aura theme</button>
+      <button id="aura-toggle">Disable theme</button>
     </nav>
 
     <div class="split-wrap">
@@ -166,7 +173,49 @@
 
       select.addEventListener('change', () => propagatePalette(select.value));
 
-      // Aura theme toggle — enable/disable primevue-aura.css in the Quasar iframe.
+      // Theme (preset) switching, propagated to both iframes:
+      //  - Quasar iframe: point #aura-theme at the chosen primevue-<preset>.css
+      //  - PrimeVue iframe: usePreset() the matching preset, then re-apply palette
+      const THEME_CSS = {
+        aura: 'primevue-aura.css',
+        material: 'primevue-material.css',
+        lara: 'primevue-lara.css',
+        nora: 'primevue-nora.css',
+      };
+      const THEME_PRESET = { aura: 'Aura', material: 'Material', lara: 'Lara', nora: 'Nora' };
+      const themeSelect = document.getElementById('theme-select');
+      let currentTheme = 'aura';
+      themeSelect.value = currentTheme;
+
+      function presetFromWin(win, capName) {
+        const t = win.PrimeUIX && win.PrimeUIX.Themes && win.PrimeUIX.Themes[capName];
+        return t && (t.default || t);
+      }
+
+      function propagateTheme(name) {
+        currentTheme = name;
+        // Quasar iframe
+        try {
+          const qWin = document.getElementById('iframe-quasar').contentWindow;
+          const el = qWin && qWin.document.getElementById('aura-theme');
+          if (el) el.href = THEME_CSS[name];
+          if (qWin && qWin.__dashApp && qWin.__dashApp.rebuildChart) qWin.__dashApp.rebuildChart();
+        } catch (e) {}
+        // PrimeVue iframe
+        try {
+          const pWin = document.getElementById('iframe-primevue').contentWindow;
+          if (pWin && pWin.PrimeVue && pWin.PrimeVue.usePreset) {
+            const preset = presetFromWin(pWin, THEME_PRESET[name]);
+            if (preset) pWin.PrimeVue.usePreset(preset);
+          }
+        } catch (e) {}
+        // Re-apply palette so it survives the preset swap.
+        propagatePalette(select.value);
+      }
+
+      themeSelect.addEventListener('change', () => propagateTheme(themeSelect.value));
+
+      // Theme toggle — enable/disable the active preset stylesheet in the Quasar iframe.
       let auraEnabled = true;
       const auraBtn = document.getElementById('aura-toggle');
       auraBtn.addEventListener('click', function () {
@@ -175,17 +224,17 @@
           if (auraEnabled) {
             const el = qWin.document.getElementById('aura-theme');
             if (el) el.parentNode.removeChild(el);
-            auraBtn.textContent = 'Enable Aura theme';
+            auraBtn.textContent = 'Enable theme';
             auraBtn.classList.remove('on');
           } else {
             if (!qWin.document.getElementById('aura-theme')) {
               const link = qWin.document.createElement('link');
               link.rel = 'stylesheet';
-              link.href = 'primevue-aura.css';
+              link.href = THEME_CSS[currentTheme];
               link.id = 'aura-theme';
               qWin.document.head.appendChild(link);
             }
-            auraBtn.textContent = 'Disable Aura theme';
+            auraBtn.textContent = 'Disable theme';
             auraBtn.classList.add('on');
           }
           auraEnabled = !auraEnabled;
@@ -212,6 +261,8 @@
           } catch (e) {}
           // Propagate current palette selection into the freshly loaded iframe
           propagatePalette(select.value);
+          // Propagate current theme (preset) into the freshly loaded iframe
+          propagateTheme(currentTheme);
         });
       }
 

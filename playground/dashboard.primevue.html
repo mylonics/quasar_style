@@ -25,6 +25,13 @@
         <a href="dashboard-split.html">Side by Side</a>
       </div>
       <span class="spacer"></span>
+      <label for="theme-select">Theme</label>
+      <select id="theme-select">
+        <option value="Aura">Aura</option>
+        <option value="Material">Material</option>
+        <option value="Lara">Lara</option>
+        <option value="Nora">Nora</option>
+      </select>
       <label for="palette">Primary</label>
       <select id="palette"></select>
     </nav>
@@ -33,6 +40,9 @@
     <script src="vendor/vue.global.prod.js"></script>
     <script src="vendor/primevue.min.js"></script>
     <script src="vendor/primeuix-aura.js"></script>
+    <script src="vendor/primeuix-material.js"></script>
+    <script src="vendor/primeuix-lara.js"></script>
+    <script src="vendor/primeuix-nora.js"></script>
     <script src="vendor/chart.umd.js"></script>
     <script src="dashboard-data.js"></script>
     <script src="pages/overview.primevue.js"></script>
@@ -119,8 +129,13 @@
         `,
       });
 
+      function presetByName(name) {
+        const entry = PrimeUIX.Themes[name];
+        return (entry && (entry.default || entry)) || PrimeUIX.Themes.Aura.default;
+      }
+
       app.use(PrimeVue.Config, {
-        theme: { preset: PrimeUIX.Themes.Aura, options: { darkModeSelector: '.app-dark' } },
+        theme: { preset: presetByName('Aura'), options: { darkModeSelector: '.app-dark' } },
       });
 
       const components = {
@@ -177,6 +192,15 @@
         }
         select.addEventListener('change', () => setPalette(select.value));
         setPalette(D.DEFAULT_PALETTE);
+
+        // Realtime preset switching. usePreset replaces the theme's `--p-*`
+        // tokens; re-apply the chosen primary palette afterwards so it survives.
+        const themeSelect = document.getElementById('theme-select');
+        themeSelect.value = 'Aura';
+        themeSelect.addEventListener('change', () => {
+          PrimeVue.usePreset(presetByName(themeSelect.value));
+          setPalette(select.value);
+        });
       })();
     </script>
   </body>

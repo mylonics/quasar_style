@@ -26,7 +26,11 @@
   ],
   "scripts": {
     "generate:tokens": "node tools/generate-tokens.mjs",
-    "build:css": "sass --no-source-map src/css/primevue-aura.scss dist/primevue-aura.css",
+    "build:css": "npm run build:css:aura && npm run build:css:material && npm run build:css:lara && npm run build:css:nora",
+    "build:css:aura": "sass --no-source-map src/css/primevue-aura.scss dist/primevue-aura.css",
+    "build:css:material": "sass --no-source-map src/css/primevue-material.scss dist/primevue-material.css",
+    "build:css:lara": "sass --no-source-map src/css/primevue-lara.scss dist/primevue-lara.css",
+    "build:css:nora": "sass --no-source-map src/css/primevue-nora.scss dist/primevue-nora.css",
     "playground": "node tools/build-playground.mjs",
     "screenshots": "node tools/screenshot.mjs",
     "test": "vitest run",

@@ -20,8 +20,16 @@ module.exports = function (api) {
   // Register the theme stylesheet and the component-library boot file. The `~`
   // prefix resolves to node_modules, letting Quasar's build compile the SCSS
   // (and its `--p-*` token layer) and bundle the boot file.
+  //
+  // The preset is chosen at install time (see src/prompts.js); it defaults to
+  // Aura. Each preset has its own compiled entry (primevue-<theme>.scss) that
+  // shares the same component overrides but swaps the `--p-*` token layer.
+  const SUPPORTED_THEMES = ['aura', 'material', 'lara', 'nora'];
+  const requested = (api.prompts && api.prompts.theme) || 'aura';
+  const theme = SUPPORTED_THEMES.includes(requested) ? requested : 'aura';
+
   api.extendQuasarConf((conf) => {
-    const css = '~quasar-app-extension-primevue-aura/src/css/primevue-aura.scss';
+    const css = `~quasar-app-extension-primevue-aura/src/css/primevue-${theme}.scss`;
     if (!conf.css.includes(css)) {
       conf.css.push(css);
     }

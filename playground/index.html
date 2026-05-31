@@ -37,6 +37,10 @@
       }
       #dev-nav button:hover { background: #334155; }
       #dev-nav button.on { background: #3b82f6; border-color: #3b82f6; }
+      #dev-nav select {
+        background: #0f172a; color: #f8fafc; border: 1px solid #475569;
+        border-radius: 4px; padding: 3px 6px; font-size: 13px; cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -54,37 +58,75 @@
         <a href="dashboard.primevue.html">PrimeVue</a>
         <a href="dashboard-split.html">Side by Side</a>
       </div>
-      <button id="theme-toggle">Enable Aura theme</button>
+      <div class="nav-sep"></div>
+      <div class="nav-group">
+        <span class="nav-group-label">Theme</span>
+        <select id="theme-select">
+          <option value="aura">Aura</option>
+          <option value="material">Material</option>
+          <option value="lara">Lara</option>
+          <option value="nora">Nora</option>
+        </select>
+      </div>
+      <button id="theme-toggle">Enable theme</button>
     </nav>
     <script>
       (function () {
+        // Realtime theme switcher: the `#aura-theme` <link> points at one of the
+        // compiled per-preset stylesheets (primevue-<preset>.css). Changing the
+        // select swaps the href so Quasar re-renders in the chosen theme; the
+        // button enables/disables the theme entirely (plain Quasar).
+        var THEMES = {
+          aura: 'primevue-aura.css',
+          material: 'primevue-material.css',
+          lara: 'primevue-lara.css',
+          nora: 'primevue-nora.css',
+        };
+        var LABELS = { aura: 'Aura', material: 'Material', lara: 'Lara', nora: 'Nora' };
+        var select = document.getElementById('theme-select');
         var btn = document.getElementById('theme-toggle');
-        var auraEnabled = true;
-        btn.textContent = 'Disable Aura theme';
-        btn.classList.add('on');
-        document.getElementById('nav-plain').textContent = 'Quasar + Aura';
-        btn.addEventListener('click', function () {
-          auraEnabled = !auraEnabled;
-          if (auraEnabled) {
-            var existing = document.getElementById('aura-theme');
-            if (!existing) {
-              var link = document.createElement('link');
-              link.rel = 'stylesheet';
-              link.href = 'primevue-aura.css';
-              link.id = 'aura-theme';
-              document.head.appendChild(link);
+        var navPlain = document.getElementById('nav-plain');
+        // The page ships with the Aura stylesheet enabled by default.
+        var current = 'aura';
+        var enabled = true;
+        select.value = current;
+
+        function themeLink() {
+          return document.getElementById('aura-theme');
+        }
+
+        function apply() {
+          var el = themeLink();
+          if (enabled) {
+            if (!el) {
+              el = document.createElement('link');
+              el.rel = 'stylesheet';
+              el.id = 'aura-theme';
+              document.head.appendChild(el);
             }
-            btn.textContent = 'Disable Aura theme';
+            el.href = THEMES[current];
+            btn.textContent = 'Disable theme';
             btn.classList.add('on');
-            document.getElementById('nav-plain').textContent = 'Quasar + Aura';
+            navPlain.textContent = 'Quasar + ' + LABELS[current];
+            select.disabled = false;
           } else {
-            var el = document.getElementById('aura-theme');
             if (el) el.parentNode.removeChild(el);
-            btn.textContent = 'Enable Aura theme';
+            btn.textContent = 'Enable theme';
             btn.classList.remove('on');
-            document.getElementById('nav-plain').textContent = 'Plain Quasar';
+            navPlain.textContent = 'Plain Quasar';
+            select.disabled = true;
           }
+        }
+
+        select.addEventListener('change', function () {
+          current = select.value;
+          apply();
         });
+        btn.addEventListener('click', function () {
+          enabled = !enabled;
+          apply();
+        });
+        apply();
       })();
     </script>
     <div id="q-app"></div>

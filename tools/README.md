@@ -3,15 +3,16 @@
 Scripts that maintain generated artifacts in this repo. Run them from the repo
 root after `npm install`.
 
-## `generate-tokens.mjs` — regenerate the Aura token layer
+## `generate-tokens.mjs` — regenerate the token layers
 
 ```bash
 npm run generate:tokens
 ```
 
-Emits `src/css/primevue/_tokens.scss` from PrimeVue's own theming engine
-(`@primeuix/themes` / `@primeuix/styled`). Run it when bumping the PrimeVue
-dependency. Do not hand-edit `_tokens.scss`.
+Emits one token partial per preset from PrimeVue's own theming engine
+(`@primeuix/themes` / `@primeuix/styled`): `src/css/primevue/_tokens.scss`
+(Aura), `_tokens-material.scss`, `_tokens-lara.scss` and `_tokens-nora.scss`.
+Run it when bumping the PrimeVue dependency. Do not hand-edit these files.
 
 ## Screenshots — the comparison images in the README
 
@@ -34,14 +35,17 @@ sample) the same three ways:
 
 The dashboard pages share `playground/dashboard.css` (the OverviewApp layout) and
 `playground/dashboard-data.js` (sample data + the Chart.js bar chart), and both
-draw the chart on a `<canvas>` so the three renders line up. Aura is the only
-preset; the nav's **Primary** dropdown switches the Aura primary palette.
+draw the chart on a `<canvas>` so the three renders line up. The nav's **Theme**
+dropdown switches the preset (Aura / Material / Lara / Nora) and the **Primary**
+dropdown switches the primary palette.
 
 `index.html` and `primevue.html` render the **same** gallery so the three
 images line up section by section. `quasar-plain` and `quasar-aura` come from
 the identical Quasar page — the only difference is that the compiled theme
 (`playground/primevue-aura.css`) is attached for the Aura shot, exactly how the
-extension applies it in a real app.
+extension applies it in a real app. The nav's **Theme** dropdown swaps the
+attached stylesheet (Quasar page) or calls `usePreset` (PrimeVue page) to switch
+between all four presets live.
 
 ### Regenerating the screenshots
 
@@ -53,8 +57,9 @@ npm install
 npx playwright install chromium
 
 # 3. build the static playground: copies Vue/Quasar/PrimeVue UMD builds, the
-#    Material Icons + PrimeIcons fonts, and compiles the Aura theme into
-#    playground/ (these are git-ignored, recreate them anytime)
+#    Material Icons + PrimeIcons fonts, the PrimeVue preset bundles, and compiles
+#    every theme (primevue-<preset>.css) into playground/ (these are git-ignored,
+#    recreate them anytime)
 npm run playground
 
 # 4. render the three screenshots into docs/screenshots/
@@ -80,6 +85,7 @@ npm run playground
 npx serve playground        # then open http://localhost:3000
 ```
 
-- `index.html` shows plain Quasar; attach `primevue-aura.css` (via devtools or
-  a `<link>`) to preview the Aura theme.
-- `primevue.html` shows upstream PrimeVue for comparison.
+- `index.html` shows plain Quasar; use the nav **Theme** dropdown (or attach a
+  `primevue-<preset>.css` via devtools / a `<link>`) to preview a theme.
+- `primevue.html` shows upstream PrimeVue for comparison, with the same **Theme**
+  dropdown to switch presets live.
