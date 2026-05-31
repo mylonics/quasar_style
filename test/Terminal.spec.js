@@ -30,4 +30,15 @@ describe('Terminal', () => {
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.commandText).toBe('first');
   });
+
+  it('returns to blank prompt when navigating past the most recent command', async () => {
+    const wrapper = mount(Terminal);
+    wrapper.vm.commandText = 'first';
+    wrapper.vm.submitCommand();
+    wrapper.vm.historyIndex = 0;
+    wrapper.vm.navigateHistory(-1);
+    await wrapper.vm.$nextTick();
+    expect(wrapper.vm.commandText).toBe('');
+    expect(wrapper.vm.historyIndex).toBe(-1);
+  });
 });

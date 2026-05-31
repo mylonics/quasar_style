@@ -36,4 +36,20 @@ describe('MeterGroup', () => {
     expect(wrapper.classes()).toContain('qpv-metergroup--vertical');
     expect(wrapper.find('.qpv-metergroup__meter').attributes('style')).toContain('height');
   });
+
+  it('renders labels before the meters when labelPosition is start', () => {
+    const wrapper = mount(MeterGroup, { props: { value, labelPosition: 'start' } });
+    const children = wrapper.element.children;
+    const labelIndex = Array.from(children).findIndex((el) => el.classList.contains('qpv-metergroup__labels'));
+    const metersIndex = Array.from(children).findIndex((el) => el.classList.contains('qpv-metergroup__meters'));
+    expect(labelIndex).toBeLessThan(metersIndex);
+  });
+
+  it('renders labels after the meters when labelPosition is end (default)', () => {
+    const wrapper = mount(MeterGroup, { props: { value } });
+    const children = wrapper.element.children;
+    const labelIndex = Array.from(children).findIndex((el) => el.classList.contains('qpv-metergroup__labels'));
+    const metersIndex = Array.from(children).findIndex((el) => el.classList.contains('qpv-metergroup__meters'));
+    expect(labelIndex).toBeGreaterThan(metersIndex);
+  });
 });

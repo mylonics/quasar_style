@@ -27,4 +27,22 @@ describe('OrgChart', () => {
     wrapper.vm.toggleSelect(value);
     expect(wrapper.emitted('node-unselect')).toBeTruthy();
   });
+
+  it('preserves other selections in multiple mode when adding a node', () => {
+    const wrapper = mount(OrgChart, {
+      props: { value, selectionMode: 'multiple', selectionKeys: { ceo: true } },
+    });
+    const cto = value.children[0];
+    wrapper.vm.toggleSelect(cto);
+    expect(wrapper.emitted('update:selectionKeys')?.[0]).toEqual([{ ceo: true, cto: true }]);
+  });
+
+  it('preserves other selections in multiple mode when removing a node', () => {
+    const wrapper = mount(OrgChart, {
+      props: { value, selectionMode: 'multiple', selectionKeys: { ceo: true, cto: true } },
+    });
+    wrapper.vm.toggleSelect(value);
+    expect(wrapper.emitted('update:selectionKeys')?.[0]).toEqual([{ cto: true }]);
+    expect(wrapper.emitted('node-unselect')).toBeTruthy();
+  });
 });
