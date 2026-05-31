@@ -35,10 +35,17 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 ## Latest review pass — full per-page image analysis
 
 A fresh screenshot of **all six pages** (captured individually, not just the
-Overview landing) surfaced three genuine theme bugs that the previous pass had
-only partially closed. All three are now fixed and re-verified from the
-regenerated per-page screenshots.
+Overview landing) surfaced three genuine bugs that earlier passes had missed.
+All three are now fixed and re-verified from the regenerated per-page
+screenshots.
 
+| Fix | Where | What changed |
+|-----|-------|--------------|
+| Wallet values not flush-right (OV9) | `src/components/MeterGroup.vue` | The Overview *My Wallet* values sat mid-card instead of aligned to the right edge as in PrimeVue. The Aura `MeterGroup` nested the `label` slot **inside** the `<ol class="qpv-metergroup__labels">` flex-row list, so the custom full-width label layout was constrained to its content width. PrimeVue's `label` slot **replaces** the `<ol>`, making the slot a direct (stretching) flex child of the column container. Restructured the template so the `label` slot wraps the default `<ol>` and replaces it when provided — the wallet rows now span the card and the values align right. |
+| SelectButton `outline` selected chip missing (CA1/CA2/CA6, MO1) | `playground/dashboard.css` | The Cards Follow/Message, payment-type and donate-amount toggles and the Movies grid/list switch use `q-btn-toggle … outline`. Quasar tags an `outline` toggle's active button `text-primary` (not `bg-primary` as standard/unelevated toggles do), so the raised surface-0 SelectButton chip never applied and every option looked unselected. Added `.q-btn-toggle .q-btn.text-primary` to the selected-chip rule so the active option now renders as a raised chip on all SelectButton variants. |
+| Movies carousel nav button size (MO3) | `playground/pages/movies.quasar.js` | The carousel `‹ ›` buttons omitted a size, rendering noticeably larger than PrimeVue's `size="small"` rounded buttons. Added `dense size="sm"` to match. |
+
+### Previous pass
 | Fix | Where | What changed |
 |-----|-------|--------------|
 | Dense toggle crescent (CH5/CA8) | `src/css/components/_toggle.scss` | The Chat (Notification/Sound/Save) and Cards (Switch to Dark) switches use `q-toggle … dense`. Quasar's `.q-toggle--dense` rules (higher specificity) reset the inner track to `.8em×.5em` and pin the thumb to top-left, so the Aura-sized `0.667em` handle overhung the collapsed track as a **dark crescent**. Added `.q-toggle--dense` overrides that re-apply the Aura track + thumb geometry, so a dense `q-toggle` now renders as a proper Aura switch. |
@@ -84,7 +91,7 @@ regenerated per-page screenshots.
 | OV6 | Table pagination | `q-table` "Records per page / 1-5 of 10 / ‹ ›" | `DataTable` "‹ 1 2 › Showing 1 to 5 of 10 entries" | ⚠️ Quasar's built-in paginator (rows-per-page select) differs from PrimeVue's numbered paginator. |
 | OV7 | Buy/Sell tag | `q-badge color="positive/negative"` | `Tag severity` | 🔧 Fixed — soft tinted pill (green/red) instead of solid fill. |
 | OV8 | Overflow menu | `q-btn` + `q-menu > q-list` | `Button text` + `Menu popup` | ⚠️ Material popover vs compact floating list. |
-| OV9 | My Wallet MeterGroup | aura `MeterGroup` | `MeterGroup` | ✅ Component parity. |
+| OV9 | My Wallet MeterGroup | aura `MeterGroup` | `MeterGroup` | 🔧 Fixed — the custom `label` slot now replaces the `<ol>` (as in PrimeVue) instead of nesting inside its flex-row list, so the wallet rows span the full card and the values align flush-right. |
 | OV10 | Show All button | `q-btn outline` | `Button variant="outlined"` | ✅ |
 | OV11 | Transactions avatars | `q-avatar size="32px"` | `Avatar` | ✅ Both render at 32 px with identical inline colour/font styles. |
 
@@ -126,12 +133,12 @@ regenerated per-page screenshots.
 
 | ID | Area | Quasar | PrimeVue | Status |
 |----|------|--------|----------|--------|
-| CA1 | Follow / Message | `q-btn-toggle spread` | `SelectButton` | 🔧 Fixed by the SelectButton pass; the `outline`-variant per-button border is now hidden so it matches the single-pill SelectButton. |
-| CA2 | Payment-type toggle | `q-btn-toggle` icon-only | `SelectButton #option` | 🔧 Fixed by the SelectButton pass (outline border removed). |
+| CA1 | Follow / Message | `q-btn-toggle spread` | `SelectButton` | 🔧 Fixed — `outline` border hidden **and** the selected option now renders as a raised chip (the active `outline` button is tagged `text-primary`, now covered by the selected-chip rule). |
+| CA2 | Payment-type toggle | `q-btn-toggle` icon-only | `SelectButton #option` | 🔧 Fixed — outline border removed and the selected icon now shows the raised chip (`text-primary` active button). |
 | CA3 | OTP input | 4 × `q-input` | `InputOtp :length="4"` | ⚠️ Manual workaround; visually close, no built-in paste/auto-advance semantics. |
 | CA4 | Slider | `q-slider` | `Slider` | ✅ Aura track/thumb tokens. |
 | CA5 | Custom Amount | `q-input type=number` | `InputNumber showButtons` | ⛔ `q-input` has no +/- spinner buttons. |
-| CA6 | Donate amount toggle | `q-btn-toggle spread` | `SelectButton` | 🔧 Fixed by the SelectButton pass (outline border removed). |
+| CA6 | Donate amount toggle | `q-btn-toggle spread` | `SelectButton` | 🔧 Fixed — outline border removed and the selected amount now shows the raised chip (`text-primary` active button). |
 | CA7 | Radio (delivery) | `q-radio` | `RadioButton` | 🔧 Fixed — removed the white `q-radio__check` colour override in `_radio.scss`; inner dot now inherits primary colour and is clearly visible against a light background. |
 | CA8 | Dark-mode toggle | `q-toggle` | `ToggleSwitch` | 🔧 Fixed — the dense toggle rendered as a crescent; `_toggle.scss` now re-applies the Aura geometry to `.q-toggle--dense` (in addition to the earlier `.q-toggle__thumb:before { display:none }`). |
 | CA9 | Divider | `q-separator` | `Divider` | ✅ |
@@ -159,9 +166,9 @@ regenerated per-page screenshots.
 
 | ID | Area | Quasar | PrimeVue | Status |
 |----|------|--------|----------|--------|
-| MO1 | View-mode toggle | `q-btn-toggle` icon-only | `SelectButton` | 🔧 Fixed by the SelectButton pass. |
+| MO1 | View-mode toggle | `q-btn-toggle` icon-only | `SelectButton` | 🔧 Fixed — the `outline` toggle's active button is tagged `text-primary`, so the selected raised chip now shows (the earlier pass only covered `bg-primary`). |
 | MO2 | Search | `q-input outlined dense` | `IconField` | ✅ |
-| MO3 | Carousel nav buttons | `q-btn round outline` | `Button rounded variant="outlined" size="small"` | ✅ |
+| MO3 | Carousel nav buttons | `q-btn round outline dense size="sm"` | `Button rounded variant="outlined" size="small"` | 🔧 Fixed — added `dense size="sm"` so the nav buttons match PrimeVue's small rounded buttons (were rendering larger). |
 | MO4 | Row ProgressBar | `q-linear-progress` | `ProgressBar` | ✅ |
 | MO5 | Director avatar | `q-avatar size="24px"` | `Avatar size="small"` | 🌐 CDN image (offline fallback). |
 | MO6 | Watched count badge | `q-badge` floating | `OverlayBadge` over bookmark | 🔧 Fixed — neutral grey badge instead of red. |

@@ -21,8 +21,13 @@
 
     <slot name="end" :value="value" :total-percent="totalPercent" />
 
-    <ol v-if="$slots.label || showLabels" class="qpv-metergroup__labels">
-      <slot name="label" :value="value">
+    <slot
+      v-if="$slots.label || showLabels"
+      name="label"
+      :value="value"
+      :total-percent="totalPercent"
+    >
+      <ol class="qpv-metergroup__labels">
         <li
           v-for="(item, index) in value"
           :key="index"
@@ -35,8 +40,8 @@
           <q-icon v-if="item.icon" :name="item.icon" class="qpv-metergroup__label-icon" />
           <span class="qpv-metergroup__label-text">{{ item.label }}</span>
         </li>
-      </slot>
-    </ol>
+      </ol>
+    </slot>
   </div>
 </template>
 
