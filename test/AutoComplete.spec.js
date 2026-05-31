@@ -69,4 +69,22 @@ describe('AutoComplete', () => {
     wrapper.vm.clear();
     expect(wrapper.emitted('update:modelValue')[0][0]).toEqual([]);
   });
+
+  it('emits item-unselect when removing an item in multiple mode', async () => {
+    const wrapper = mount(AutoComplete, {
+      props: { modelValue: ['Apple', 'Banana'], suggestions: [], multiple: true },
+    });
+    await wrapper.vm.onSelect(['Apple']);
+    expect(wrapper.emitted('item-unselect')).toBeTruthy();
+    expect(wrapper.emitted('item-unselect')[0][0].value).toBe('Banana');
+  });
+
+  it('emits item-select when adding an item in multiple mode', async () => {
+    const wrapper = mount(AutoComplete, {
+      props: { modelValue: ['Apple'], suggestions: [], multiple: true },
+    });
+    await wrapper.vm.onSelect(['Apple', 'Banana']);
+    expect(wrapper.emitted('item-select')).toBeTruthy();
+    expect(wrapper.emitted('item-select')[0][0].value).toBe('Banana');
+  });
 });

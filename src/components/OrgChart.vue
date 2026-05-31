@@ -73,12 +73,13 @@ export default {
         return;
       }
 
-      const next = {};
+      const next = this.selectionMode === 'multiple' ? { ...this.selectionKeys } : {};
       if (!this.selectionKeys[node.key]) {
         next[node.key] = true;
         this.$emit('node-select', node);
       }
       else {
+        delete next[node.key];
         this.$emit('node-unselect', node);
       }
       this.$emit('update:selectionKeys', next);

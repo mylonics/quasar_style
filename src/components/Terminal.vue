@@ -57,9 +57,9 @@ export default {
         return;
       }
 
-      const next = Math.min(this.history.length - 1, Math.max(0, this.historyIndex + direction));
+      const next = Math.min(this.history.length - 1, Math.max(-1, this.historyIndex + direction));
       this.historyIndex = next;
-      this.commandText = this.history[next] || '';
+      this.commandText = next < 0 ? '' : (this.history[next] || '');
     },
   },
 };

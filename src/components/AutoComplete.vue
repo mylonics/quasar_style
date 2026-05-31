@@ -114,8 +114,15 @@ export default {
       if (!this.multiple) {
         this.$emit('item-select', { value: val });
       } else {
-        // Detect adds vs removes relative to the previous value
-        this.$emit('item-select', { value: val });
+        const prev = Array.isArray(this.modelValue) ? this.modelValue : [];
+        const next = Array.isArray(val) ? val : [];
+        if (next.length >= prev.length) {
+          const added = next.find((n) => !prev.includes(n));
+          this.$emit('item-select', { value: added ?? val });
+        } else {
+          const removed = prev.find((p) => !next.includes(p));
+          this.$emit('item-unselect', { value: removed ?? val });
+        }
       }
     },
     clear() {

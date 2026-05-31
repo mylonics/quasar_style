@@ -9,6 +9,29 @@
   >
     <slot name="start" :value="value" :total-percent="totalPercent" />
 
+    <!-- Label at start position (above meters for horizontal, left for vertical) -->
+    <slot
+      v-if="labelPosition === 'start' && ($slots.label || showLabels)"
+      name="label"
+      :value="value"
+      :total-percent="totalPercent"
+    >
+      <ol class="qpv-metergroup__labels">
+        <li
+          v-for="(item, index) in value"
+          :key="index"
+          class="qpv-metergroup__label"
+        >
+          <span
+            class="qpv-metergroup__label-marker"
+            :style="{ backgroundColor: itemColor(item, index) }"
+          />
+          <q-icon v-if="item.icon" :name="item.icon" class="qpv-metergroup__label-icon" />
+          <span class="qpv-metergroup__label-text">{{ item.label }}</span>
+        </li>
+      </ol>
+    </slot>
+
     <div class="qpv-metergroup__meters">
       <template v-for="(item, index) in meters" :key="index">
         <span
@@ -21,8 +44,9 @@
 
     <slot name="end" :value="value" :total-percent="totalPercent" />
 
+    <!-- Label at end position (below meters for horizontal, right for vertical) -->
     <slot
-      v-if="$slots.label || showLabels"
+      v-if="labelPosition !== 'start' && ($slots.label || showLabels)"
       name="label"
       :value="value"
       :total-percent="totalPercent"
