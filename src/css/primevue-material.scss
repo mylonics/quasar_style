@@ -1,0 +1,10 @@
+// =============================================================================
+// quasar-app-extension-primevue-aura — Material entry
+// Restyles Quasar's components to match the PrimeVue v4 "Material" theme.
+// =============================================================================
+
+// PrimeVue Material design tokens, exposed as `--p-*` CSS custom properties.
+@use 'primevue/tokens-material';
+
+// Quasar→token mappings and per-component overrides (preset-agnostic).
+@use 'theme-core';

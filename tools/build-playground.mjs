@@ -35,9 +35,12 @@ const assets = [
   ['@quasar/extras/material-icons/material-icons.css', 'material-icons/material-icons.css'],
   ['@quasar/extras/material-icons/web-font/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2', 'material-icons/web-font/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2'],
   ['@quasar/extras/material-icons/web-font/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.woff', 'material-icons/web-font/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.woff'],
-  // Real PrimeVue v4 + Aura preset (reference screenshot)
+  // Real PrimeVue v4 + theme presets (reference page can switch between them)
   ['primevue/umd/primevue.min.js', 'primevue.min.js'],
   ['@primeuix/themes/umd/aura.js', 'primeuix-aura.js'],
+  ['@primeuix/themes/umd/material.js', 'primeuix-material.js'],
+  ['@primeuix/themes/umd/lara.js', 'primeuix-lara.js'],
+  ['@primeuix/themes/umd/nora.js', 'primeuix-nora.js'],
   // Chart.js UMD, used by the Overview dashboard playground (both renders draw
   // the same bar chart on a canvas).
   ['chart.js/dist/chart.umd.js', 'chart.umd.js'],
@@ -55,16 +58,22 @@ for (const [pkgPath, dest] of assets) {
   console.log(`copied ${dest}`);
 }
 
-execFileSync(
-  'npx',
-  [
-    'sass',
-    '--no-source-map',
-    path.join('src', 'css', 'primevue-aura.scss'),
-    path.join('playground', 'primevue-aura.css'),
-  ],
-  { cwd: root, stdio: 'inherit', shell: true },
-);
+// Compile every theme entry (Aura / Material / Lara / Nora) to a standalone
+// stylesheet. The playground swaps between them at runtime to retheme the
+// Quasar + PrimeVue render.
+const THEMES = ['aura', 'material', 'lara', 'nora'];
+for (const theme of THEMES) {
+  execFileSync(
+    'npx',
+    [
+      'sass',
+      '--no-source-map',
+      path.join('src', 'css', `primevue-${theme}.scss`),
+      path.join('playground', `primevue-${theme}.css`),
+    ],
+    { cwd: root, stdio: 'inherit', shell: true },
+  );
+}
 
 // Bundle the Aura component library (the components Quasar lacks) into a UMD
 // global so the static playground can register them on its Quasar app.

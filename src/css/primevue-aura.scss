@@ -1,5 +1,5 @@
 // =============================================================================
-// quasar-app-extension-primevue-aura
+// quasar-app-extension-primevue-aura — Aura entry
 // Restyles Quasar's components to match the PrimeVue v4 "Aura" theme.
 // Import this file (the App Extension wires it up automatically) after Quasar.
 // =============================================================================
@@ -7,60 +7,5 @@
 // PrimeVue Aura design tokens, exposed as `--p-*` CSS custom properties.
 @use 'primevue/tokens';
 
-// Map Quasar's brand variables + global surfaces/typography onto the tokens.
-@use 'base';
-
-// Per-component overrides.
-@use 'components/button';
-@use 'components/field';
-@use 'components/checkbox';
-@use 'components/radio';
-@use 'components/toggle';
-@use 'components/card';
-@use 'components/chip';
-@use 'components/badge';
-@use 'components/banner';
-@use 'components/separator';
-@use 'components/progress';
-@use 'components/slider';
-@use 'components/tabs';
-@use 'components/list';
-@use 'components/menu';
-@use 'components/dialog';
-@use 'components/tooltip';
-@use 'components/toolbar';
-
-// Phase 4 — components Quasar lacks (see src/components and
-// docs/COMPONENT-GAP-ANALYSIS.md).
-@use 'components/metergroup';
-@use 'components/fieldset';
-@use 'components/inplace';
-@use 'components/dataview';
-@use 'components/orderlist';
-@use 'components/picklist';
-@use 'components/password';
-@use 'components/blockui';
-@use 'components/popover';
-@use 'components/autocomplete';
-@use 'components/confirmpopup';
-@use 'components/image';
-@use 'components/deferredcontent';
-@use 'components/focustrap';
-@use 'components/iconfield';
-@use 'components/inputicon';
-@use 'components/iftalabel';
-@use 'components/inputmask';
-@use 'components/inputotp';
-@use 'components/cascadeselect';
-@use 'components/treeselect';
-@use 'components/confirmdialog';
-@use 'components/dynamicdialog';
-@use 'components/tieredmenu';
-@use 'components/panelmenu';
-@use 'components/megamenu';
-@use 'components/dock';
-@use 'components/galleria';
-@use 'components/imagecompare';
-@use 'components/treetable';
-@use 'components/orgchart';
-@use 'components/terminal';
+// Quasar→token mappings and per-component overrides (preset-agnostic).
+@use 'theme-core';

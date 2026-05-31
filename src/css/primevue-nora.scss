@@ -1,0 +1,10 @@
+// =============================================================================
+// quasar-app-extension-primevue-aura — Nora entry
+// Restyles Quasar's components to match the PrimeVue v4 "Nora" theme.
+// =============================================================================
+
+// PrimeVue Nora design tokens, exposed as `--p-*` CSS custom properties.
+@use 'primevue/tokens-nora';
+
+// Quasar→token mappings and per-component overrides (preset-agnostic).
+@use 'theme-core';

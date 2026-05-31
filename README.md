@@ -2,9 +2,11 @@
 
 A [Quasar](https://quasar.dev) [App Extension](https://quasar.dev/app-extensions/introduction)
 that restyles Quasar's built-in components to match the
-[PrimeVue v4 **Aura**](https://primevue.org/theming/styled/) theme — so a Quasar
-app gets the clean PrimeVue look out of the box while you keep using Quasar's
-`Qxxx` components and APIs.
+[PrimeVue v4](https://primevue.org/theming/styled/) **styled** presets —
+**Aura**, **Material**, **Lara** and **Nora** — so a Quasar app gets the clean
+PrimeVue look out of the box while you keep using Quasar's `Qxxx` components and
+APIs. Aura is the default; pick another preset at install time (see
+[Installation](#installation)) or switch between all four live in the playground.
 
 > **Scope.** Phase 1 (App Extension scaffold) and Phase 2 (theming layer) restyle
 > Quasar's own components to the Aura look. **Phase 3/4** add the PrimeVue
@@ -25,9 +27,10 @@ A second playground mirrors PrimeVue's
 [OverviewApp landing sample](https://github.com/primefaces/primevue/blob/master/apps/showcase/components/landing/samples/OverviewApp.vue)
 as a full dashboard (header, time filter, bar chart, transactions table and a
 wallet meter). It renders the same three ways, so the PrimeVue reference matches
-the website, Quasar + Aura matches the reference, and plain Quasar stays as close
-as Quasar's own components allow. The **Aura** preset is the only theme, but the
-primary colour can be switched between Aura palettes via the playground nav.
+the website, Quasar + theme matches the reference, and plain Quasar stays as close
+as Quasar's own components allow. Use the **Theme** selector in the playground nav
+to switch the preset (Aura / Material / Lara / Nora) live, and the **Primary**
+selector to switch the primary colour palette.
 
 | Plain Quasar (Material) | This extension's Aura theme | Real PrimeVue v4 Aura (reference) |
 | --- | --- | --- |
@@ -36,19 +39,25 @@ primary colour can be switched between Aura palettes via the playground nav.
 ## How it works
 
 PrimeVue's design is driven by [design tokens](https://primevue.org/theming/styled/).
-This extension reproduces the **Aura** preset's tokens as CSS custom properties
+This extension reproduces each preset's tokens as CSS custom properties
 (`--p-*`) and maps Quasar's components and brand variables onto them:
 
-- **`src/css/primevue/_tokens.scss`** — the full Aura token layer (primitive +
-  semantic + per-component), generated from PrimeVue's own theming engine. The
-  dark color scheme is bound to Quasar's `body.body--dark` selector, so toggling
-  Quasar's [Dark plugin](https://quasar.dev/quasar-plugins/dark) flips the whole
-  palette.
+- **`src/css/primevue/_tokens.scss`** (plus `_tokens-material.scss`,
+  `_tokens-lara.scss`, `_tokens-nora.scss`) — the full per-preset token layers
+  (primitive + semantic + per-component), generated from PrimeVue's own theming
+  engine. The dark color scheme is bound to Quasar's `body.body--dark` selector,
+  so toggling Quasar's [Dark plugin](https://quasar.dev/quasar-plugins/dark)
+  flips the whole palette.
 - **`src/css/_base.scss`** — remaps Quasar's brand variables (`--q-primary`,
-  `--q-positive`, …) to the Aura semantic colours and sets global surfaces and
-  typography.
+  `--q-positive`, …) to the PrimeVue semantic colours and sets global surfaces
+  and typography.
 - **`src/css/components/*`** — per-component overrides that align Quasar's
-  shapes, spacing, borders, and focus styles with Aura.
+  shapes, spacing, borders, and focus styles with PrimeVue. These reference only
+  `--p-*` tokens, so they are preset-agnostic.
+- **`src/css/_theme-core.scss`** — bundles `_base.scss` and every component
+  override. Each preset entry (`src/css/primevue-<preset>.scss`) loads the
+  matching token layer and then this shared core, so swapping the token layer
+  re-themes the whole app.
 
 Because the tokens are emitted by PrimeVue's engine, colours and dimensions stay
 faithful to the upstream preset and can be regenerated on upgrade.
@@ -62,8 +71,10 @@ quasar ext add primevue-aura
 > The package is `quasar-app-extension-primevue-aura`; Quasar resolves the
 > `primevue-aura` short name to it.
 
-The index script registers the theme stylesheet automatically — no manual
-imports required. To remove it:
+During install you're prompted to choose which PrimeVue preset to adopt —
+**Aura** (default), **Material**, **Lara** or **Nora**. The index script then
+registers the matching theme stylesheet automatically — no manual imports
+required. To remove it:
 
 ```bash
 quasar ext remove primevue-aura
@@ -71,7 +82,7 @@ quasar ext remove primevue-aura
 
 ### Dark mode
 
-Enable Quasar's Dark plugin and the Aura dark palette is applied automatically:
+Enable Quasar's Dark plugin and the preset's dark palette is applied automatically:
 
 ```js
 import { Dark } from 'quasar';
@@ -129,17 +140,17 @@ capture the comparison screenshots above.
 ```bash
 npm install
 
-# Regenerate the Aura token layer from @primeuix/themes
+# Regenerate the token layers (Aura/Material/Lara/Nora) from @primeuix/themes
 npm run generate:tokens
 
-# Build the playground (copies Vue/Quasar/PrimeVue UMD + fonts, compiles theme)
+# Build the playground (copies Vue/Quasar/PrimeVue UMD + fonts, compiles themes)
 npm run playground
 npx serve playground        # then open http://localhost:3000
 
 # Regenerate docs/screenshots (needs: npx playwright install chromium)
 npm run screenshots
 
-# Compile the theme to dist/primevue-aura.css
+# Compile every theme to dist/primevue-<preset>.css
 npm run build:css
 
 # Run the component unit tests (Vitest + @vue/test-utils)
@@ -147,17 +158,20 @@ npm test
 ```
 
 The playground renders the **same** component gallery two ways:
-`playground/index.html` is plain Quasar (attaching `playground/primevue-aura.css`
-switches it to the Aura theme) and `playground/primevue.html` is the real
-PrimeVue v4 Aura components for reference. `playground/components.html` demos the
-new components from [Phase 3/4](#new-components-phase-34). A second playground —
-`playground/dashboard.html` (Quasar, with a nav toggle for the Aura theme) and
+`playground/index.html` is plain Quasar (attaching one of the
+`playground/primevue-<preset>.css` stylesheets switches it to a theme) and
+`playground/primevue.html` is the real PrimeVue v4 components for reference. Both
+pages have a **Theme** selector in the nav that switches the preset (Aura /
+Material / Lara / Nora) live — the Quasar page swaps the compiled stylesheet, the
+PrimeVue page calls `usePreset`. `playground/components.html` demos the new
+components from [Phase 3/4](#new-components-phase-34). A second playground —
+`playground/dashboard.html` (Quasar, with a nav toggle and theme selector) and
 `playground/dashboard.primevue.html` (real PrimeVue) — mirrors PrimeVue's
-OverviewApp dashboard sample and lets you switch the Aura primary colour. See
-[`tools/README.md`](tools/README.md) for the full screenshot workflow.
+OverviewApp dashboard sample and lets you switch the preset and primary colour.
+See [`tools/README.md`](tools/README.md) for the full screenshot workflow.
 
 ## License
 
-[MIT](LICENSE) © Mylonics. PrimeVue and the Aura preset are © PrimeTek,
-distributed under the MIT license; this project reproduces the Aura *design
-tokens* to theme Quasar and bundles no PrimeVue component code.
+[MIT](LICENSE) © Mylonics. PrimeVue and its presets are © PrimeTek, distributed
+under the MIT license; this project reproduces the PrimeVue *design tokens* to
+theme Quasar and bundles no PrimeVue component code.

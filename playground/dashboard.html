@@ -29,9 +29,16 @@
         <a href="dashboard-split.html">Side by Side</a>
       </div>
       <span class="spacer"></span>
+      <label for="theme-select">Theme</label>
+      <select id="theme-select">
+        <option value="aura">Aura</option>
+        <option value="material">Material</option>
+        <option value="lara">Lara</option>
+        <option value="nora">Nora</option>
+      </select>
       <label for="palette">Primary</label>
       <select id="palette"></select>
-      <button id="theme-toggle">Disable Aura theme</button>
+      <button id="theme-toggle">Disable theme</button>
     </nav>
     <div id="q-app"></div>
 
@@ -144,30 +151,51 @@
         select.addEventListener('change', applyPalette);
         applyPalette();
 
+        const THEMES = {
+          aura: 'primevue-aura.css',
+          material: 'primevue-material.css',
+          lara: 'primevue-lara.css',
+          nora: 'primevue-nora.css',
+        };
+        const LABELS = { aura: 'Aura', material: 'Material', lara: 'Lara', nora: 'Nora' };
+        const themeSelect = document.getElementById('theme-select');
         const btn = document.getElementById('theme-toggle');
+        let currentTheme = 'aura';
         let auraEnabled = true;
+        themeSelect.value = currentTheme;
         btn.classList.add('on');
-        btn.addEventListener('click', function () {
-          auraEnabled = !auraEnabled;
+
+        function applyTheme() {
+          let el = document.getElementById('aura-theme');
           if (auraEnabled) {
-            if (!document.getElementById('aura-theme')) {
-              const link = document.createElement('link');
-              link.rel = 'stylesheet';
-              link.href = 'primevue-aura.css';
-              link.id = 'aura-theme';
-              document.head.appendChild(link);
+            if (!el) {
+              el = document.createElement('link');
+              el.rel = 'stylesheet';
+              el.id = 'aura-theme';
+              document.head.appendChild(el);
             }
-            btn.textContent = 'Disable Aura theme';
+            el.href = THEMES[currentTheme];
+            btn.textContent = 'Disable theme';
             btn.classList.add('on');
-            document.getElementById('nav-quasar').textContent = 'Quasar + Aura';
+            document.getElementById('nav-quasar').textContent = 'Quasar + ' + LABELS[currentTheme];
+            themeSelect.disabled = false;
           } else {
-            const el = document.getElementById('aura-theme');
             if (el) el.parentNode.removeChild(el);
-            btn.textContent = 'Enable Aura theme';
+            btn.textContent = 'Enable theme';
             btn.classList.remove('on');
             document.getElementById('nav-quasar').textContent = 'Plain Quasar';
+            themeSelect.disabled = true;
           }
           if (window.__dashApp) window.__dashApp.rebuildChart();
+        }
+
+        themeSelect.addEventListener('change', function () {
+          currentTheme = themeSelect.value;
+          applyTheme();
+        });
+        btn.addEventListener('click', function () {
+          auraEnabled = !auraEnabled;
+          applyTheme();
         });
       })();
     </script>

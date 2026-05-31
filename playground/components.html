@@ -28,6 +28,10 @@
       .nav-group { display: flex; align-items: center; gap: 3px; border: 1px solid #334155; border-radius: 6px; padding: 2px; }
       .nav-group-label { color: #64748b; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 0 6px; white-space: nowrap; }
       .nav-sep { width: 1px; height: 20px; background: #334155; margin: 0 4px; }
+      #dev-nav select {
+        background: #0f172a; color: #f8fafc; border: 1px solid #475569;
+        border-radius: 4px; padding: 3px 6px; font-size: 13px; cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -45,7 +49,34 @@
         <a href="dashboard.primevue.html">PrimeVue</a>
         <a href="dashboard-split.html">Side by Side</a>
       </div>
+      <div class="nav-sep"></div>
+      <div class="nav-group">
+        <span class="nav-group-label">Theme</span>
+        <select id="theme-select">
+          <option value="aura">Aura</option>
+          <option value="material">Material</option>
+          <option value="lara">Lara</option>
+          <option value="nora">Nora</option>
+        </select>
+      </div>
     </nav>
+    <script>
+      (function () {
+        // Swap the active theme stylesheet (#aura-theme) between presets.
+        var THEMES = {
+          aura: 'primevue-aura.css',
+          material: 'primevue-material.css',
+          lara: 'primevue-lara.css',
+          nora: 'primevue-nora.css',
+        };
+        var select = document.getElementById('theme-select');
+        select.value = 'aura';
+        select.addEventListener('change', function () {
+          var el = document.getElementById('aura-theme');
+          if (el) el.href = THEMES[select.value];
+        });
+      })();
+    </script>
     <div id="q-app"></div>
 
     <script src="vendor/vue.global.prod.js"></script>

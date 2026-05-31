@@ -1,0 +1,10 @@
+// =============================================================================
+// quasar-app-extension-primevue-aura — Lara entry
+// Restyles Quasar's components to match the PrimeVue v4 "Lara" theme.
+// =============================================================================
+
+// PrimeVue Lara design tokens, exposed as `--p-*` CSS custom properties.
+@use 'primevue/tokens-lara';
+
+// Quasar→token mappings and per-component overrides (preset-agnostic).
+@use 'theme-core';

@@ -6,3 +6,6 @@ dist/
 # Generated playground assets (recreate with: node tools/build-playground.mjs)
 playground/vendor/
 playground/primevue-aura.css
+playground/primevue-material.css
+playground/primevue-lara.css
+playground/primevue-nora.css
