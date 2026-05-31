@@ -15,11 +15,26 @@ npm run screenshots     # writes docs/screenshots/dashboard-*.png
 ```
 
 `docs/screenshots/dashboard-quasar-aura.png` and `dashboard-primevue.png` capture
-the **Overview** page. Every page is also captured individually as
-`dashboard-<page>-quasar-aura.png` and `dashboard-<page>-primevue.png` (overview,
-chat, inbox, cards, customers, movies) so each page can be diffed image-to-image.
-`tools/screenshot.mjs` walks the shared `.dash-nav-item` sidebar buttons to reach
-each page; both dashboards switch pages with the same nav.
+the **Overview** page (Aura). Every page is also captured as a single
+side-by-side image **per preset** — `dashboard-<page>-<preset>.png` for each of
+the six pages (overview, chat, inbox, cards, customers, movies) and all four
+presets (aura, material, lara, nora), i.e. **24 images**. The left half is the
+Quasar render with the theme attached and the right half is the real PrimeVue
+render of the same preset, so every page/theme can be diffed at a glance.
+`tools/screenshot.mjs` switches the preset through the shared
+`<select id="theme-select">` and walks the shared `.dash-nav-item` sidebar
+buttons to reach each page; both dashboards switch pages with the same nav.
+
+### Per-preset page screenshots
+
+| Page | Aura | Material | Lara | Nora |
+|------|------|----------|------|------|
+| Overview  | `dashboard-overview-aura.png`  | `dashboard-overview-material.png`  | `dashboard-overview-lara.png`  | `dashboard-overview-nora.png`  |
+| Chat      | `dashboard-chat-aura.png`      | `dashboard-chat-material.png`      | `dashboard-chat-lara.png`      | `dashboard-chat-nora.png`      |
+| Inbox     | `dashboard-inbox-aura.png`     | `dashboard-inbox-material.png`     | `dashboard-inbox-lara.png`     | `dashboard-inbox-nora.png`     |
+| Cards     | `dashboard-cards-aura.png`     | `dashboard-cards-material.png`     | `dashboard-cards-lara.png`     | `dashboard-cards-nora.png`     |
+| Customers | `dashboard-customers-aura.png` | `dashboard-customers-material.png` | `dashboard-customers-lara.png` | `dashboard-customers-nora.png` |
+| Movies    | `dashboard-movies-aura.png`    | `dashboard-movies-material.png`    | `dashboard-movies-lara.png`    | `dashboard-movies-nora.png`    |
 
 > **Palette note.** Both dashboards share `playground/dashboard-data.js`, whose
 > `DEFAULT_PALETTE` is `noir`. The primary colour therefore renders as the Aura
@@ -32,7 +47,18 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 
 ---
 
-## Latest review pass — full per-page image analysis
+## Latest review pass — all four presets (Aura / Material / Lara / Nora)
+
+Earlier passes only screenshotted the **Aura** preset. Capturing every page in
+**all four presets** (24 side-by-side images) surfaced a systemic bug: the
+dashboard's `q-badge` "Tag" colours were hard-coded to the Aura look, so they
+were wrong on the other three presets.
+
+| Fix | Where | What changed |
+|-----|-------|--------------|
+| Tags ignored the active preset (OV7, CU2, IN6, CA skill tags) | `playground/dashboard.css`, `playground/pages/cards.quasar.js` | PrimeVue's `Tag` is **soft-tinted on Aura** but **solid-filled on Material/Lara/Nora** (each preset ships its own `--p-tag-*` tokens). The dashboard hard-coded the soft Aura colours (`--p-green-100` / `--p-green-700`, fixed `6px` radius), so on Material/Lara/Nora the Buy/Sell badges, Customers status pills and Cards skill tags stayed pale instead of solid. Re-pointed the `.q-badge` severity rules at the matching PrimeVue tokens — `--p-tag-success/-danger/-info/-secondary/-primary-background` + `-color`, and `--p-tag-border-radius` — so the tag look now tracks whichever preset is active (and still falls back to the Aura values for plain Quasar). The Cards skill tags also moved from `color="grey-3"` to `color="primary"` to match PrimeVue's default (primary) `Tag`. |
+
+### Previous pass — full per-page image analysis
 
 A fresh screenshot of **all six pages** (captured individually, not just the
 Overview landing) surfaced three genuine bugs that earlier passes had missed.

@@ -33,6 +33,16 @@ sample) the same three ways:
 | `docs/screenshots/dashboard-quasar-aura.png` | `playground/dashboard.html` + theme | Quasar dashboard with the Aura theme |
 | `docs/screenshots/dashboard-primevue.png` | `playground/dashboard.primevue.html` | The real PrimeVue dashboard, for reference |
 
+A third set captures **every dashboard page in every preset** as a single
+side-by-side image — Quasar + theme on the left, real PrimeVue on the right.
+That is 6 pages × 4 presets = **24 images**, named
+`dashboard-<page>-<preset>.png` (`page` ∈ overview/chat/inbox/cards/customers/movies,
+`preset` ∈ aura/material/lara/nora). `screenshot.mjs` selects the preset on the
+shared `<select id="theme-select">`, walks the `.dash-nav-item` sidebar buttons
+to reach each page, captures both dashboards, and composes the two full-page
+PNGs into one image by screenshotting a flex-row HTML page (so the tool needs no
+image library).
+
 The dashboard pages share `playground/dashboard.css` (the OverviewApp layout) and
 `playground/dashboard-data.js` (sample data + the Chart.js bar chart), and both
 draw the chart on a `<canvas>` so the three renders line up. The nav's **Theme**
