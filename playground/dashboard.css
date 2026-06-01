@@ -750,36 +750,47 @@ body {
  * (OV7/IN6/CU2) q-badge → pill shape matching PrimeVue Tag
  * ========================================================================== */
 
-/* Badge / Tag parity: give all non-floating q-badge a pill shape and
-   subdued background that matches PrimeVue Aura's Tag severity colours.
-   Floating badges (q-badge--floating) keep their compact dot/count style. */
+/* Badge / Tag parity: give all non-floating q-badge a pill shape and a
+   background/colour that matches PrimeVue's Tag severity tokens. The Aura,
+   Material, Lara and Nora presets each ship their own `--p-tag-*` values
+   (Aura uses a soft tinted background; Material/Lara/Nora fill the tag with a
+   solid severity colour and a light text), so driving the colours from the
+   theme tokens keeps every preset in step instead of hard-coding the Aura look.
+   The token's own fallback is the Aura value, so plain Quasar (no theme) still
+   renders the soft tag. Floating badges keep their compact dot/count style. */
 .q-badge:not(.q-badge--floating) {
-  border-radius: 6px !important;
+  border-radius: var(--p-tag-border-radius, 6px) !important;
   padding: 0.125rem 0.5rem !important;
   font-weight: 700 !important;
   font-size: 0.75rem !important;
   line-height: 1.25 !important;
 }
-/* Secondary/neutral tag (grey-3 background) */
+/* Secondary/neutral tag (grey-3/grey-4 background) → Tag severity="secondary" */
 .q-badge[class*="grey-3"],
 .q-badge[class*="grey-4"] {
-  background-color: var(--p-surface-100, #f1f5f9) !important;
-  color: var(--p-text-color, #1e293b) !important;
+  background-color: var(--p-tag-secondary-background, var(--p-surface-100, #f1f5f9)) !important;
+  color: var(--p-tag-secondary-color, var(--p-text-color, #1e293b)) !important;
 }
-/* Semantic tags (success/danger/info) — PrimeVue Aura Tag renders a soft tinted
-   background with a saturated text colour, not the solid-filled Material badge.
-   Quasar emits bg-positive/bg-negative/bg-info on q-badge color="positive"… */
+/* Primary tag (no severity) → Tag default; soft on Aura, solid on the others */
+.q-badge.bg-primary:not(.q-badge--floating) {
+  background-color: var(--p-tag-primary-background, var(--p-primary-100, #e0e7ff)) !important;
+  color: var(--p-tag-primary-color, var(--p-primary-700, #4338ca)) !important;
+}
+/* Semantic tags (success/danger/info) — Quasar emits bg-positive/bg-negative/
+   bg-info on q-badge color="positive|negative|info". Drive them from the same
+   `--p-tag-*` severity tokens PrimeVue's Tag uses so the soft-vs-solid look
+   tracks the active preset. */
 .q-badge.bg-positive:not(.q-badge--floating) {
-  background-color: var(--p-green-100, #dcfce7) !important;
-  color: var(--p-green-700, #15803d) !important;
+  background-color: var(--p-tag-success-background, var(--p-green-100, #dcfce7)) !important;
+  color: var(--p-tag-success-color, var(--p-green-700, #15803d)) !important;
 }
 .q-badge.bg-negative:not(.q-badge--floating) {
-  background-color: var(--p-red-100, #fee2e2) !important;
-  color: var(--p-red-700, #b91c1c) !important;
+  background-color: var(--p-tag-danger-background, var(--p-red-100, #fee2e2)) !important;
+  color: var(--p-tag-danger-color, var(--p-red-700, #b91c1c)) !important;
 }
 .q-badge.bg-info:not(.q-badge--floating) {
-  background-color: var(--p-blue-100, #dbeafe) !important;
-  color: var(--p-blue-700, #1d4ed8) !important;
+  background-color: var(--p-tag-info-background, var(--p-sky-100, #e0f2fe)) !important;
+  color: var(--p-tag-info-color, var(--p-sky-700, #0369a1)) !important;
 }
 
 /* SelectButton parity — PrimeVue Aura's SelectButton is a single pill-shaped

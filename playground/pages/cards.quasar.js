@@ -147,7 +147,7 @@
             </p>
             <div style="display:flex;flex-wrap:wrap;gap:8px">
               <q-badge v-for="t in ['Data Analysis','Analytics','Big Data']" :key="t"
-                :label="t" color="grey-3" text-color="grey-8" rounded style="font-weight:400;padding:4px 10px" />
+                :label="t" color="primary" rounded style="font-weight:400;padding:4px 10px" />
             </div>
             <div style="padding:16px;border-radius:16px;background:var(--p-surface-100,#f1f5f9);display:flex;align-items:center;justify-content:space-between">
               <div style="display:flex">
