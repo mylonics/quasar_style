@@ -66,12 +66,14 @@
             </p>
             <div class="card-profile-mutual">
               <span style="font-size:.85rem;font-weight:500">Mutual Friends</span>
-              <div style="display:flex">
-                <q-avatar v-for="img in ['avatar1.png','avatar9.jpg','avatar11.jpg','avatar13.jpg']" :key="img"
-                  size="28px" style="border-radius:6px;overflow:hidden;margin-right:-6px">
-                  <img :src="'https://www.primefaces.org/cdn/primevue/images/landing/apps/' + img" />
-                </q-avatar>
-                <q-avatar size="28px" color="grey-3" text-color="grey-8" style="border-radius:6px;font-size:.7rem;font-weight:500">+99</q-avatar>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div style="display:flex">
+                  <q-avatar v-for="img in ['avatar1.png','avatar9.jpg','avatar11.jpg','avatar13.jpg']" :key="img"
+                    size="28px" style="border-radius:6px;overflow:hidden;margin-right:-6px">
+                    <img :src="'https://www.primefaces.org/cdn/primevue/images/landing/apps/' + img" />
+                  </q-avatar>
+                </div>
+                <q-avatar size="28px" color="grey-3" text-color="grey-8" style="border-radius:6px;font-weight:500"><span style="font-size:.7rem">+99</span></q-avatar>
               </div>
             </div>
             <q-btn-toggle v-model="selectedFollow" spread no-caps
@@ -134,7 +136,7 @@
               </div>
               <q-btn @click="jobBookmarked = !jobBookmarked"
                 :icon="jobBookmarked ? 'bookmark' : 'bookmark_border'"
-                outline round color="grey-7" />
+                flat round color="grey-7" />
             </div>
             <div style="display:flex;flex-wrap:wrap;gap:12px">
               <span v-for="m in [{icon:'group',t:'Senior'},{icon:'timer',t:'Full-Time'},{icon:'payments',t:'$80,000'}]"
@@ -147,7 +149,7 @@
             </p>
             <div style="display:flex;flex-wrap:wrap;gap:8px">
               <q-badge v-for="t in ['Data Analysis','Analytics','Big Data']" :key="t"
-                :label="t" color="primary" rounded style="font-weight:400;padding:4px 10px" />
+                :label="t" color="grey-3" text-color="grey-8" rounded style="font-weight:400;padding:4px 10px" />
             </div>
             <div style="padding:16px;border-radius:16px;background:var(--p-surface-100,#f1f5f9);display:flex;align-items:center;justify-content:space-between">
               <div style="display:flex">
@@ -209,7 +211,14 @@
               style="width:100%;margin-bottom:16px" />
             <label style="font-size:.85rem;font-weight:500;display:block;margin-bottom:10px">Custom Amount</label>
             <q-slider v-model="donationAmount" :min="0" :max="200" color="primary" style="margin-bottom:16px" />
-            <q-input v-model.number="donationAmount" outlined dense prefix="$" type="number" style="width:100%;margin-bottom:16px" />
+            <div style="display:flex;align-items:center;border:1px solid var(--p-content-border-color,#e2e8f0);border-radius:8px;overflow:hidden;margin-bottom:16px">
+              <q-btn icon="remove" flat dense @click="donationAmount = Math.max(0, donationAmount - 1)" style="border-radius:0;border-right:1px solid var(--p-content-border-color,#e2e8f0)" />
+              <div style="flex:1;display:flex;align-items:center;padding:0 8px">
+                <span style="color:var(--p-text-muted-color,#64748b);margin-right:4px">$</span>
+                <input v-model.number="donationAmount" type="number" style="width:100%;border:none;outline:none;background:transparent;font-size:.875rem;color:var(--p-text-color,#1e293b)" />
+              </div>
+              <q-btn icon="add" flat dense @click="donationAmount = Math.min(200, donationAmount + 1)" style="border-radius:0;border-left:1px solid var(--p-content-border-color,#e2e8f0)" />
+            </div>
             <q-btn label="Donate Now" no-caps color="primary" style="width:100%" />
           </div>
 

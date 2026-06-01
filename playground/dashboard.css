@@ -938,3 +938,29 @@ body {
 .inbox-trial-bar .q-linear-progress__model {
   background: var(--p-red-600, #dc2626) !important;
 }
+
+/* TABLE HEADER — bold/dark column headers to match PrimeVue Aura (TH1) */
+.q-table th {
+  font-weight: 600 !important;
+  color: var(--p-text-color, #1e293b) !important;
+}
+
+/* TABLE ROWS — taller rows to match PrimeVue's two-line wrap style (TR1) */
+.q-table tbody td {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+/* TRANSACTIONS — suppress the gap between title and table header (OV5) */
+.dash-transactions .q-table__top {
+  display: none !important;
+}
+
+/* MOVIES — compact floating count badge on bookmark button (MV1)
+   Non-empty floating badges inherit the Aura badge min-height; reset it. */
+.movies-count-badge.q-badge--floating {
+  min-height: 0 !important;
+  padding: 1px 4px !important;
+  font-size: .65rem !important;
+  line-height: 1.2 !important;
+}

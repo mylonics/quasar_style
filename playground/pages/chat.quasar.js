@@ -38,9 +38,9 @@
           { id: 5, type: 'received', image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar-primetek.png', message: "PrimeTek just released v4 — the new theming system is 🔥" },
         ],
         members: [
-          { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg', name: 'Cody Fisher' },
-          { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg', name: 'Esther Howard' },
-          { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png', name: 'Jerome Bell' },
+          { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg', capName: 'CF', name: 'Cody Fisher' },
+          { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg', capName: 'EH', name: 'Esther Howard' },
+          { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png', capName: 'JB', name: 'Jerome Bell' },
           { image: '', capName: 'KW', name: 'Kristin Watson' },
           { image: '', capName: 'RR', name: 'Ronald Richards' },
         ],
@@ -144,7 +144,7 @@
             <div class="chat-textarea-wrap">
               <q-input v-model="newMessage" placeholder="Write your message..." dense outlined autogrow style="background:var(--p-surface-100,#f1f5f9);border-radius:6px" />
             </div>
-            <q-btn icon="send" color="primary" />
+            <q-btn icon="send" flat round dense color="primary" />
           </div>
         </div>
 
@@ -164,17 +164,17 @@
           </div>
           <div class="chat-detail-section">
             <div class="chat-detail-row">
-              <q-icon name="notifications" />
+              <q-icon name="notifications_none" />
               <span class="chat-detail-row-label">Notification</span>
               <q-toggle v-model="notification" dense />
             </div>
             <div class="chat-detail-row">
-              <q-icon name="volume_down" />
+              <q-icon name="volume_off" />
               <span class="chat-detail-row-label">Sound</span>
               <q-toggle v-model="sound" dense />
             </div>
             <div class="chat-detail-row">
-              <q-icon name="download" />
+              <q-icon name="file_download" />
               <span class="chat-detail-row-label">Save to downloads</span>
               <q-toggle v-model="download" dense />
             </div>
@@ -185,9 +185,9 @@
               <q-btn label="See All" flat dense no-caps size="sm" color="grey-7" />
             </div>
             <div v-for="member in members" :key="member.name" class="chat-member-item">
-              <q-avatar size="32px" :color="!member.image ? 'orange-3' : undefined" :text-color="!member.image ? 'orange-10' : undefined" style="font-size:.75rem;font-weight:500">
-                <img v-if="member.image" :src="member.image" />
-                <template v-else>{{ member.capName }}</template>
+              <q-avatar size="32px" :color="!member.image ? 'orange-3' : undefined" :text-color="!member.image ? 'orange-10' : undefined" style="font-weight:500">
+                <img v-if="member.image" :src="member.image" @error="e => { e.target.style.display='none'; e.target.parentElement.querySelector('.member-initials') && (e.target.parentElement.querySelector('.member-initials').style.display='') }" />
+                <span class="member-initials" :style="member.image ? 'display:none;font-size:.75rem' : 'font-size:.75rem'">{{ member.capName }}</span>
               </q-avatar>
               <span class="chat-member-name">{{ member.name }}</span>
               <q-icon name="chevron_right" size="xs" color="grey-5" />
