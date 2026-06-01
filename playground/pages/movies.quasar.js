@@ -51,14 +51,14 @@
         <div class="movies-toolbar">
           <q-btn-toggle
             v-model="viewMode"
-            toggle-color="primary" color="grey-7" outline dense no-caps
+            toggle-color="primary" color="grey-7" flat dense no-caps
             :options="[{icon:'grid_on',value:'grid'},{icon:'view_list',value:'list'}]"
             style="height:36px;flex-shrink:0" />
           <q-input v-model="search" outlined dense placeholder="Search by movie title" style="flex:1">
             <template #prepend><q-icon name="search" /></template>
           </q-input>
-          <q-btn icon="chevron_left" round outline dense color="grey-7" size="sm" @click="scrollCarousel(-1)" />
-          <q-btn icon="chevron_right" round outline dense color="grey-7" size="sm" @click="scrollCarousel(1)" />
+          <q-btn icon="chevron_left" round flat dense color="grey-7" size="sm" @click="scrollCarousel(-1)" />
+          <q-btn icon="chevron_right" round flat dense color="grey-7" size="sm" @click="scrollCarousel(1)" />
         </div>
 
         <!-- Carousel track -->
@@ -72,8 +72,8 @@
               <div class="movies-card-title">{{ m.title }}</div>
               <div class="movies-card-meta">{{ m.year }} &bull; {{ m.genre }} &bull; {{ m.duration }}</div>
               <div class="movies-card-director">
-                <q-avatar size="24px" style="border-radius:50%;overflow:hidden">
-                  <img :src="m.director.image" />
+                <q-avatar size="24px" style="border-radius:50%;overflow:hidden" :color="'indigo-2'" :text-color="'indigo-10'">
+                  <img :src="m.director.image" @error="e => { e.target.style.display='none' }" />
                 </q-avatar>
                 <span>{{ m.director.name }}</span>
               </div>
@@ -93,8 +93,8 @@
               <div style="font-size:.8rem;color:var(--p-text-muted-color,#64748b)">{{ m.genre }} &bull; {{ m.duration }}</div>
             </div>
             <div class="movies-row-director">
-              <q-avatar size="24px" style="border-radius:50%;overflow:hidden">
-                <img :src="m.director.image" />
+              <q-avatar size="24px" style="border-radius:50%;overflow:hidden" :color="'indigo-2'" :text-color="'indigo-10'">
+                <img :src="m.director.image" @error="e => { e.target.style.display='none' }" />
               </q-avatar>
               <span style="font-size:.8rem;color:var(--p-text-muted-color,#64748b)">{{ m.director.name }}</span>
             </div>
@@ -104,8 +104,8 @@
             </div>
             <div class="movies-row-badge">
               <div style="position:relative;display:inline-flex">
-                <q-btn icon="bookmark_border" round outline dense color="grey-7" size="sm" />
-                <q-badge :label="m.want" color="grey-3" text-color="grey-8" floating rounded />
+                <q-btn icon="bookmark_border" round flat dense color="grey-7" size="sm" />
+                <q-badge :label="m.want" color="dark" text-color="white" floating rounded class="movies-count-badge" />
               </div>
             </div>
           </div>

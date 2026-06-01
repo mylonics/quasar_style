@@ -115,14 +115,14 @@
                 </q-btn>
               </div>
               <q-table flat :rows="tableData" :columns="tableColumns" row-key="id"
-                v-model:pagination="pagination" :rows-per-page-options="[5, 10]">
+                v-model:pagination="pagination" :rows-per-page-options="[5]">
                 <template #body-cell-id="props">
                   <q-td :props="props"><span class="dash-muted">{{ props.row.id }}</span></q-td>
                 </template>
                 <template #body-cell-name="props">
                   <q-td :props="props">
                     <div class="dash-cell-name">
-                      <q-avatar size="32px" class="q-mr-sm" style="background-color:#ece9fc;color:#2a1261;font-size:.75rem;font-weight:500">{{ props.row.name.label }}</q-avatar>
+                      <q-avatar size="32px" class="q-mr-sm" style="background-color:#ece9fc;color:#2a1261;font-weight:500"><span style="font-size:.75rem">{{ props.row.name.label }}</span></q-avatar>
                       <span class="dash-muted">{{ props.row.name.text }}</span>
                     </div>
                   </q-td>
@@ -143,6 +143,26 @@
                 </template>
                 <template #body-cell-amount="props">
                   <q-td :props="props"><span class="dash-muted">{{ props.row.amount }}</span></q-td>
+                </template>
+                <template #bottom="scope">
+                  <div class="q-table__bottom-row" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 8px">
+                    <span class="dash-muted" style="font-size:.875rem">
+                      Showing {{ (scope.pagination.page - 1) * scope.pagination.rowsPerPage + 1 }}
+                      to {{ Math.min(scope.pagination.page * scope.pagination.rowsPerPage, tableData.length) }}
+                      of {{ tableData.length }} entries
+                    </span>
+                    <div style="display:flex;align-items:center;gap:2px">
+                      <q-btn flat round dense icon="chevron_left" size="sm" color="grey-7"
+                        :disable="scope.isFirstPage" @click="scope.prevPage" />
+                      <q-btn v-for="p in scope.pagesNumber" :key="p" flat round dense :label="String(p)" size="sm"
+                        :style="p === scope.pagination.page
+                          ? 'background:var(--p-primary-color,#6366f1);color:var(--p-primary-contrast-color,#fff);border-radius:4px'
+                          : 'color:var(--p-text-muted-color,#64748b)'"
+                        @click="pagination.page = p" />
+                      <q-btn flat round dense icon="chevron_right" size="sm" color="grey-7"
+                        :disable="scope.isLastPage" @click="scope.nextPage" />
+                    </div>
+                  </div>
                 </template>
               </q-table>
             </div>

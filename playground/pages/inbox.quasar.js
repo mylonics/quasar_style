@@ -5,17 +5,17 @@
  */
 (function () {
   const TABLE_DATA = [
-    { id: 1, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg', name: 'Brook Simmons', type: 'Security', time: '3:24 PM', title: 'Important Account Update', message: "Dear customer, we've made updates to enhance your account security." },
-    { id: 2, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png', name: 'Dianne Russell', type: 'Update', time: '11:24 AM', title: 'Weekly Project Update', message: 'Hi team, attached is the weekly project update.' },
-    { id: 3, bookmarked: true, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg', name: 'Amy Elsner', type: 'Security', time: '9:24 AM', title: 'Urgent: Security Alert', message: 'Dear user, we detected unauthorized access to your account.' },
-    { id: 4, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png', name: 'Jacob Jones', type: 'Marketing', time: 'Jan 21', title: 'Exclusive Offer Inside', message: "Greetings, check out our exclusive offer!" },
-    { id: 5, bookmarked: false, image: '', capName: 'CW', name: 'Cameron Watson', type: 'HR', time: 'Jan 15', title: 'Employee Appreciation Event', message: 'Hello team, mark your calendars.' },
-    { id: 6, bookmarked: true, image: '', capName: 'WW', name: 'Wade Warren', type: 'Invoice', time: 'Jan 12', title: 'Your Recent Purchase', message: 'Secure your spot at the XYZ Conference.' },
-    { id: 7, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png', name: 'Guy Hawkins', type: 'Events', time: 'Jan 11', title: 'Early Bird Registration Open', message: 'Attention users, system maintenance scheduled.' },
-    { id: 8, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png', name: 'Annette Black', type: '', time: 'Jan 8', title: 'Upcoming System Maintenance', message: "As a token of appreciation, exclusive discounts available." },
-    { id: 9, bookmarked: true, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg', name: 'Darrell Steward', type: 'Discount', time: 'Jan 4', title: 'Special Discounts for VIP Customers', message: 'Stay updated with our latest news.' },
+    { id: 1, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg', capName: 'BS', name: 'Brook Simmons', type: 'Security', time: '3:24 PM', title: 'Important Account Update', message: "Dear customer, we've made updates to enhance your account security." },
+    { id: 2, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png', capName: 'DR', name: 'Dianne Russell', type: 'Update', time: '11:24 AM', title: 'Weekly Project Update', message: 'Hi team, attached is the weekly project update.' },
+    { id: 3, bookmarked: true, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg', capName: 'AE', name: 'Amy Elsner', type: 'Security', time: '9:24 AM', title: 'Urgent: Security Alert - Account Compromise', message: 'Dear user, we detected unauthorized access to your account.' },
+    { id: 4, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png', capName: 'JJ', name: 'Jacob Jones', type: 'Marketing', time: 'Jan 21', title: 'Exclusive Offer Inside - Limited Time Only', message: "Greetings, check out our exclusive offer!" },
+    { id: 5, bookmarked: false, image: '', capName: 'CW', name: 'Cameron Watson', type: 'HR', time: 'Jan 15', title: 'Employee Appreciation Event - Save the Date', message: 'Hello team, mark your calendars for our upcoming event.' },
+    { id: 6, bookmarked: true, image: '', capName: 'WW', name: 'Wade Warren', type: 'Invoice', time: 'Jan 12', title: 'Your Recent Purchase - Order Confirmation', message: 'Secure your spot at the XYZ Conference 2024.' },
+    { id: 7, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png', capName: 'GH', name: 'Guy Hawkins', type: 'Events', time: 'Jan 11', title: 'Early Bird Registration Open - XYZ Conference 2024', message: 'Attention users, system maintenance scheduled.' },
+    { id: 8, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png', capName: 'AB', name: 'Annette Black', type: '', time: 'Jan 8', title: 'Upcoming System Maintenance Notice', message: "As a token of appreciation, exclusive discounts available." },
+    { id: 9, bookmarked: true, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg', capName: 'DS', name: 'Darrell Steward', type: 'Discount', time: 'Jan 4', title: 'Special Discounts for VIP Customers', message: 'Stay updated with our latest news.' },
     { id: 10, bookmarked: true, image: '', capName: 'JB', name: 'Jerome Bell', type: 'Newsletter', time: 'Jan 2', title: 'Monthly Newsletter - January Edition', message: "We've updated our Terms of Service." },
-    { id: 11, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg', name: 'Onyama Limba', type: '', time: 'Jan 2', title: 'Exclusive Travel Packages', message: 'Explore our exclusive travel packages.' },
+    { id: 11, bookmarked: false, image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg', capName: 'OL', name: 'Onyama Limba', type: '', time: 'Jan 2', title: 'Exclusive Travel Packages for You', message: 'Explore our exclusive travel packages.' },
     { id: 12, bookmarked: false, image: '', capName: 'RF', name: 'Robert Fox', type: 'Invitation', time: '12.12.2023', title: 'Invitation to Amsterdam', message: "You're invited to our upcoming webinar." },
   ];
 
@@ -60,7 +60,7 @@
         <div class="inbox-nav">
           <div class="inbox-nav-header">
             <h2>Mails</h2>
-            <q-btn icon="add" round flat dense />
+            <q-btn icon="add" round flat dense color="primary" />
           </div>
           <div class="inbox-nav-body">
             <div>
@@ -91,22 +91,22 @@
           <div class="inbox-toolbar">
             <div class="inbox-toolbar-left">
               <q-checkbox v-model="checked" dense @update:model-value="onSelectionChange" />
-              <q-btn icon="mail_outline" outline dense color="grey-7" />
-              <q-btn icon="error_outline" outline dense color="grey-7" />
-              <q-btn icon="label" outline dense color="grey-7" />
-              <q-btn label="Archive" icon="inbox" outline dense no-caps color="grey-7" />
-              <q-btn label="Trash" icon="delete" outline dense no-caps color="grey-7" />
+              <q-btn icon="mail_outline" flat dense color="grey-7" />
+              <q-btn icon="error_outline" flat dense color="grey-7" />
+              <q-btn icon="label" flat dense color="grey-7" />
+              <q-btn label="Archive" icon="inbox" flat dense no-caps color="grey-7" />
+              <q-btn label="Trash" icon="delete" flat dense no-caps color="grey-7" />
             </div>
             <div class="inbox-toolbar-right">
               <q-input v-model="search" outlined dense placeholder="Search" style="min-width:180px">
                 <template #prepend><q-icon name="search" /></template>
               </q-input>
-              <q-btn icon="filter_alt" outline dense color="grey-7" />
+              <q-btn icon="filter_alt" flat dense color="grey-7" />
               <q-separator vertical spaced="xs" />
-              <q-btn icon="refresh" outline dense color="grey-7" />
-              <q-btn label="1 of 15" outline dense no-caps color="grey-7" style="white-space:nowrap" />
-              <q-btn icon="chevron_left" outline dense color="grey-7" />
-              <q-btn icon="chevron_right" outline dense color="grey-7" />
+              <q-btn icon="refresh" flat dense color="grey-7" />
+              <q-btn label="1 of 15" flat dense no-caps color="grey-7" style="white-space:nowrap" />
+              <q-btn icon="chevron_left" flat dense color="grey-7" />
+              <q-btn icon="chevron_right" flat dense color="grey-7" />
             </div>
           </div>
           <div class="inbox-table-wrap">
@@ -116,14 +116,17 @@
                 <q-icon :name="row.bookmarked ? 'bookmark' : 'bookmark_border'" />
               </div>
               <div class="inbox-row-avatar">
-                <q-avatar size="32px"
-                  :color="!row.image ? 'deep-purple-2' : undefined"
-                  :text-color="!row.image ? 'deep-purple-10' : undefined"
-                  style="border-radius:6px;overflow:hidden;font-size:.75rem;font-weight:500">
-                  <img v-if="row.image" :src="row.image" />
-                  <template v-else>{{ row.capName }}</template>
-                  <q-badge v-if="row.type" color="negative" floating rounded />
-                </q-avatar>
+                <div style="position:relative;display:inline-flex">
+                  <q-avatar size="32px"
+                    :color="!row.image ? 'deep-purple-2' : undefined"
+                    :text-color="!row.image ? 'deep-purple-10' : undefined"
+                    style="border-radius:6px;font-weight:500">
+                    <img v-if="row.image" :src="row.image" style="border-radius:6px"
+                      @error="e => { e.target.style.display='none'; e.target.nextElementSibling && (e.target.nextElementSibling.style.display='') }" />
+                    <span :style="row.image ? 'display:none;font-size:.75rem' : 'font-size:.75rem'">{{ row.capName }}</span>
+                  </q-avatar>
+                  <q-badge v-if="row.type" color="negative" floating rounded style="width:8px;height:8px;min-width:0;padding:0" />
+                </div>
               </div>
               <div class="inbox-row-name">{{ row.name }}</div>
               <div class="inbox-row-subject" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
