@@ -885,7 +885,12 @@ body {
   background: #fff !important;
 }
 
-/* Table paginator — match DataTable paginator spacing (OV6) */
+/* Table paginator — match DataTable paginator spacing (OV6).
+   The rows-per-page selector is suppressed via :rows-per-page-options="[5]"
+   on the q-table template (one option → hasOpts=false → selector not rendered).
+   The label is customised to "Showing X to Y of Z entries" via :pagination-label.
+   The q-table__separator rule below removes the flex spacer; the justify-end
+   container keeps the remaining controls right-aligned regardless. */
 .q-table__bottom {
   padding: 8px 16px !important;
   min-height: 48px !important;

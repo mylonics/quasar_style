@@ -50,6 +50,9 @@
       rebuildChart() {
         this.renderChart();
       },
+      paginationLabel(first, end, total) {
+        return `Showing ${first} to ${end} of ${total} entries`;
+      },
     },
     template: `
       <div class="dash">
@@ -115,7 +118,7 @@
                 </q-btn>
               </div>
               <q-table flat :rows="tableData" :columns="tableColumns" row-key="id"
-                v-model:pagination="pagination" :rows-per-page-options="[5, 10]">
+                v-model:pagination="pagination" :rows-per-page-options="[5]" :pagination-label="paginationLabel">
                 <template #body-cell-id="props">
                   <q-td :props="props"><span class="dash-muted">{{ props.row.id }}</span></q-td>
                 </template>

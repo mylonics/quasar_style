@@ -47,7 +47,21 @@ Status legend: ✅ matches · 🔧 fixed in this pass · ⚠️ partial / minor 
 
 ---
 
-## Latest review pass — all four presets (Aura / Material / Lara / Nora)
+## Latest review pass — paginator fix (OV6)
+
+An in-depth screenshot comparison across all four presets confirmed that the
+most visible remaining gap was the Transactions table paginator on the Overview
+page: Quasar's default paginator showed a "Records per page" dropdown and the
+compact "1-5 of 10" label, while PrimeVue's DataTable shows no dropdown and
+"Showing 1 to 5 of 10 entries".
+
+| Fix | Where | What changed |
+|-----|-------|--------------|
+| Paginator rows-per-page selector and label format (OV6) | `playground/pages/overview.quasar.js`, `playground/dashboard.css` | Set `:rows-per-page-options="[5]"` (single option → `hasOpts=false` → selector not rendered) and added a `:pagination-label` that formats as "Showing X to Y of Z entries", matching PrimeVue's DataTable. The `dashboard.css` comment for the `q-table__bottom` block is updated to document the split approach. |
+
+---
+
+## Previous review pass — all four presets (Aura / Material / Lara / Nora)
 
 Earlier passes only screenshotted the **Aura** preset. Capturing every page in
 **all four presets** (24 side-by-side images) surfaced a systemic bug: the
@@ -114,7 +128,7 @@ screenshots.
 | OV3 | Weekly/Monthly/Yearly | `q-btn-toggle` | `SelectButton` | 🔧 Fixed — `q-btn-toggle` now renders as an Aura SelectButton pill with a raised chip for the selected option (was a solid primary fill). |
 | OV4 | Download button | `q-btn color="primary"` | `Button` | ✅ |
 | OV5 | Date picker | `q-input` + `q-date` popup | `DatePicker showIcon iconDisplay="input"` | ⛔ No Quasar built-in DatePicker equivalent. |
-| OV6 | Table pagination | `q-table` "Records per page / 1-5 of 10 / ‹ ›" | `DataTable` "‹ 1 2 › Showing 1 to 5 of 10 entries" | ⚠️ Quasar's built-in paginator (rows-per-page select) differs from PrimeVue's numbered paginator. |
+| OV6 | Table pagination | `q-table` "Records per page / 1-5 of 10 / ‹ ›" | `DataTable` "‹ 1 2 › Showing 1 to 5 of 10 entries" | 🔧 Partially fixed — rows-per-page selector hidden via `:rows-per-page-options="[5]"`; label customised to "Showing X to Y of Z entries" via `:pagination-label`. Numbered page buttons (vs arrow-only) remain a structural Quasar/PrimeVue difference. |
 | OV7 | Buy/Sell tag | `q-badge color="positive/negative"` | `Tag severity` | 🔧 Fixed — soft tinted pill (green/red) instead of solid fill. |
 | OV8 | Overflow menu | `q-btn` + `q-menu > q-list` | `Button text` + `Menu popup` | ⚠️ Material popover vs compact floating list. |
 | OV9 | My Wallet MeterGroup | aura `MeterGroup` | `MeterGroup` | 🔧 Fixed — the custom `label` slot now replaces the `<ol>` (as in PrimeVue) instead of nesting inside its flex-row list, so the wallet rows span the full card and the values align flush-right. |
@@ -207,12 +221,12 @@ screenshots.
 These are the remaining real gaps that cannot be closed without new built-in
 components or are explicitly deferred:
 
-1. **OV6 paginator** — `q-table`'s built-in "Records per page" row differs from
-   PrimeVue's numbered paginator. Visually close enough for most uses; a full
-   match would require a custom paginator component.
-2. **IN1 tag icon** — `q-btn icon="label"` (filled) vs PrimeVue's `pi pi-tag`
+1. **IN1 tag icon** — `q-btn icon="label"` (filled) vs PrimeVue's `pi pi-tag`
    (outlined). The standard Material Icons font does not include outlined
    variants; minor glyph difference only.
+2. **OV6 paginator (residual)** — numbered page buttons (‹ 1 2 ›) vs Quasar's
+   arrow-only navigation. The rows-per-page selector and label format are now
+   fixed; the numbered pager would require a custom paginator slot.
 
 ## Deferred — component gaps (no Quasar built-in equivalent)
 
